@@ -1,0 +1,12 @@
+#borda{
+    border-style: solid;
+    border-color: lightgrey;
+    width: 25%;
+    margin-left: 37.5%
+}
+.loginform{
+    margin-left:10%
+}
+h4{
+    color: rgb(155, 155, 155)
+}
