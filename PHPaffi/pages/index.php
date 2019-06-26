@@ -13,9 +13,9 @@ $u = new Usuario;
 </head>
 
 <body>
-
+<div>
   <div class="row">
-    <div class="col s4 offset-s4" id="principal">
+    <div class="col l4 s12 offset-l4" id="principal">
 
       <h2 style="margin-left: 16%">Paffi Delivery</h2>
       <form class="col s12" method="POST">
@@ -34,10 +34,11 @@ $u = new Usuario;
         <button class="hoverable light-blue darken-4 btn waves-effect waves-light" type="submit" name="action" style="width: 100%">Entrar</button>
       </div>
 
+      <div class="col s12" style="padding: 10px;">
+    <p class="type-sidelines"><span>Novo por Aqui?</span></p>
+      <a class="waves-effect light-blue darken-1 waves-light btn modal-trigger" style="width: 60%; margin-left: 20%" href="#cadastrocard">Cadastrar-se</a>
     </div>
     <div class="row">
-    <div class="col s4 offset-s4" id="cadastro" style="padding: 10px;">
-      <a class="waves-effect light-blue darken-1 waves-light btn modal-trigger" style="width: 60%; margin-left: 20%" href="#cadastrocard">Cadastrar-se</a>
     </div>
   </form>
   </div>
@@ -95,10 +96,10 @@ $u = new Usuario;
     $matriculal = addslashes($_POST['matricula']);
     $senhal = addslashes($_POST['senha']);
   if (!empty($matriculal) && !empty($senhal))
-  { $u->bdconnect("paffitcc", "127.0.0.1", "root", "");
+  { $u->bdconnect("epiz_24101634_paffitcc", "sql213.epizy.com", "epiz_24101634", "Yz41u23u");
     if ($u->error == "") {
       if($u->logar($matriculal, $senhal)){
-        header("location: perfil.php");
+        header("location: home.php");
       }else{
         $x = "Matricula ou senha incorretos.";
       }

@@ -45,7 +45,6 @@ class Usuario
         if ($sql->rowCount() > 0) {
             $data = $sql->fetch();
             session_start();
-            echo $data;
             $_SESSION['id_usuario'] = $data['id_usuario'];
             $_SESSION['nome'] = $data['nome'];
             return true;

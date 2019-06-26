@@ -5,9 +5,5 @@ session_start();
         header("location: index.php");
         exit;
     }
-    if($_SESSION['nome'] != "Daniel Novaaes"){
-        header("location: index.php");
-        exit;
-    }
 ?>
-a
+<p><?php echo $_SESSION['nome'] ?></p>
