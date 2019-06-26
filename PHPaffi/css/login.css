@@ -1,0 +1,13 @@
+body{
+    background-image: url(../src/imgs/loginfundo.png)
+}
+#principal{
+    background-color: rgba(245, 245, 245, 0.89);
+    margin-top: 8%;
+    border:1px solid #d8d8d8;
+    padding: 20px;
+}
+#cadastro{ 
+    background-color: rgba(245, 245, 245, 0.89);
+    border:1px solid #d8d8d8;
+}
