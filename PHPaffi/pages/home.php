@@ -21,20 +21,24 @@ if (!isset($_SESSION['id_usuario'])) {
         <div class="nav-wrapper" style="margin-right:20px;">
             <a href="#" class="brand-logo center"><img src="../src/imgs/paffi-logo.png" width="175px" height="70px"></a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="sass.html">Sass</a></li>
-                <li><a href="badges.html">Components</a></li>
-                <li><a href="collapsible.html">Javascript</a></li>
+            <ul class="right hide-on-med-and-down" style="margin-top:10px">
+                <li><a href="sass.html">Homepage</a></li>
+                <li><a href="badges.html">Restaurantes</a></li>
+                <li><a href="collapsible.html">Perfil</a></li>
                 <li>
-                    <form method="POST">
-                        <button class="hoverable btn waves-effect waves-light blue accent-3" type="submit"
-                         value="sair" name="sair" style="height: 99%;box-shadow:none">Sair</button>
-                    </form>
+                <button data-target="modal1" class="btn modal-trigger blue accent-3" style="box-shadow:none">Sair</button>
                 </li>
             </ul>
         </div>
     </nav>
-
+      <div id="modal1" class="modal" style="width:20%">
+    <div class="modal-content" >
+      <h5>Tem certeza que deseja sair?</h5>
+    </div>
+    <form method="POST"><button class="modal-close waves-effect btn-flat right" type="submit" value="sair" name="sair" style="height: 87%;box-shadow:none">Sair</button>
+    <a href="#" class="modal-close waves-effect btn-flat right">Voltar</a>
+    </form>
+  </div>
     <ul class="sidenav" id="mobile-demo">
         <li><a href="sass.html">Sass</a></li>
         <li><a href="badges.html">Components</a></li>
@@ -48,7 +52,7 @@ if (!isset($_SESSION['id_usuario'])) {
                 </li>
     </ul>
     <?php
-    echo 'aa';
+    
 
     if (isset($_POST['sair'])) {
         session_destroy();

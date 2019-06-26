@@ -96,7 +96,7 @@ $u = new Usuario;
     $matriculal = addslashes($_POST['matricula']);
     $senhal = addslashes($_POST['senha']);
   if (!empty($matriculal) && !empty($senhal))
-  { $u->bdconnect("epiz_24101634_paffitcc", "sql213.epizy.com", "epiz_24101634", "Yz41u23u");
+  { $u->bdconnect("paffi", "127.0.0.1", "root", "");
     if ($u->error == "") {
       if($u->logar($matriculal, $senhal)){
         header("location: home.php");
@@ -124,7 +124,7 @@ $u = new Usuario;
   
   if (!empty($nome) && !empty($sobrenome) && !empty($matricula) && !empty($senha) && !empty($confsenha))
   {
-    $u->bdconnect("paffitcc", "127.0.0.1", "root", "");
+    $u->bdconnect("paffi", "127.0.0.1", "root", "");
     if ($u->error == "") { 
       if($senha == $confsenha){
         if($u->cadastro($nome,$senha,$matricula)){
