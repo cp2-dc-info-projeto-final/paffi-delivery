@@ -54,29 +54,51 @@ $u = new Usuario;
       <div class="row">
         <form class="col s12" method="POST">
           <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col l6 s12">
               <input id="nomec" name="nomec" type="text" class="validate" maxlength="15">
               <label for="nomec">Nome</label>
             </div>
-            <div class="input-field col s6">
+            <div class="input-field col l6 s12">
               <input id="sobrenomec" name="sobrenomec" type="text" class="validate" maxlength="45">
               <label for="sobrenomec">Sobrenome</label>
             </div>
           </div>
 
           <div class="row">
-            <div class="input-field col s12">
+            <div class="input-field col l6 s12">
               <input id="matriculac" name="matriculac" type="text" class="validate" maxlength="20">
               <label for="matriculac">Matrícula</label>
             </div>
-          </div>
+            <div class="input-field col l6 s12">
+              <select>
+                <option value="" disabled selected></option>
+                <option value="1">Aluno Cliente</option>
+                <option value="2">Aluno Vendedor</option>
+                <option value="3">Professor</option>
+                <option value="3">Funcionário</option>
+              </select>
+              <label>Tipo de Usuário:</label>
+            </div>
+            </div>
+
+
 
           <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col l6 s12">
+              <input id="emailc" name="emailc" type="email" class="validate" maxlength="20">
+              <label for="emailc">E-Mail</label>
+            </div>
+            <div class="input-field col l6 s12">
+              <input id="confemailc" name="confemailc" type="email" class="validate" maxlength="20">
+              <label for="confemailc">Confirme seu E-Mail</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col l6 s12">
               <input id="senhac" name="senhac" type="password" class="validate" maxlength="20">
               <label for="senhac">Senha</label>
             </div>
-            <div class="input-field col s6">
+            <div class="input-field col l6 s12">
               <input id="confsenha" name="confsenhac" type="password" class="validate">
               <label for="confsenha">Confirme sua senha</label>
             </div>

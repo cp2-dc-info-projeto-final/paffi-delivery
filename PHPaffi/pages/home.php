@@ -23,11 +23,11 @@ if (!isset($_SESSION['id_usuario'])) {
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down" style="margin-top:10px">
                 <li><a href="sass.html">Homepage</a></li>
-                <li><a href="badges.html">Restaurantes</a></li>
-                <li><a href="collapsible.html">Perfil</a></li>
-                <li>
-                <button data-target="modal1" class="btn modal-trigger blue accent-3" style="box-shadow:none">Sair</button>
-                </li>
+            <li><a href="badges.html">Restaurantes</a></li>
+            <li><a href="collapsible.html">Perfil</a></li>
+            <li>
+            <button data-target="modal1" class="btn modal-trigger blue accent-3" style="box-shadow:none">Sair</button>
+              </li>
             </ul>
         </div>
     </nav>
@@ -42,16 +42,18 @@ if (!isset($_SESSION['id_usuario'])) {
     <ul class="sidenav" id="mobile-demo">
         <li><a href="sass.html">Sass</a></li>
         <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">Javascript</a></li>
+     <li><a href="collapsible.html">Javascript</a></li>
         <li><a href="mobile.html">Mobile</a></li>
         <li>
                     <form method="POST">
                         <button class="hoverable btn waves-effect waves-light blue accent-3" type="submit"
-                         value="sair" name="sair" style="width: 99%;box-shadow:none">Sair</button>
+           value="sair" name="sair" style="width: 99%;box-shadow:none">Sair</button>
                     </form>
                 </li>
     </ul>
     <?php
+
+    
     
 
     if (isset($_POST['sair'])) {
