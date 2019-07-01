@@ -1,6 +1,61 @@
 <?php
 require_once '../POO/usuarios.php';
 $u = new Usuario;
+
+if (isset($_POST['email'])) {
+  $emaill = addslashes($_POST['email']);
+  $senhal = addslashes($_POST['senha']);
+if (!empty($emaill) && !empty($senhal))
+{ $u->bdconnect("paffi2", "127.0.0.1", "root", "");
+  if ($u->error == "") {
+    if($u->logar($emaill, $senhal)){
+      header("location: home.php");
+    }else{
+      $x = "E-mail ou senha incorretos.";
+    }
+  }else{
+    $x = $u->error;
+  }
+}
+else{
+  $x = "Preencha todos os Campos";
+}
+}
+
+if (isset($_POST['nomec'])) {
+  $nome = addslashes($_POST['nomec']);
+  $sobrenome = addslashes($_POST['sobrenomec']);
+  $nome = $nome.' '.$sobrenome;
+  $matricula = addslashes($_POST['matriculac']);
+  $senha = addslashes($_POST['senhac']);
+  $confsenha = addslashes($_POST['confsenhac']);
+  $email = addslashes($_POST['emailc']);
+  $confemail = addslashes($_POST['confemailc']);
+  $conta = ($_POST['conta']);
+if (!empty($nome) && !empty($sobrenome) && !empty($senha) && !empty($confsenha) && !empty($email) && !empty($confemail) && !empty($conta) && $conta != 2)
+{
+  $u->bdconnect("paffi2", "127.0.0.1", "root", "");
+  if ($u->error == "") { 
+    if($senha == $confsenha){
+      if($u->cadastro($nome,$senha,$matricula, $email)){
+        $x = "Cadastro realizado com sucesso.";
+      }else{
+        $x = "Matrícula já cadastrada";
+      }
+
+    }else{
+      $x = "As senhas não coincidem.";
+    }
+    
+  } else {
+    $x = $u->error;
+  }
+}
+else {
+  $x = "Preencha todos os campos.";
+
+}
+}
 ?>
 
 <html lang="pt-br">
@@ -13,15 +68,14 @@ $u = new Usuario;
 </head>
 
 <body>
-<div>
   <div class="row">
     <div class="col l4 s12 offset-l4" id="principal">
 
       <h2 style="margin-left: 16%">Paffi Delivery</h2>
       <form class="col s12" method="POST">
       <div class="input-field col s8 offset-s2">
-        <input id="matricula" name="matricula" type="text" class="validate">
-        <label for="matricula">Matrícula</label>
+        <input id="email" name="email" type="text" class="validate">
+        <label for="email">E-Mail</label>
       </div>
 
       <div class="input-field col s8 offset-s2">
@@ -35,16 +89,12 @@ $u = new Usuario;
       </div>
 
       <div class="col s12" style="padding: 10px;">
-    <p class="type-sidelines"><span>Novo por Aqui?</span></p>
-      <a class="waves-effect light-blue darken-1 waves-light btn modal-trigger" style="width: 60%; margin-left: 20%" href="#cadastrocard">Cadastrar-se</a>
+        <p class="type-sidelines"><span>Novo por Aqui?</span></p>
+        <a class="waves-effect light-blue darken-1 waves-light btn modal-trigger" style="width: 60%; margin-left: 20%" href="#cadastrocard">Cadastrar-se</a>
+      </div>
+
+      </form>
     </div>
-    <div class="row">
-    </div>
-  </form>
-  </div>
-
-
-
   </div>
 
   <div id="cadastrocard" class="modal">
@@ -56,51 +106,48 @@ $u = new Usuario;
           <div class="row">
             <div class="input-field col l6 s12">
               <input id="nomec" name="nomec" type="text" class="validate" maxlength="15">
-              <label for="nomec">Nome</label>
+              <label for="nomec">Nome *</label>
             </div>
             <div class="input-field col l6 s12">
               <input id="sobrenomec" name="sobrenomec" type="text" class="validate" maxlength="45">
-              <label for="sobrenomec">Sobrenome</label>
+              <label for="sobrenomec">Sobrenome *</label>
             </div>
           </div>
 
           <div class="row">
             <div class="input-field col l6 s12">
               <input id="matriculac" name="matriculac" type="text" class="validate" maxlength="20">
-              <label for="matriculac">Matrícula</label>
+              <label for="matriculac">Matrícula/Siape</label>
             </div>
-            <div class="input-field col l6 s12">
-              <select>
-                <option value="" disabled selected></option>
-                <option value="1">Aluno Cliente</option>
-                <option value="2">Aluno Vendedor</option>
-                <option value="3">Professor</option>
-                <option value="3">Funcionário</option>
-              </select>
-              <label>Tipo de Usuário:</label>
-            </div>
-            </div>
-
-
-
-          <div class="row">
-            <div class="input-field col l6 s12">
-              <input id="emailc" name="emailc" type="email" class="validate" maxlength="20">
-              <label for="emailc">E-Mail</label>
-            </div>
-            <div class="input-field col l6 s12">
-              <input id="confemailc" name="confemailc" type="email" class="validate" maxlength="20">
-              <label for="confemailc">Confirme seu E-Mail</label>
+          <div class="col l6 s12">
+            <select name="conta">
+              <option value="" disabled selected>Selecione o tipo de conta *</option>
+              <option value="1">Aluno Cliente</option>
+              <option value="2">Aluno Vendedor</option>
+              <option value="3">Funcionário</option>
+              <option value="4">Professor</option>
+            </select>
             </div>
           </div>
+          
           <div class="row">
-            <div class="input-field col l6 s12">
-              <input id="senhac" name="senhac" type="password" class="validate" maxlength="20">
-              <label for="senhac">Senha</label>
+              <div class="input-field col l6 s12">
+                <input id="emailc" name="emailc" type="email" class="validate" maxlength="20">
+                <label for="emailc">E-Mail *</label>
+              </div>
+              <div class="input-field col l6 s12">
+                <input id="confemailc" name="confemailc" type="email" class="validate" maxlength="20">
+                <label for="confemailc">Confirme seu e-Mail *</label>
+              </div>
             </div>
-            <div class="input-field col l6 s12">
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="senhac" name="senhac" type="password" class="validate" maxlength="20">
+              <label for="senhac">Senha *</label>
+            </div>
+            <div class="input-field col s6">
               <input id="confsenha" name="confsenhac" type="password" class="validate">
-              <label for="confsenha">Confirme sua senha</label>
+              <label for="confsenha">Confirme sua senha *</label>
             </div>
           </div>
           <div class="modal-footer">
@@ -109,65 +156,10 @@ $u = new Usuario;
         </form>
       </div>
     </div>
-
-
   </div>
 
   <?php
-  if (isset($_POST['matricula'])) {
-    $matriculal = addslashes($_POST['matricula']);
-    $senhal = addslashes($_POST['senha']);
-  if (!empty($matriculal) && !empty($senhal))
-  { $u->bdconnect("paffi", "127.0.0.1", "root", "");
-    if ($u->error == "") {
-      if($u->logar($matriculal, $senhal)){
-        header("location: home.php");
-      }else{
-        $x = "Matricula ou senha incorretos.";
-      }
-    }else{
-      $x = $u->error;
-    }
-  }
-  else{
-    $x = "Preencha todos os Campos";
-  }
-  }
-
-
-
-  if (isset($_POST['nomec'])) {
-    $nome = addslashes($_POST['nomec']);
-    $sobrenome = addslashes($_POST['sobrenomec']);
-    $nome = $nome.' '.$sobrenome;
-    $matricula = addslashes($_POST['matriculac']);
-    $senha = addslashes($_POST['senhac']);
-    $confsenha = addslashes($_POST['confsenhac']);
   
-  if (!empty($nome) && !empty($sobrenome) && !empty($matricula) && !empty($senha) && !empty($confsenha))
-  {
-    $u->bdconnect("paffi", "127.0.0.1", "root", "");
-    if ($u->error == "") { 
-      if($senha == $confsenha){
-        if($u->cadastro($nome,$senha,$matricula)){
-          $x = "Cadastro realizado com sucesso.";
-        }else{
-          $x = "Matrícula já cadastrada";
-        }
-
-      }else{
-        $x = "As senhas não coincidem.";
-      }
-      
-    } else {
-      $x = $u->error;
-    }
-  }
-  else {
-    $x = "Preencha todos os campos.";
- 
-  }
-}
   ?>
   <script type="text/javascript" src="../js/materialize.min.js"></script>
   <script>
