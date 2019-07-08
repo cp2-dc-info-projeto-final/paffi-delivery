@@ -2,10 +2,11 @@
 
 ### Paffi é um Site de delivery de alimentos produzidos pelos alunos do Colégio Pedro II - Caxias que serão entregues no Campus mediante a pedido dos clientes, que são também alunos.
 ## Integrantes:
-+ Théo
-+ Janderson 
-+ Hugo
 + Fernanda
++ Hugo
++ Janderson 
++ Théo
+
 ## Objetivos:
 
 + Facilitar a busca pelos seus pratos favoritos, sem precisar andar pelo Campus até encontrá-los.
