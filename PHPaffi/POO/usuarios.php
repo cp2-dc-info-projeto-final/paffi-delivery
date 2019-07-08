@@ -25,8 +25,7 @@ class Usuario
         if ($sql->rowCount() > 0) {
             return false;
         } else {
-            $sql = $pdo->prepare("INSERT INTO usuario (nome, senha, matricula, email)
-            VALUES (:n, :s, :m, :e)");
+            $sql = $pdo->prepare("INSERT INTO usuario (matricula, email, nome, senha) VALUES (:m, :e, :n, :s))");
             $sql->bindValue(":n", $nome);
             $sql->bindValue(":s", md5($senha));
             $sql->bindValue(":m", $matricula);

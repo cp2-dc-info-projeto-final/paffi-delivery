@@ -6,7 +6,7 @@ if (isset($_POST['email'])) {
   $emaill = addslashes($_POST['email']);
   $senhal = addslashes($_POST['senha']);
 if (!empty($emaill) && !empty($senhal))
-{ $u->bdconnect("paffi2", "127.0.0.1", "root", "");
+{ $u->bdconnect("paffi", "127.0.0.1", "root", "");
   if ($u->error == "") {
     if($u->logar($emaill, $senhal)){
       header("location: home.php");
@@ -23,6 +23,7 @@ else{
 }
 
 if (isset($_POST['nomec'])) {
+  var_dump($_POST);
   $nome = addslashes($_POST['nomec']);
   $sobrenome = addslashes($_POST['sobrenomec']);
   $nome = $nome.' '.$sobrenome;
@@ -31,13 +32,13 @@ if (isset($_POST['nomec'])) {
   $confsenha = addslashes($_POST['confsenhac']);
   $email = addslashes($_POST['emailc']);
   $confemail = addslashes($_POST['confemailc']);
-  $conta = ($_POST['conta']);
-if (!empty($nome) && !empty($sobrenome) && !empty($senha) && !empty($confsenha) && !empty($email) && !empty($confemail) && !empty($conta) && $conta != 2)
+  $conta = $_POST['conta'];
+if (!empty($nome) && !empty($sobrenome) && !empty($senha) && !empty($confsenha) && !empty($email) && !empty($confemail) && !empty($conta) && $conta != "2")
 {
   $u->bdconnect("paffi2", "127.0.0.1", "root", "");
   if ($u->error == "") { 
     if($senha == $confsenha){
-      if($u->cadastro($nome,$senha,$matricula, $email)){
+      if($u->cadastro($nome,$senha,$matricula,$email)){
         $x = "Cadastro realizado com sucesso.";
       }else{
         $x = "Matrícula já cadastrada";
@@ -117,9 +118,9 @@ else {
           <div class="row">
             <div class="input-field col l6 s12">
               <input id="matriculac" name="matriculac" type="text" class="validate" maxlength="20">
-              <label for="matriculac">Matrícula/Siape</label>
+              <label for="matriculac">Matrícula/SIAPE</label>
             </div>
-          <div class="col l6 s12">
+          <div class="input-field col l6 s12">
             <select name="conta">
               <option value="" disabled selected>Selecione o tipo de conta *</option>
               <option value="1">Aluno Cliente</option>
@@ -150,6 +151,13 @@ else {
               <label for="confsenha">Confirme sua senha *</label>
             </div>
           </div>
+          <div class="row">
+            <div class="input-field col s6">
+            <input type="checkbox" id="tdu" name="tdu" checked>
+            <p>Concordo com os <a target="_blank" href="termosdeuso.html">Termos de Uso</a></label></p>
+            </div>
+          </div>
+          
           <div class="modal-footer">
       <button class="hoverable light-blue darken-4 btn waves-effect waves-light" type="submit" value="cadastro" name="cadastro" style="width: 100%">Cadastrar-se</button>
     </div>

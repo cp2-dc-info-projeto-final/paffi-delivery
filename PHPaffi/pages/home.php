@@ -1,9 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['id_usuario'])) {
-    header("location: index.php");
-    exit;
-}
+
+
 ?>
 <html>
 
@@ -16,7 +14,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
 <body>
 
-    <nav style="height: 5em" class="blue accent-3">
+    <!-- <nav style="height: 5em" class="light-blue darken-4">
         <div class="nav-wrapper" style="margin-right:20px;">
             <a href="#" class="brand-logo center"><img src="../src/imgs/paffi-logo.png" width="175px" height="70px"></a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -30,9 +28,9 @@ if (!isset($_SESSION['id_usuario'])) {
                 </li>
             </ul>
         </div>
-    </nav>
+    </nav> -->
 
-<div id="modal1" class="modal" style="width:20%">
+<!-- <div id="modal1" class="modal" style="width:20%">
     <div class="modal-content" >
       <h5>Tem certeza que deseja sair?</h5>
     </div>
@@ -51,7 +49,21 @@ if (!isset($_SESSION['id_usuario'])) {
                          value="sair" name="sair" style="width: 99%;box-shadow:none">Sair</button>
                     </form>
                 </li>
-    </ul>
+    </ul> -->
+    
+
+    <ul id="tabs-swipe-demo" class="tabs" style="position:absolute;bottom: 1px;width: 100%;">
+    <li class="tab col s3"><a class="active" href="#1">Todas as Lojas</a></li>
+    <li class="tab col s3"><a href="#2">Minha Loja</a></li>
+    <li class="tab col s3"><a href="#3">Meu Perfil</a></li>
+  </ul>
+  <div id="1">
+  </div>
+  <div id="2">Test 2</div>
+  <div id="3">Test 3</div>
+
+
+
     <?php
 
     if (isset($_POST['sair'])) {
@@ -60,8 +72,10 @@ if (!isset($_SESSION['id_usuario'])) {
     }
     ?>
     <script type="text/javascript" src="../js/materialize.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
     <script>
         M.AutoInit();
+        M.Tabs.init(document.querySelectorAll('.tabs'), { swipeable: true });
     </script>
 
 </body>
