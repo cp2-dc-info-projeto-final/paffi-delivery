@@ -153,7 +153,6 @@ else {
           </div>
           <div class="row">
             <div class="input-field col s6">
-            <input type="checkbox" id="tdu" name="tdu" checked>
             <p>Concordo com os <a target="_blank" href="termosdeuso.html">Termos de Uso</a></label></p>
             </div>
           </div>
