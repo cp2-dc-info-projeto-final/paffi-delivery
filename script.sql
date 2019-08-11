@@ -1,7 +1,7 @@
 CREATE DATABASE Paffi ;
 
 CREATE TABLE usuario (
-id_usuario INT , 
+id_usuario INT AUTO-INCREMENT, 
 matricula VARCHAR (10),
 email VARCHAR (50),
 nome VARCHAR (40),
