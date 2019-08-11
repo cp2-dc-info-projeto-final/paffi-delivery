@@ -11,14 +11,14 @@ PRIMARY KEY (id_usuario)
 );
  
 CREATE TABLE loja (
-id_loja INT,
+id_loja INT auto_increment,
 id_dono INT,
 PRIMARY KEY (id_loja),
 FOREIGN KEY (id_dono) REFERENCES usuario(id_usuario)
 );
 
 CREATE TABLE produto (
-id_produto INT,
+id_produto INT auto_increment,
 nome VARCHAR(40),
 descricao VARCHAR(40),
 categoria VARCHAR(40),
@@ -29,7 +29,7 @@ FOREIGN KEY (id_loja) REFERENCES loja (id_loja)
 );
 
 CREATE TABLE compra (
-id_compra INT,
+id_compra INT auto_increment,
 valor_compra DECIMAL (5,2),
 data_compra DATE,
 hora_compra TIME,
