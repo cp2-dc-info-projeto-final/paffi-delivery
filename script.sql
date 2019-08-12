@@ -3,14 +3,16 @@ CREATE DATABASE Paffi ;
 CREATE TABLE usuario (
 id_usuario INT AUTO_INCREMENT, 
 matricula VARCHAR (10),
-email VARCHAR (50),
-nome VARCHAR (40),
+email VARCHAR (255),
+nome VARCHAR (255),
 senha VARCHAR (30),
 turma VARCHAR (10),
 PRIMARY KEY (id_usuario) 
 );
  
 CREATE TABLE loja (
+nome_loja VARCHAR(255),
+photoURL VARCHAR(255),
 id_loja INT auto_increment,
 id_dono INT,
 PRIMARY KEY (id_loja),
@@ -20,6 +22,7 @@ FOREIGN KEY (id_dono) REFERENCES usuario(id_usuario)
 CREATE TABLE produto (
 id_produto INT auto_increment,
 nome VARCHAR(40),
+photoURL VARCHAR(255),
 descricao VARCHAR(40),
 categoria VARCHAR(40),
 valor FLOAT,
@@ -44,8 +47,6 @@ CREATE TABLE compra_produto(
 id_produto INT,
 id_compra INT,
 quant INT,
-PRIMARY KEY (quant),
 FOREIGN KEY (id_produto) REFERENCES produto (id_produto),
 FOREIGN KEY (id_compra) REFERENCES compra (id_compra)
 );
-
