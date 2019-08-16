@@ -6,3 +6,16 @@
     text-align: center;
     margin-top: 1.5%;
 }
+
+#texto-w {
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.row {
+    background-color: lightgray;
+}
+
+.col {
+    background-color: lightslategray;
+}
