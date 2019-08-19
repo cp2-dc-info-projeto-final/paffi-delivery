@@ -7,6 +7,7 @@ id_usuario VARCHAR(30),
 matricula VARCHAR (10),
 email VARCHAR (255),
 nome VARCHAR (255),
+photoURL VARCHAR(255),
 senha VARCHAR (30),
 turma VARCHAR (10),
 PRIMARY KEY (id_usuario) 
