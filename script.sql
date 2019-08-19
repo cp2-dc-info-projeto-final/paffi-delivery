@@ -1,5 +1,7 @@
 CREATE DATABASE Paffi ;
 
+USE Paffi;
+
 CREATE TABLE usuario (
 id_usuario VARCHAR(30), 
 matricula VARCHAR (10),
