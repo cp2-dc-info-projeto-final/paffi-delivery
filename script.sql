@@ -14,7 +14,7 @@ CREATE TABLE loja (
 nome_loja VARCHAR(255),
 photoURL VARCHAR(255),
 id_loja INT auto_increment,
-id_dono INT,
+id_dono VARCHAR(30),
 PRIMARY KEY (id_loja),
 FOREIGN KEY (id_dono) REFERENCES usuario(id_usuario)
 );
