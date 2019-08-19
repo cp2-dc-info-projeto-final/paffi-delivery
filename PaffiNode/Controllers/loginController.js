@@ -7,7 +7,7 @@ var x = ''
 exports.entrar = (req, res) => {
     if (!firebase.auth().currentUser) {
         res.render('message', {
-            layout:'loginLayout',
+            layout: 'loginLayout',
             message: x
         });
         app.app.post('/', (req, res) => {
