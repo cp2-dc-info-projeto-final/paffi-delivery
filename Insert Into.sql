@@ -15,19 +15,19 @@ VALUES	('mariiahangelicah@hotmail.com','5','M02600528 ','Maria Angelica Mauricio
 ;
 
 INSERT INTO loja(id_dono, id_loja, nome_loja, photoURL)
-VALUES	('1','11','Giulia_loja','')
+VALUES	('1','1','Giulia_loja','')
 ;
 
 INSERT INTO loja(id_dono, id_loja, nome_loja, photoURL)
-VALUES	('2','22','Sarah_oja','')
+VALUES	('2','2','Sarah_oja','')
 ;
 
 INSERT INTO loja(id_dono, id_loja, nome_loja, photoURL)
-VALUES	('3','33','Brena_loja','')
+VALUES	('3','3','Brena_loja','')
 ;
 INSERT INTO loja(id_dono, id_loja, nome_loja, photoURL)
-VALUES	('4','44','Isabélly_loja ','')
+VALUES	('4','4','Isabélly_loja ','')
 ;
 INSERT INTO loja(id_dono, id_loja, nome_loja, photoURL)
-VALUES	('5','55','Maria_loja','')
+VALUES	('5','5','Maria_loja','')
 ;
