@@ -36,10 +36,10 @@ id_compra INT auto_increment,
 valor_compra DECIMAL (5,2),
 data_compra DATE,
 hora_compra TIME,
-matricula INT,
+usuario varchar(30),
 id_produto INT,
 PRIMARY KEY (id_compra),
-FOREIGN KEY(matricula) REFERENCES usuario(id_usuario),
+FOREIGN KEY(usuario) REFERENCES usuario(id_usuario),
 FOREIGN KEY(id_produto) REFERENCES produto(id_produto)
 );
 
