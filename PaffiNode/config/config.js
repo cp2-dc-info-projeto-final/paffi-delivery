@@ -1,6 +1,7 @@
 // REQUIRES
 const express = require('express');
 const app = express();
+const exphbs = require('express-handlebars');
 const mysql = require('mysql2');
 const routes = require('../routes/routes.js');
 const bodyParser = require('body-parser');
@@ -8,8 +9,8 @@ const path = require('path')
 // REQUIRES
 
 // CONFIGURANDO EXPRESS
-app.set('view engine', 'pug')
-app.set('views', './views')
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 // CONFIGURANDO EXPRESS
@@ -21,6 +22,7 @@ const connection = mysql.createConnection({
   database: 'paffi',
   password: 'theo1234'
 });
+
 // BANCO DE DADOS
 
 // ABRINDO O SERVIDOR

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+</html>
+
+<head>
+    <title>{{title}}</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/css/login.css">
+    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="background:url(/src/bglogin.png);">
+    <div class="row">
+        <div class="col l8 s12 offset-l2 z-depth-2  hoverable" id="principal" style="margin-top:8%;">
+            <h2 style="margin-left: 32%;">Paffi Delivery</h2>
+            <form class="col s12" method="POST" action="/cadastro">
+                <div class="input-field col s4"><input class="validate" id="nome" name="nome" type="text"><label
+                        for="nome">Nome</label></div>
+
+                <div class="input-field col s4"><input class="validate" id="sobrenome" name="sobrenome"
+                        type="text"><label for="sobrenome">Sobrenome</label></div>
+
+                <div class="input-field col s4">
+                    <select class="browser-default" id="vendedor" name="vendedor">
+                        <option value="" disabled selected>Deseja vender?</option>
+                        <option value="sim">Sim</option>
+                        <option value="nao">Não</option>
+                    </select>
+                </div>
+
+                <div class="input-field col s6"><input class="validate" id="email" name="email" type="email"><label
+                        for="email">E-mail</label></div>
+
+                <div class="input-field col s6"><input class="validate" id="confemail" name="confemail"
+                        type="email"><label for="confemail">Confirme seu E-mail:</label></div>
+
+                <div class="input-field col s6"><input class="validate" id="senha" name="senha" type="password"><label
+                        for="senha">Senha</label> </div>
+
+
+                <div class="input-field col s6"><input class="validate" id="confsenha" name="confsenha"
+                        type="password"><label for="confsenha">Confirme sua senha</label></div>
+
+                <div class="col s8 offset-s2" id="poha"><button
+                        class="hoverable light-blue darken-4 btn waves-effect waves-light" type="submit"
+                        style="width: 100%;margin-bottom:50px">Cadastrar</button>
+                </div>
+            </form>
+
+            {{{body}}}
+        </div>
+
+        <script src="/materialize/materialize.min.js">
+            M.autoInit();
+        </script>
+
+    </div>
+</body>

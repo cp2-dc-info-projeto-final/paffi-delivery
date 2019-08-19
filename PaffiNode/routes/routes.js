@@ -3,13 +3,15 @@ module.exports = (app) => {
 
     //Controllers
     var login = require('../Controllers/loginController')
+    var cadastro = require('../Controllers/cadastroController')
+    var store = require('../Controllers/storeController')
     //Controllers
     
     app.get('/', login.entrar)
 
-    app.get('/home', (req, res) =>{
-        res.send('aaa')
-    })
+    app.get('/cadastro', cadastro.cadastrar)
+
+    app.get('/home', store.loja)
 
 
     app.get('/sair', login.sair)

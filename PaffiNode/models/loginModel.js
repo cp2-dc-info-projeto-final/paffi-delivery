@@ -1,5 +1,6 @@
 const firebase = require('../config/firebase')
 const verify = function verify(){
+    console.log('foi')
     if(firebase.auth().currentUser){
         return true
     }else{

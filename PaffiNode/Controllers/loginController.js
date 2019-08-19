@@ -1,11 +1,13 @@
 const app = require('../config/config')
 const model = require('../models/loginModel')
 const firebase = require('../config/firebase')
+const handle = require('handlebars')
 var x = ''
 
 exports.entrar = (req, res) => {
     if (!firebase.auth().currentUser) {
-        res.render('index', {
+        res.render('message', {
+            layout:'loginLayout',
             message: x
         });
         app.app.post('/', (req, res) => {
@@ -16,15 +18,18 @@ exports.entrar = (req, res) => {
                     var errorCode = error.code;
                     var errorMessage = error.message;
                     if (errorCode === 'auth/wrong-password') {
-                        res.render('index', {
+                        res.render('message', {
+                            layout: 'loginLayout',
                             message: 'Senha incorreta.'
                         });
                     } else if (errorCode === 'auth/user-not-found') {
-                        res.render('index', {
+                        res.render('message', {
+                            layout: 'loginLayout',
                             message: 'E-mail não cadastrado.'
                         });
                     } else {
-                        res.render('index', {
+                        res.render('message', {
+                            layout: 'loginLayout',
                             message: 'Credenciais Incorretas.'
                         });
                     }
