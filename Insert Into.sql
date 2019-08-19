@@ -12,3 +12,21 @@ VALUES	('isabelynhapaulo@gmail.com','4','M02500824','Isabélly da Silva Paulo','
 ;
 INSERT INTO usuario(email, id_usuario, matricula, nome, photoURL, senha, turma)
 VALUES	('mariiahangelicah@hotmail.com','5','M02600528 ','Maria Angelica Mauricio da Silva Pereira','','Batatinha19','1201')
+
+INSERT INTO loja(id_dono, id_loja, nome_loja, photoURL,)
+VALUES	('1','1','Giulia Fialho Lopes','')
+;
+
+INSERT INTO loja(id_dono, id_loja, nome_loja, photoURL,)
+VALUES	('2','2','Sarah Ferreira Oliveira','')
+;
+
+INSERT INTO loja(id_dono, id_loja, nome_loja, photoURL,)
+VALUES	('3','3','Brena Alessandra Simões Telles','')
+;
+INSERT INTO loja(id_dono, id_loja, nome_loja, photoURL,)
+VALUES	('4','4','Isabélly da Silva Paulo','')
+;
+INSERT INTO loja(id_dono, id_loja, nome_loja, photoURL,)
+VALUES	('5','5','Maria Angelica Mauricio da Silva Pereira','')
+;
