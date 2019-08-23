@@ -14,10 +14,14 @@ exports.cadastrar = (req, res) => {
                     model.cadastrar(req.body.email, req.body.senha)
                         .then(() => {
                             model.cadastraBd(firebase.auth().currentUser.uid,
-                            req.body.email,
-                             req.body.nome + ' ' + req.body.sobrenome, 
-                             req.body.vendedor)
-                            res.redirect('/home')
+                                req.body.email,
+                                req.body.nome + ' ' + req.body.sobrenome,
+                                req.body.vendedor)
+                            if (req.body.vendedor == 'sim') {
+                                res.redirect('/firstAcess')
+                            } else {
+                                res.redirect('/home')
+                            }
                         })
                         .catch((error) => {
                             console.log(error)
