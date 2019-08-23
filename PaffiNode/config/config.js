@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  database: '',
+  database: 'paffi',
   password: 'theo1234'
 });
 // BANCO DE DADOS
