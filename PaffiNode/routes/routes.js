@@ -11,8 +11,11 @@ module.exports = (app) => {
 
     app.get('/cadastro', cadastro.cadastrar)
 
-    app.get('/home', store.loja)
+    app.get('/firstAcess', store.primeiroAcesso)
 
+    app.get('/home', (req, res) =>{
+        res.send('a')
+    })
 
     app.get('/sair', login.sair)
 };

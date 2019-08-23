@@ -8,11 +8,13 @@ exports.getId = function () {
         })
 }
 
-exports.getMyStoreName = () => {
+exports.getMyStoreName = function () {
+    var nome = ''
     app.connection.query('SELECT * FROM `loja` WHERE `id_dono` = ?',
-        [firebase.auth().currentUser.uid], (err, resu) => {
-            return resu[0].nome_loja
+        [firebase.auth().currentUser.uid], function (err, resu) {
+            nome = resu[0].nome_loja
         })
+        var nome
 }
 
 exports.getStoreNameById = function (id) {
@@ -36,11 +38,12 @@ exports.getStore = function (id) {
         })
 }
 
-exports.updateStore = function (id, nome, url) {
-    app.connection.query('UPDATE `loja` SET `nome_loja` = ?, `photoURL` = ? WHERE id_dono = id'),
-        [nome, url, id], (err, resu) => {
+exports.updateStore = function (nome, url) {
+    app.connection.query('update `loja` set `nome_loja` = ?, photoURL = ? WHERE `id_dono` = ?',
+        [nome, url, firebase.auth().currentUser.uid], (err, resu) => {
             if (err) console.log('deu ruim')
-        }
+            if (resu) console.log(resu)
+        })
 }
 
 exports.addProduct = function () {
