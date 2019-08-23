@@ -9,12 +9,17 @@ exports.getId = function () {
 }
 
 exports.getMyStoreName = function () {
-    var nome = ''
-    app.connection.query('SELECT * FROM `loja` WHERE `id_dono` = ?',
-        [firebase.auth().currentUser.uid], function (err, resu) {
-            nome = resu[0].nome_loja
-        })
-        var nome
+    return new Promise((resolve, reject) => {
+        app.connection.query('SELECT * FROM `loja` WHERE `id_dono` = ?',
+            [firebase.auth().currentUser.uid], (err, resu) => {
+                if (resu) {
+                    resolve(resu[0].nome_loja)
+                } else {
+                    (reject('error'))
+                }
+            })
+    })
+
 }
 
 exports.getStoreNameById = function (id) {
@@ -41,7 +46,7 @@ exports.getStore = function (id) {
 exports.updateStore = function (nome, url) {
     app.connection.query('update `loja` set `nome_loja` = ?, photoURL = ? WHERE `id_dono` = ?',
         [nome, url, firebase.auth().currentUser.uid], (err, resu) => {
-            if (err) console.log('deu ruim')
+            if (err) console.log(err)
             if (resu) console.log(resu)
         })
 }
