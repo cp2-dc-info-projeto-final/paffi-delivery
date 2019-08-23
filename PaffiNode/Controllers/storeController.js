@@ -13,12 +13,16 @@ exports.loja = (req, res) => {
 }
 
 exports.primeiroAcesso = (req, res) => {
-    res.render('firstAcess', {
+    model.getMyStoreName().then((dado) => {
+        if (!dado) {
+            res.render('firstAcess', {
+            })
+            app.app.post('/firstAcess', (req, res) => {
+                model.updateStore(req.body.nome, req.body.foto)
+                res.redirect('/home')
+            })
+        } else {
+            res.redirect('/home')
+        }
     })
-
-    app.app.post('/firstAcess', (req, res) => {
-        model.updateStore(req.body.nome, req.body.foto)
-        console.log(model.getMyStoreName())
-    })
-    
 }
