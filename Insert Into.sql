@@ -19,7 +19,7 @@ VALUES	('1','1','Giulia_loja','')
 ;
 
 INSERT INTO loja(id_dono, id_loja, nome_loja, photoURL)
-VALUES	('2','2','Sarah_oja','')
+VALUES	('2','2','Sarah_loja','')
 ;
 
 INSERT INTO loja(id_dono, id_loja, nome_loja, photoURL)
@@ -41,3 +41,14 @@ INSERT INTO produto(categoria, descricao, id_loja, id_produto, nome, photoURL, v
 VALUES ('Doces','Muito boa','4','4','Doces_Isabely','','2');
 INSERT INTO produto(categoria, descricao, id_loja, id_produto, nome, photoURL, valor )
 VALUES ('Doces','Muito boa','5','5','Maria_Tufas','','2');
+
+INSERT INTO compra(data_compra, hora_compra, id_compra, id_produto, usuario, valor_compra)
+VALUES('YYYY/MM/DD','11:50','1','1','Albert','4');
+INSERT INTO compra(data_compra, hora_compra, id_compra, id_produto, usuario, valor_compra)
+VALUES('YYYY/MM/DD','09:00','2','2','Hugo','2');
+INSERT INTO compra(data_compra, hora_compra, id_compra, id_produto, usuario, valor_compra)
+VALUES('YYYY/MM/DD','08:30','3','3','Janderson','3');
+INSERT INTO compra(data_compra, hora_compra, id_compra, id_produto, usuario, valor_compra)
+VALUES('YYYY/MM/DD','10:00','4','4','Fernanda','4');
+INSERT INTO compra(data_compra, hora_compra, id_compra, id_produto, usuario, valor_compra)
+VALUES('YYYY/MM/DD','09:30','5','5','Theo','2');
