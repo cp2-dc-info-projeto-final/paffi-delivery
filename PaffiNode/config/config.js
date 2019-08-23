@@ -20,17 +20,18 @@ const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   database: 'paffi',
-  password: 'theo1234'
+  password: ''
 });
 // BANCO DE DADOS
-connection.query('CREATE DATABASE IF NOT EXISTS paffi;', (err, result)=>{
-  if(result.warningStatus == 1){
-    connection.config.database = 'paffi'
-    console.log('Você está conectado ao BD:', connection.config.database)
-  }else{
-    connection.config.database = 'paffi'
-    connection.query('USE paffi;')
-    connection.query('\
+connection.query('CREATE DATABASE IF NOT EXISTS paffi;', (err, result) => {
+  if (result) {
+    if (result.warningStatus == 1) {
+      connection.config.database = 'paffi'
+      console.log('Você está conectado ao BD:', connection.config.database)
+    } else {
+      connection.config.database = 'paffi'
+      connection.query('USE paffi;')
+      connection.query('\
     CREATE TABLE usuario(\
     id_usuario VARCHAR(30),\
     matricula VARCHAR(10),\
@@ -41,9 +42,9 @@ connection.query('CREATE DATABASE IF NOT EXISTS paffi;', (err, result)=>{
     turma VARCHAR (10),\
     PRIMARY KEY (id_usuario) \
     );', (err, resu) => {
-        if(err) console.log('Erro na criação da Tabela')
-      })
-    connection.query('\
+          if (err) console.log('Erro na criação da Tabela')
+        })
+      connection.query('\
     CREATE TABLE loja(\
     id_loja INT AUTO_INCREMENT,\
     nome_loja VARCHAR(255),\
@@ -52,9 +53,9 @@ connection.query('CREATE DATABASE IF NOT EXISTS paffi;', (err, result)=>{
     PRIMARY KEY (id_loja),\
     FOREIGN KEY (id_dono) REFERENCES usuario(id_usuario)\
     );', (err, resu) => {
-        if(err) console.log('Erro na criação da Tabela')
-      })
-    connection.query('\
+          if (err) console.log('Erro na criação da Tabela')
+        })
+      connection.query('\
     CREATE TABLE produto (\
     id_produto INT AUTO_INCREMENT,\
     nome VARCHAR (40),\
@@ -66,9 +67,9 @@ connection.query('CREATE DATABASE IF NOT EXISTS paffi;', (err, result)=>{
     PRIMARY KEY (id_produto),\
     FOREIGN KEY (id_loja) REFERENCES loja (id_loja)\
     );', (err, resu) => {
-        if(err) console.log('Erro na criação da Tabela')
-      })
-    connection.query('\
+          if (err) console.log('Erro na criação da Tabela')
+        })
+      connection.query('\
     CREATE TABLE compra (\
     id_compra INT AUTO_INCREMENT,\
     valor_compra DECIMAL (5,2),\
@@ -80,9 +81,9 @@ connection.query('CREATE DATABASE IF NOT EXISTS paffi;', (err, result)=>{
     FOREIGN KEY(usuario) REFERENCES usuario(id_usuario),\
     FOREIGN KEY(id_produto) REFERENCES produto(id_produto)\
     );', (err, resu) => {
-        if(err) console.log('Erro na criação da Tabela')
-      })
-    connection.query('\
+          if (err) console.log('Erro na criação da Tabela')
+        })
+      connection.query('\
     CREATE TABLE compra_produto(\
     id_produto INT,\
     id_compra INT,\
@@ -90,11 +91,14 @@ connection.query('CREATE DATABASE IF NOT EXISTS paffi;', (err, result)=>{
     FOREIGN KEY (id_produto) REFERENCES produto (id_produto),\
     FOREIGN KEY (id_compra) REFERENCES compra (id_compra)\
     );', (err, resu) => {
-        if(err){console.log('Erro na criação da Tabela')}
-        else{
-          console.log('Banco de dados Paffi criado com sucesso!')
-        }
-      })
+          if (err) { console.log('Erro na criação da Tabela') }
+          else {
+            console.log('Banco de dados Paffi criado com sucesso!')
+          }
+        })
+    }
+  }else{
+    console.log('Tá ruim viado')
   }
 })
 // ABRINDO O SERVIDOR
