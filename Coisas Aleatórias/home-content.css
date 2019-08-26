@@ -19,3 +19,17 @@
 .col {
     background-color: lightslategray;
 }
+
+footer{
+    background-attachment: fixed;
+    background-color:lightblue;
+    height: 35px;
+    width: 100%;
+    margin-top: 1%;
+}
+footer p{
+    font-family: sans-serif;
+    text-align: center;
+    padding-top: 0.35%;
+    text-transform: uppercase;   
+}
