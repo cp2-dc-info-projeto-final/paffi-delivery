@@ -1,0 +1,31 @@
+<app-navbar></app-navbar>
+
+<div class="welcome">
+  <h1 id="welcome">Todas as Lojas</h1>
+  <p id="texto-w">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero reprehenderit repudiandae ad iste
+    laboriosam debitis autem. Tempora, doloremque natus. Distinctio tempore at sit eius assumenda quam tenetur libero,
+    temporibus animi. </p>
+</div>
+
+<div class="row" style="margin-top: 3em">
+  <div *ngFor="let loja of Stores;let i = index">
+    <div class="col l4 s12 m6">
+      <div class="card">
+        <div id="img" class="card-image waves-effect waves-block waves-light">
+          <img class="activator" src="../../../assets/bg.jpg">
+        </div>
+        <div class="card-content">
+          <span class="card-title activator grey-text text-darken-4">{{loja.nome_loja}}<i
+              class="material-icons right"></i></span>
+          <p><a href="#">Comprar</a></p>
+        </div>
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4">{{loja.nome_loja}}<i class="material-icons right">close</i></span>
+          <p>Breve descrição sobre a loja!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
