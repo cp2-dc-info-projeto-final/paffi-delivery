@@ -16,6 +16,7 @@ PRIMARY KEY (id_usuario)
 CREATE TABLE loja (
 nome_loja VARCHAR(255),
 photoURL VARCHAR(255),
+descricao TEXT,
 id_loja INT AUTO_INCREMENT,
 id_dono VARCHAR(30),
 PRIMARY KEY (id_loja),
