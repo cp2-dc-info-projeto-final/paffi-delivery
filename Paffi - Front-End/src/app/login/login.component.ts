@@ -1,4 +1,4 @@
-import { AuthService } from './../../auth/auth.service';
+import { AuthService } from './../auth.service';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { MessageService } from 'primeng/components/common/messageservice';
@@ -22,9 +22,10 @@ export class LoginComponent implements OnInit {
     private ngZone: NgZone) { }
 
   ngOnInit() {
-    this.AuthS.estaLogado.subscribe(dado => {
-      if (dado === true) {
-        this.ngZone.run(() => this.router.navigate(['home']));
+
+    this.AuthS.pegaUsuarioAtual().then((dado) => {
+      if (dado) {
+        this.router.navigate(['home']);
       }
     });
 

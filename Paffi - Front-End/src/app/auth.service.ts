@@ -6,21 +6,21 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-
-  public estaLogado = new BehaviorSubject(true);
-
+  public usuario: any;
   constructor(private fire: AngularFireAuth) {
-    this.fire.auth.onAuthStateChanged((user) => {
-      if (user) {
-        this.estaLogado.next(true);
-      } else {
-        this.estaLogado.next(false);
-      }
-    });
   }
 
   pegaUsuarioAtual() {
-    return this.fire.auth.currentUser;
+    return new Promise((resolve) => {
+      this.fire.auth.onAuthStateChanged(user => {
+        if (user) {
+          resolve(user);
+        } else {
+          console.log(false);
+          resolve(false);
+        }
+      });
+    });
   }
 
   pegaIdUsuario() {

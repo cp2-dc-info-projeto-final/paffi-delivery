@@ -1,7 +1,8 @@
-import { MinhaLojaComponent } from './central-content/minha-loja/minha-loja.component';
-import { HomeComponent } from './central-content/home/home.component';
-import { CadastroComponent } from './central-content/cadastro/cadastro.component';
-import { LoginComponent } from './central-content/login/login.component';
+import { CadastroComponent } from './cadastro/cadastro.component';
+import { MinhaLojaComponent } from './minha-loja/minha-loja.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { AppComponent } from './app.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -16,4 +17,6 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+
+}

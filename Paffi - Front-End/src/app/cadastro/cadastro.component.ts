@@ -1,5 +1,6 @@
+import { AuthService } from './../auth.service';
 import { Component, OnInit, NgZone } from '@angular/core';
-import { AuthService } from 'src/app/auth/auth.service';
+
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { HttpClient } from '@angular/common/http';
@@ -24,9 +25,9 @@ export class CadastroComponent implements OnInit {
     private ngZone: NgZone) { }
 
   ngOnInit() {
-    this.AuthS.estaLogado.subscribe(dado => {
-      if (dado === true) {
-        this.ngZone.run(() => this.router.navigate(['home']));
+    this.AuthS.pegaUsuarioAtual().then((dado) => {
+      if (dado) {
+        this.router.navigate(['home']);
       }
     });
 
@@ -74,7 +75,8 @@ export class CadastroComponent implements OnInit {
                 {
                   email: this.formularioCadastro.value.email, senha: this.formularioCadastro.value.senha,
                   uid: this.AuthS.pegaIdUsuario(), loja: this.formularioCadastro.value.vender,
-                  nomeloja: this.formularioCadastro.value.nomeLoja
+                  nomeloja: this.formularioCadastro.value.nomeLoja,
+                  nome: (this.formularioCadastro.value.nome + ' ' + this.formularioCadastro.value.sobrenome)
                 })
                 .subscribe(dado => console.log(dado));
             } else {
@@ -82,7 +84,8 @@ export class CadastroComponent implements OnInit {
                 {
                   email: this.formularioCadastro.value.email, senha: this.formularioCadastro.value.senha,
                   uid: this.AuthS.pegaIdUsuario(), loja: this.formularioCadastro.value.vender,
-                  nomeloja: this.formularioCadastro.value.nomeLoja
+                  nomeloja: this.formularioCadastro.value.nomeLoja,
+                  nome: (this.formularioCadastro.value.nome + ' ' + this.formularioCadastro.value.sobrenome)
                 })
                 .subscribe(dado => console.log(dado));
             }
@@ -131,3 +134,4 @@ export class CadastroComponent implements OnInit {
     this.http.post('http://localhost:3000/teste', { foto: e.files }).subscribe((dado) => console.log(dado));
   }
 }
+
