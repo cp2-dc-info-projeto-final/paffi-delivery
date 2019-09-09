@@ -11,9 +11,12 @@ module.exports = (app) => {
 
     app.post('/pegaLojas', loja.pegaLojas)
 
+    app.post('/atualizaLoja', loja.attPerfil)
+
+    app.post('/buscaMinhaLoja', loja.pegaLojaPorId)
+
     app.post('/teste', (req, res) =>{
         var image = req.body.foto;
-        console.log(image)
-
     })
+
 };

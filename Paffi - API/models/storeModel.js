@@ -57,7 +57,7 @@ exports.getMyStore = () => {
 exports.getStores = function () {
     return new Promise((resolve, reject) => {
         app.connection.query('SELECT * FROM `loja`'
-        , (err, resu) => {
+            , (err, resu) => {
                 resolve(resu)
             })
     })
@@ -65,18 +65,37 @@ exports.getStores = function () {
 
 
 exports.getStoreById = function (id) {
-    app.connection.query('SELECT * FROM `loja` WHERE `id_loja` = ?',
-        [id], (err, resu) => {
-            return resu[0]
-        })
+    return new Promise((resolve, reject) => {
+        app.connection.query('SELECT * FROM `loja` WHERE `id_dono` = ?',
+            [id], (err, resu) => {
+                console.log(resu)
+                console.log(err)
+                resolve(resu[0])
+            })
+    })
 }
 
-exports.updateStore = function (nome, url) {
-    app.connection.query('update `loja` set `nome_loja` = ?, photoURL = ? WHERE `id_dono` = ?',
-        [nome, url, firebase.auth().currentUser.uid], (err, resu) => {
+exports.updateStore = function (id ,nome, url, descricao) {
+    console.log(id ,nome, url, descricao)
+    return new Promise((resolve, reject) =>{
+        app.connection.query('update `loja` set `nome_loja` = ?, photoURL = ?, descricao = ? WHERE `id_dono` = ?',
+        [nome, url, descricao, id], (err, resu) => {
             if (err) console.log(err)
-            if (resu) console.log(resu)
+            if (resu) resolve(resu)
         })
+    })
+
+}
+
+exports.updateFotoLoja = function (url, uid) {
+
+    return new Promise((resolve, reject) => {
+        app.connection.query('update `loja` set photoURL = ? WHERE `id_dono` = ?',
+            [url, uid], (err, resu) => {
+                if (err) reject('erro')
+                if (resu) resolve(true)
+            })
+    })
 }
 
 

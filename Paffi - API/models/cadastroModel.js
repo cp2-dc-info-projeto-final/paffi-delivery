@@ -6,13 +6,14 @@ const cadastro = function(email, senha) {
 }
 
 
-const cadastraBd = function(uid, email, nome, loja, nomeloja){
+const cadastraBd = function(uid, email, nome, loja, nomeloja, url, descricao){
+    console.log(url, descricao)
     return new Promise((resolve, reject) => {
         app.connection.query('INSERT INTO `usuario`(id_usuario, email, nome) values (?,?,?)',
         [uid, email, nome], (err, result) => {
             if (loja == true) {
-                app.connection.query('INSERT INTO `loja`(id_dono, nome_loja) values (?,?)',
-                    [uid, nomeloja], (err, result) => {
+                app.connection.query('INSERT INTO `loja`(id_dono, nome_loja, photoURL, descricao) values (?,?,?,?)',
+                    [uid, nomeloja, url, descricao], (err, result) => {
                         if(result) resolve(true)
                         if(err) console.log(err)
                     })

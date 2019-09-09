@@ -32,9 +32,9 @@ function sendit()
     connection.query('SHOW TABLES;', (err, result) =>{
       console.log('ゴゴゴゴ')
 })
-    setTimeout(sendit, 100000);
+    setTimeout(sendit, 200000);
 }
-setTimeout(sendit, 100000);
+setTimeout(sendit, 200000);
 // BANCO DE DADOS
 
 
