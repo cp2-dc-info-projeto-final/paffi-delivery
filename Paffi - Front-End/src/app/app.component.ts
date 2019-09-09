@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'projeto';
+  title = 'Paffi Delivery';
+  showNav = false;
+  constructor(private AuthS: AuthService) {
+    this.AuthS.pegaUsuarioAtual().then((dado) => {
+      if (dado) {
+        this.showNav = true;
+      } else {
+        this.showNav = false;
+      }
+    });
+  }
 }

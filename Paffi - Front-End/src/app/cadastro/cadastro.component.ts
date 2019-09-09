@@ -75,7 +75,9 @@ export class CadastroComponent implements OnInit {
                 {
                   email: this.formularioCadastro.value.email, senha: this.formularioCadastro.value.senha,
                   uid: this.AuthS.pegaIdUsuario(), loja: this.formularioCadastro.value.vender,
-                  nomeloja: this.formularioCadastro.value.nomeLoja,
+                  nomeloja: this.formularioCadastro.value.nomeLoja, descricao: 'Essa é a minha Loja! Aproveite!',
+                  url:  'https://firebasestorage.googleapis.com/v0/b/' +
+                  'paffi-tcc.appspot.com/o/bg.jpg?alt=media&token=d79c25fe-35ca-4df2-9986-f2f8696809b0',
                   nome: (this.formularioCadastro.value.nome + ' ' + this.formularioCadastro.value.sobrenome)
                 })
                 .subscribe(dado => console.log(dado));
@@ -84,7 +86,9 @@ export class CadastroComponent implements OnInit {
                 {
                   email: this.formularioCadastro.value.email, senha: this.formularioCadastro.value.senha,
                   uid: this.AuthS.pegaIdUsuario(), loja: this.formularioCadastro.value.vender,
-                  nomeloja: this.formularioCadastro.value.nomeLoja,
+                  nomeloja: this.formularioCadastro.value.nomeLoja, descricao: 'Essa é a minha Loja! Aproveite!',
+                  url: 'https://firebasestorage.googleapis.com/v0/b/' +
+                  'paffi-tcc.appspot.com/o/bg.jpg?alt=media&token=d79c25fe-35ca-4df2-9986-f2f8696809b0',
                   nome: (this.formularioCadastro.value.nome + ' ' + this.formularioCadastro.value.sobrenome)
                 })
                 .subscribe(dado => console.log(dado));

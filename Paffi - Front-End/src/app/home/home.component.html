@@ -1,4 +1,3 @@
-<app-navbar></app-navbar>
 
 <div class="welcome">
   <h1 id="welcome" (click)="go()">Todas as Lojas</h1>
@@ -21,7 +20,7 @@
         </div>
         <div class="card-reveal">
           <span class="card-title grey-text text-darken-4">{{loja.nome_loja}}<i class="material-icons right">close</i></span>
-          <p>Breve descrição sobre a loja!</p>
+          <p>{{loja.descricao}}</p>
         </div>
       </div>
     </div>

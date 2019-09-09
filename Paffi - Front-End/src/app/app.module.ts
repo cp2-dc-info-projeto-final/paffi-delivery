@@ -21,6 +21,8 @@ import { HomeComponent } from './home/home.component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { MinhaLojaComponent } from './minha-loja/minha-loja.component';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyCU162xBGghRaszmRllu4c9JdtzakJJyzM',
@@ -56,7 +58,8 @@ export const firebaseConfig = {
     FileUploadModule,
     RouterModule,
     DialogModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    InputTextareaModule
   ],
   providers: [
     MessageService,
