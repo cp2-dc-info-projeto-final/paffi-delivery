@@ -14,8 +14,6 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "firebase": "^6.3.4",
-    "jimp": "^0.6.4",
-    "materialize-css": "^1.0.0-rc.2",
     "mysql2": "^1.6.5",
     "nodemon": "^1.19.1"
   }
