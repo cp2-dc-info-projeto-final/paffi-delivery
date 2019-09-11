@@ -4,7 +4,6 @@
 </p-dialog>
 <p-toast [style]="{marginTop: '80px'}"></p-toast>
 
-<button (click)="sair()">sairsairsair</button>
 <div class="row" *ngIf="!modoEditar">
   <div class="col s12">
     <div class="col s3">
@@ -12,7 +11,7 @@
         height="300px">
     </div>
     <div class="col s9">
-      <h2 (click)="go()">{{loja.nome_loja}}</h2>
+      <h2>{{loja.nome_loja}}</h2>
       <hr>
       <h4>{{loja.descricao}}</h4>
       <hr>

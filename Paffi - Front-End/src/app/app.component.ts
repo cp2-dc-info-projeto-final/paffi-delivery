@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'Paffi Delivery';
   showNav = false;
   constructor(private AuthS: AuthService) {
-    this.AuthS.pegaUsuarioAtual().then((dado) => {
+    this.AuthS.showNav.subscribe((dado) => {
       if (dado) {
         this.showNav = true;
       } else {

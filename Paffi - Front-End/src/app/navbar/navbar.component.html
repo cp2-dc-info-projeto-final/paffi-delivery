@@ -1,6 +1,12 @@
-<div class="navbar-fixed">
-  <nav>
-      <div class="nav-wrapper background-theme light-blue darken-3">
-      </div>
-  </nav>
-</div>
+<nav>
+  <div class="nav-wrapper blue darken-2">
+    <a class="brand-logo center" (click)="goTo('home')" onMouseOver="this.style.color='white'">
+      Paffi Delivery
+    </a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a (click)="goTo('home')" onMouseOver="this.style.color='white'">Restaurantes</a></li>
+      <li><a (click)="goTo('minhaloja')" onMouseOver="this.style.color='white'">Minha Loja</a></li>
+      <li><a (click)="sair()" onMouseOver="this.style.color='white'">Sair</a></li>
+    </ul>
+  </div>
+</nav>

@@ -1,3 +1,5 @@
+import { AuthService } from './../auth.service';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private authS: AuthService) { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  goTo(url) {
+    console.log(url);
+    this.router.navigate([url]);
   }
 
+  sair() {
+    this.authS.fazLogOut();
+  }
 }
