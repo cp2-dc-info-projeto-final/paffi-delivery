@@ -14,24 +14,23 @@ app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
 app.use(bodyParser.raw({
-  type: 'image/',
+    type: 'image/',
 }));
 // CONFIGURANDO EXPRESS
 
 //BANCO DE DADOS
 const connection = mysql.createConnection({
-  host: 'remotemysql.com',
-  user: 'wcnbXQoWMJ',
-  database: 'wcnbXQoWMJ',
-  password: 'qMZdCvPE8b',
-  port:'3306'
+    host: 'remotemysql.com',
+    user: 'wcnbXQoWMJ',
+    database: 'wcnbXQoWMJ',
+    password: 'qMZdCvPE8b',
+    port: '3306'
 });
 
-function sendit()
-{
-    connection.query('SHOW TABLES;', (err, result) =>{
-      console.log('ゴゴゴゴ')
-})
+function sendit() {
+    connection.query('SHOW TABLES;', (err, result) => {
+        console.log('ゴゴゴゴ')
+    })
     setTimeout(sendit, 200000);
 }
 setTimeout(sendit, 200000);
@@ -42,9 +41,9 @@ setTimeout(sendit, 200000);
 // ABRINDO O SERVIDOR
 app.listen(port, () => console.log('Servidor Aberto'))
 routes(app)
-// ABRINDO O SERVIDOR
+    // ABRINDO O SERVIDOR
 
 // EXPORTAÇÕES
 module.exports.app = app
 module.exports.connection = connection
-// EXPORTAÇÕES
+    // EXPORTAÇÕES

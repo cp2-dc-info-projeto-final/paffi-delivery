@@ -15,6 +15,10 @@ module.exports = (app) => {
 
     app.post('/buscaMinhaLoja', loja.pegaLojaPorId)
 
+    app.post('/buscaLojaProduto', loja.getProdutos)
+
+    app.post('/addProduto', loja.addProduto)
+
     app.post('/teste', (req, res) =>{
         var image = req.body.foto;
     })

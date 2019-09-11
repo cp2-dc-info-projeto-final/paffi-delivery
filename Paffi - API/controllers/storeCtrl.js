@@ -22,3 +22,17 @@ exports.pegaLojaPorId = (req, res) => {
         res.send(loja)
     })
 }
+
+exports.getProdutos = (req, res) => {
+    model.getProdutos(req.body.id)
+    .then((loja) =>{
+        res.send(loja)
+    })
+}
+
+exports.addProduto = (req, res) => {
+    model.addProduct(req.body.nome, req.body.url, req.body.desc, req.body.cat, req.body.val, req.body.id_loja)
+    .then((dado) =>{
+        res.send(dado)
+    })
+}
