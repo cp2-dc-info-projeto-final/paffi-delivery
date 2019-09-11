@@ -22,6 +22,10 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { MinhaLojaComponent } from './minha-loja/minha-loja.component';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+
+
 
 
 export const firebaseConfig = {
@@ -59,11 +63,13 @@ export const firebaseConfig = {
     RouterModule,
     DialogModule,
     AngularFireStorageModule,
-    InputTextareaModule
+    InputTextareaModule,
+    ConfirmDialogModule
   ],
   providers: [
     MessageService,
-    AngularFireAuth
+    AngularFireAuth,
+    ConfirmationService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,12 +1,19 @@
 <nav>
-  <div class="nav-wrapper blue darken-2">
-    <a class="brand-logo center" (click)="goTo('home')" onMouseOver="this.style.color='white'">
+    <div class="nav-wrapper blue darken-2">
+        <a class="brand-logo center" (click)="goTo('home')" onMouseOver="this.style.color='white'">
       Paffi Delivery
     </a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a (click)="goTo('home')" onMouseOver="this.style.color='white'">Restaurantes</a></li>
-      <li><a (click)="goTo('minhaloja')" onMouseOver="this.style.color='white'">Minha Loja</a></li>
-      <li><a (click)="sair()" onMouseOver="this.style.color='white'">Sair</a></li>
-    </ul>
-  </div>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a (click)="goTo('home')" onMouseOver="this.style.color='white'" style="font-size: 18px">Restaurantes</a></li>
+            <li><a (click)="goTo('minhaloja')" onMouseOver="this.style.color='white'" style="font-size: 18px">Minha Loja</a></li>
+            <li><a (click)="sair()" onMouseOver="this.style.color='white'" style="font-size: 18px">Sair</a></li>
+        </ul>
+    </div>
 </nav>
+
+<p-confirmDialog #cd header="Confirmação" icon="pi pi-exclamation-triangle">
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" label="Sim" (click)="cd.accept()"></button>
+        <button type="button" pButton icon="pi pi-times" label="Não" (click)="cd.reject()"></button>
+    </p-footer>
+</p-confirmDialog>

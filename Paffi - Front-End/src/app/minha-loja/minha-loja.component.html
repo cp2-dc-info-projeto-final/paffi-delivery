@@ -1,119 +1,95 @@
-<p-dialog header="Atualizar Dados" [(visible)]="display" [draggable]="false" [resizable]="false" [modal]="true"
-  [dismissableMask]="true">
-        <input pButton (change)="uploadFile($event)" type="file" style="width: 100%">
+<p-dialog header="Atualizar Dados" [(visible)]="display" [draggable]="false" [resizable]="false" [modal]="true" [dismissableMask]="true">
+    <input pButton (change)="uploadFile($event)" type="file" style="width: 100%">
 </p-dialog>
+
+<p-dialog header="Inserir produtos" [(visible)]="addProduto" [draggable]="false" [resizable]="false" [modal]="true" [dismissableMask]="true">
+    <form [formGroup]="formularioProduto" *ngIf="addProduto" class="row">
+
+        <div class="input-field col s6">
+            <input class="validate" id="nome" formControlName="nome" type="text">
+            <label for="nome">Nome do produto</label>
+        </div>
+
+        <div class="input-field col s6" style="margin-top: 2.3em">
+            <input pButton (change)="uploadFileProduto($event)" type="file" style="width: 100%">
+        </div>
+
+        <div class="input-field col s12">
+            <input class="validate" id="desc" formControlName="desc" type="text">
+            <label for="desc">Descrição do produto</label>
+        </div>
+
+        <div class="input-field col s6">
+            <input class="validate" id="cat" formControlName="cat" type="text">
+            <label for="cat">Categoria</label>
+        </div>
+
+        <div class="input-field col s6">
+            <input class="validate" id="val" formControlName="val" type="text">
+            <label for="val">Preço</label>
+        </div>
+        <button class="waves-effect waves-light btn col s12" id="abreForm" (click)="addProdutos()" [disabled]="!salvarProduto">Salvar produtos</button>
+    </form>
+</p-dialog>
+
 <p-toast [style]="{marginTop: '80px'}"></p-toast>
 
 <div class="row" *ngIf="!modoEditar">
-  <div class="col s12">
-    <div class="col s3">
-      <img [src]="loja.photoURL" style="border: 0.5px solid white;border-radius: 50%;margin-top: 3em" width="300px"
-        height="300px">
+    <div class="col s12">
+        <div class="col s3">
+            <img [src]="loja.photoURL" style="border: 0.5px solid white;border-radius: 50%;margin-top: 3em;object-fit:cover" width="300px" height="300px">
+        </div>
+        <div class="col s9">
+            <h2>{{loja.nome_loja}}</h2>
+            <hr>
+            <h4>{{loja.descricao}}</h4>
+            <hr>
+            <br>
+            <div class="col s12">
+                <button class="waves-effect waves-light btn col s4" id="abreForm" (click)="ativaModoEditar()">Atualizar Dados</button>
+                <button class="waves-effect waves-light btn col s4 offset-s2" id="abreForm" (click)="abreAddProduto()">Adicionar Produtos</button>
+            </div>
+        </div>
     </div>
-    <div class="col s9">
-      <h2>{{loja.nome_loja}}</h2>
-      <hr>
-      <h4>{{loja.descricao}}</h4>
-      <hr>
-      <br>
-      <div class="col s12">
-
-        <button class="waves-effect waves-light btn col s4" id="abreForm" (click)="ativaModoEditar()">Atualizar
-          Dados</button>
-        <button class="waves-effect waves-light btn col s4 offset-s2" id="abreForm" (click)="showDialog()">Adicionar
-          Produtos</button>
-      </div>
-    </div>
-  </div>
-  <div class="col s12 z-depth-3" style="border:solid 1px rgb(131, 131, 131);margin-top:4em">
-    <h4 style="color: rgb(138, 138, 138);margin-left:2em">Meus produtos</h4>
-    <div style="margin-top: 3em">
-      <div class="col s3">
-        <h5>Nome do produto</h5>
-        <img src="https://www.biography.com/.image/t_share/MTE5NDg0MDU0NTIzODQwMDE1/steven-jobs-9354805-2-402.jpg"
-          width="270px">
-        <p>descr icaodescri caodescr icaod escricao descricao descricao descricao descricao descricao descricao
-        </p>
-      </div>
-      <div class="col s3">
-        <h5>Nome do produto</h5>
-        <img src="https://www.biography.com/.image/t_share/MTE5NDg0MDU0NTIzODQwMDE1/steven-jobs-9354805-2-402.jpg"
-          width="270px">
-        <p>descr icaodescri caodescr icaod escricao descricao descricao descricao descricao descricao descricao
-        </p>
-      </div>
-      <div class="col s3">
-        <h5>Nome do produto</h5>
-        <img src="https://www.biography.com/.image/t_share/MTE5NDg0MDU0NTIzODQwMDE1/steven-jobs-9354805-2-402.jpg"
-          width="270px">
-        <p>descr icaodescri caodescr icaod escricao descricao descricao descricao descricao descricao descricao
-        </p>
-      </div>
-      <div class="col s3">
-        <h5>Nome do produto</h5>
-        <img src="https://www.biography.com/.image/t_share/MTE5NDg0MDU0NTIzODQwMDE1/steven-jobs-9354805-2-402.jpg"
-          width="270px">
-        <p>descr icaodescri caodescr icaod escricao descricao descricao descricao descricao descricao descricao
-        </p>
-      </div>
-    </div>
-  </div>
 </div>
 
 <div class="row" *ngIf="modoEditar" [formGroup]="formularioLoja">
-  <div class="col s12">
-    <div class="col s3">
-      <img [src]="loja.photoURL" style="border: 0.5px solid white;border-radius: 50%;margin-top: 3em" width="300px"
-        height="300px" (click)="showDialog()">
-    </div>
-    <div class="col s9">
-      <input id="input" type="text" size="30" style="font-size: 42px;margin-top: 1em"
-      pInputText formControlName="nome">
-      <hr>
-      <textarea style="font-size: 24px;margin-top: 1em;height: 10em"
-        pInputTextArea formControlName="descricao" [rows]="100" [cols]="30" autoResize="autoResize"></textarea>
-      <hr>
-      <br>
-      <div class="col s12">
+    <div class="col s12">
+        <div class="col s3">
+            <img [src]="loja.photoURL" style="border: 0.5px solid white;border-radius: 50%;margin-top: 3em;
+      object-fit:cover" width="300px" height="300px" (click)="showDialog()">
+        </div>
+        <div class="col s9">
+            <input id="input" type="text" size="30" style="font-size: 42px;margin-top: 1em" pInputText formControlName="nome">
+            <hr>
+            <textarea style="font-size: 24px;margin-top: 1em;height: 10em" pInputTextArea formControlName="descricao" [rows]="100" [cols]="30" autoResize="autoResize"></textarea>
+            <hr>
+            <br>
+            <div class="col s12">
 
-        <button class="waves-effect waves-light btn col s4" id="abreForm"
-         (click)="ativaModoEditar(); atualizaLoja()" [disabled]="!salvar">Salvar Alterações</button>
-        <button class="waves-effect waves-light btn col s4 offset-s2" id="abreForm" (click)="showDialog()">Adicionar
+                <button class="waves-effect waves-light btn col s4" id="abreForm" (click)="ativaModoEditar(); atualizaLoja()" [disabled]="!salvar">Salvar Alterações</button>
+                <button class="waves-effect waves-light btn col s4 offset-s2" id="abreForm" (click)="showDialog()">Adicionar
           Produtos</button>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col s12 z-depth-3" style="border:solid 1px rgb(131, 131, 131);margin-top:4em">
-    <h4 style="color: rgb(138, 138, 138);margin-left:2em">Meus produtos</h4>
-    <div style="margin-top: 3em">
-      <div class="col s3">
-        <h5>Nome do produto</h5>
-        <img src="https://www.biography.com/.image/t_share/MTE5NDg0MDU0NTIzODQwMDE1/steven-jobs-9354805-2-402.jpg"
-          width="270px">
-        <p>descr icaodescri caodescr icaod escricao descricao descricao descricao descricao descricao descricao
-        </p>
-      </div>
-      <div class="col s3">
-        <h5>Nome do produto</h5>
-        <img src="https://www.biography.com/.image/t_share/MTE5NDg0MDU0NTIzODQwMDE1/steven-jobs-9354805-2-402.jpg"
-          width="270px">
-        <p>descr icaodescri caodescr icaod escricao descricao descricao descricao descricao descricao descricao
-        </p>
-      </div>
-      <div class="col s3">
-        <h5>Nome do produto</h5>
-        <img src="https://www.biography.com/.image/t_share/MTE5NDg0MDU0NTIzODQwMDE1/steven-jobs-9354805-2-402.jpg"
-          width="270px">
-        <p>descr icaodescri caodescr icaod escricao descricao descricao descricao descricao descricao descricao
-        </p>
-      </div>
-      <div class="col s3">
-        <h5>Nome do produto</h5>
-        <img src="https://www.biography.com/.image/t_share/MTE5NDg0MDU0NTIzODQwMDE1/steven-jobs-9354805-2-402.jpg"
-          width="270px">
-        <p>descr icaodescri caodescr icaod escricao descricao descricao descricao descricao descricao descricao
-        </p>
-      </div>
+</div>
+
+<div class="row">
+    <div class="col s12 z-depth-3" style="border:solid 1px rgb(131, 131, 131);margin-top:4em">
+        <h4 style="color: rgb(138, 138, 138);margin-left:2em">Meus produtos</h4>
+        <div *ngIf="produtos.length == 0">
+            <h1>Não há produtos</h1>
+        </div>
+        <div *ngIf="produtos.length > 0" style="margin-top: 3em">
+            <div *ngFor="let produto of produtos">
+                <div class="col s3">
+                    <h5>{{produto.nome}}</h5>
+                    <img [src]="produto.photoURL" width="270px">
+                    <p>{{produto.descricao}}
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

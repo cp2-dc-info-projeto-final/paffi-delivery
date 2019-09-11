@@ -10,6 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 export class AuthService {
   public usuario: any;
   public showNav = new BehaviorSubject(false);
+
   constructor(
     private fire: AngularFireAuth,
     private router: Router) {
@@ -22,7 +23,6 @@ export class AuthService {
           this.showNav.next(true);
           resolve(user);
         } else {
-          this.router.navigate(['']);
           this.showNav.next(false);
           resolve(false);
         }
