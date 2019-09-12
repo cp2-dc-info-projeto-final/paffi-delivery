@@ -5,12 +5,12 @@
 ## Objetivos:
 
 + Facilitar a busca pelos seus pratos favoritos, sem precisar andar pelo Campus até encontrá-los.
-+ Otimizar as vendas dos alunos. que muitas vezes necessitam dessa renda para ajudar suas famílias.
++ Otimizar as vendas dos alunos que muitas vezes necessitam dessa renda para ajudar suas famílias.
 + Mostrar aos alunos toda a variedade de opções alimentícias e preços dentro do Campus.
 
 ## Principais Funcionalidades:
 
-+ Sistema de login pela matrícula.
++ Sistema de login.
 + Cards em grade com o nome e dados gerais do vendedor(tipo de produtos oferecidos, horário disponível para entrega). 
 + Cardápio eletrônico com produtos e preços.
 + Barra lateral para filtrar as categorias de alimentos.
