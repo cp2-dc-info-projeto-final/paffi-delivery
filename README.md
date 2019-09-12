@@ -3,7 +3,7 @@
 ### Paffi é um Site de delivery de alimentos produzidos pelos alunos do Colégio Pedro II - Caxias que serão entregues no Campus mediante a pedido dos clientes, que são também alunos.
 
 ## Projeto feito em angular(front-end) e Node.Js(back-end)
-# Para testar o projeto siga os seguintes passos:
+### Para testar o projeto siga os seguintes passos:
 
 + Instale a ultima versão estável do Node.JS(e NPM) e do angular CLI
 + Entre nas pastas Paffi - API e Paffi - Front-end e execute o comando 'npm install'
