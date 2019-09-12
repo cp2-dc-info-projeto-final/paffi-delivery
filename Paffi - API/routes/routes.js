@@ -1,7 +1,6 @@
 module.exports = (app) => {
 
     //Controllers
-    var Jimp = require('jimp');
     const cadastro = require('../controllers/cadastroCtrl')
     const loja = require('../controllers/storeCtrl')
     //Controllers

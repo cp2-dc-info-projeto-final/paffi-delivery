@@ -201,7 +201,7 @@ export class MinhaLojaComponent implements OnInit {
           url: this.formularioProduto.value.url,
           desc: this.formularioProduto.value.desc,
           cat: this.formularioProduto.value.cat,
-          val: this.formularioProduto.value.id_loja,
+          val: this.formularioProduto.value.val,
           id_loja: this.loja.id_loja
         }).subscribe(dado => {
           if (dado) {
@@ -210,7 +210,7 @@ export class MinhaLojaComponent implements OnInit {
               summary: 'Produto adicionado',
               detail: 'O seu produto foi adicionado com sucesso!'
             });
-            this.formularioProduto.setValue({});
+            this.formularioProduto.reset();
             this.http.post('http://localhost:3000/buscaLojaProduto',
               { id: this.loja.id_loja }).subscribe(prod => {
                 this.produtos = prod;

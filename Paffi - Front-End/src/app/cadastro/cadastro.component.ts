@@ -93,8 +93,7 @@ export class CadastroComponent implements OnInit {
                 })
                 .subscribe(dado => console.log(dado));
             }
-            console.log(this.formularioCadastro.value.nomeLoja);
-
+            this.router.navigate(['home']);
           })
           .catch((err) => {
             console.log(err);

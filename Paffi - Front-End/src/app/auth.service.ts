@@ -10,6 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 export class AuthService {
   public usuario: any;
   public showNav = new BehaviorSubject(false);
+  public vendedor = new BehaviorSubject(false);
 
   constructor(
     private fire: AngularFireAuth,

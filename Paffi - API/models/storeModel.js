@@ -92,8 +92,10 @@ exports.updateFotoLoja = function(url, uid) {
 
 
 exports.addProduct = function(nome, url, desc, cat, val, id_loja) {
+    console.log(val)
     return new Promise((resolve, reject) => {
-        app.connection.query('INSERT INTO `produto`(nome, photoURL, descricao, categoria, valor, id_loja) values (?,?,?,?,?,?)', [nome, url, desc, cat, val, id_loja], (err, resu) => {
+        app.connection.query('INSERT INTO `produto`(nome, photoURL, descricao, categoria, valor, id_loja) values (?,?,?,?,?,?)',
+        [nome, url, desc, cat, val, id_loja], (err, resu) => {
             if (err) reject(err)
             if (resu) resolve(resu)
         });
