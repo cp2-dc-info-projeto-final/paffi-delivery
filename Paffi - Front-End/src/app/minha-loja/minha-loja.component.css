@@ -20,3 +20,24 @@ td .tooltiptext {
 td:hover .tooltiptext {
   visibility: visible;
 }
+
+td .tooltiptextM {
+  visibility: hidden;
+  width: 190px;
+  background-color: white;
+  color: #00afef;
+  text-align: center;
+  border:solid rgb(206, 204, 204) 0.5px;
+  padding: 5px 0;
+  border-radius: 3px;
+  -webkit-box-shadow: 7px 11px 13px -4px rgba(173,173,173,0.85);
+  -moz-box-shadow: 7px 11px 13px -4px rgba(173,173,173,0.85);
+  box-shadow: 7px 11px 13px -4px rgba(173,173,173,0.85);
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+td:hover .tooltiptextM {
+  visibility: visible;
+}

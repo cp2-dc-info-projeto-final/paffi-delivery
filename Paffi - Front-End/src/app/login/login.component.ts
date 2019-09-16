@@ -24,7 +24,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
 
     this.AuthS.pegaUsuarioAtual().then((dado) => {
+      console.log('humm');
       if (dado) {
+        console.log('humm');
         this.router.navigate(['home']);
       }
     });

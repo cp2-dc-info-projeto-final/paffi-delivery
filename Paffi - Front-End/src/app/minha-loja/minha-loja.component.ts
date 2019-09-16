@@ -115,56 +115,85 @@ export class MinhaLojaComponent implements OnInit {
     this.salvar = false;
     const user = this.AuthS.pegaIdUsuario();
     const file = event.target.files[0];
-    const filePath = user + '/loja';
-    const ref = this.storage.ref(filePath);
-    const task = ref.put(file).then((dado) => {
-      ref.getDownloadURL().subscribe(foto => {
-
-        // Mensagem Personalizada
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Sucesso!',
-          detail: 'A foto foi salva!'
-        });
-        this.formularioLoja.patchValue({ photoURL: foto });
-        this.salvar = true;
+    if (file.size > 10000000) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Arquivo inválido',
+        detail: `O arquivo enviado é muito grande,
+                tente novamente com um arquivo menor`
       });
-    }).catch((err) => console.log(err));
+    } else {
+      const filePath = user + '/loja';
+      const ref = this.storage.ref(filePath);
+      const task = ref.put(file).then((dado) => {
+        ref.getDownloadURL().subscribe(foto => {
+
+          // Mensagem Personalizada
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso!',
+            detail: 'A foto foi salva!'
+          });
+          this.formularioLoja.patchValue({ photoURL: foto });
+          this.salvar = true;
+        });
+      }).catch((err) => console.log(err));
+    }
+
   }
 
   uploadFileProduto(event) {
 
-    // Mensagem Personalizada
-    this.messageService.add({
-      severity: 'info',
-      summary: 'Salvando foto',
-      detail: 'Espere até a foto salvar para adicionar o seu produto'
-    });
-
-    // Função do FireBase de armazenamento
-    this.salvarProduto = false;
     const user = this.AuthS.pegaIdUsuario();
     const file = event.target.files[0];
-    const filePath = user + '/file' + this.produtos.length + 1;
-    const ref = this.storage.ref(filePath);
-    const task = ref.put(file).then((dado) => {
-      ref.getDownloadURL().subscribe(foto => {
-
-        // Mensagem Personalizada
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Sucesso!',
-          detail: 'A foto foi salva!'
-        });
-        this.formularioProduto.patchValue({ url: foto });
-        this.salvarProduto = true;
+    if (file.size > 10000000) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Arquivo inválido',
+        detail: `O arquivo enviado é muito grande,
+                tente novamente com um arquivo menor`
       });
-    }).catch((err) => console.log(err));
+    } else {
+      // Mensagem Personalizada
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Salvando foto',
+        detail: 'Espere até a foto salvar para adicionar o seu produto'
+      });
+
+      // Função do FireBase de armazenamento
+      this.salvarProduto = false;
+      const filePath = user + '/file' + this.produtos.length + 1;
+      const ref = this.storage.ref(filePath);
+      const task = ref.put(file).then((dado) => {
+        ref.getDownloadURL().subscribe(foto => {
+
+          // Mensagem Personalizada
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso!',
+            detail: 'A foto foi salva!'
+          });
+          this.formularioProduto.patchValue({ url: foto });
+          this.salvarProduto = true;
+        });
+      }).catch((err) => console.log(err));
+    }
   }
 
   // Ativa o modo de edição do perfil
   ativaModoEditar() {
     (this.modoEditar) ? this.modoEditar = false : this.modoEditar = true;
+  }
+
+  // Cancela alterações do perfil
+  desativaModoEditar() {
+    this.formularioLoja.patchValue({
+      nome: this.loja.nome_loja,
+      photoURL: this.loja.photoURL,
+      descricao: this.loja.descricao
+    });
+    this.modoEditar = false;
   }
 
   // Função para atualizar a loja

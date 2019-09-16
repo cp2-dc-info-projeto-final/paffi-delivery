@@ -20,10 +20,10 @@ app.use(bodyParser.raw({
 
 //BANCO DE DADOS
 const connection = mysql.createConnection({
-    host: 'remotemysql.com',
-    user: 'wcnbXQoWMJ',
-    database: 'wcnbXQoWMJ',
-    password: 'qMZdCvPE8b',
+    host: 'sql10.freemysqlhosting.net',
+    user: 'sql10305052',
+    database: 'sql10305052',
+    password: 'pNRnb7i1Xf',
     port: '3306'
 });
 
@@ -31,9 +31,9 @@ function sendit() {
     connection.query('SHOW TABLES;', (err, result) => {
         console.log('ゴゴゴゴ')
     })
-    setTimeout(sendit, 200000);
+    setTimeout(sendit, 210000);
 }
-setTimeout(sendit, 200000);
+setTimeout(sendit, 210000);
 // BANCO DE DADOS
 
 

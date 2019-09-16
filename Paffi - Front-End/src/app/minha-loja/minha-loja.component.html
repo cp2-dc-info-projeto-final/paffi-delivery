@@ -39,20 +39,21 @@
 
 <div class="row" *ngIf="!modoEditar">
   <div class="col s12">
-    <div class="col s3">
+    <div class="col l3 s12">
       <img [src]="loja.photoURL" style="border: 0.5px solid white;border-radius: 50%;margin-top: 3em;object-fit:cover"
         width="300px" height="300px">
     </div>
-    <div class="col s9">
+    <div class="col l9 s12">
       <h2>{{loja.nome_loja}}</h2>
       <hr>
       <h4>{{loja.descricao}}</h4>
       <hr>
       <br>
       <div class="col s12">
-        <button class="waves-effect waves-light btn col s4" id="abreForm" (click)="ativaModoEditar()">Atualizar
+        <button class="waves-effect waves-light btn col l4 s5" id="abreForm" (click)="ativaModoEditar()">Atualizar
           Dados</button>
-        <button class="waves-effect waves-light btn col s4 offset-s2" id="abreForm" (click)="abreAddProduto()">Adicionar
+        <button class="waves-effect waves-light btn col l4 offset-l2 s5 offset-s1" id="abreForm"
+          (click)="abreAddProduto()">Adicionar
           Produtos</button>
       </div>
     </div>
@@ -61,11 +62,11 @@
 
 <div class="row" *ngIf="modoEditar" [formGroup]="formularioLoja">
   <div class="col s12">
-    <div class="col s3">
+    <div class="col l3 s12">
       <img [src]="loja.photoURL" style="border: 0.5px solid white;border-radius: 50%;margin-top: 3em;
       object-fit:cover" width="300px" height="300px" (click)="showDialog()">
     </div>
-    <div class="col s9">
+    <div class="col l9 s12">
       <input id="input" type="text" size="30" style="font-size: 42px;margin-top: 1em" pInputText formControlName="nome">
       <hr>
       <textarea style="font-size: 24px;margin-top: 1em;height: 10em" pInputTextArea formControlName="descricao"
@@ -74,22 +75,23 @@
       <br>
       <div class="col s12">
 
-        <button class="waves-effect waves-light btn col s4" id="abreForm" (click)="ativaModoEditar(); atualizaLoja()"
+        <button class="waves-effect waves-light btn col l4 s5" id="abreForm" (click)="ativaModoEditar(); atualizaLoja()"
           [disabled]="!salvar">Salvar Alterações</button>
-        <button class="waves-effect waves-light btn col s4 offset-s2" id="abreForm" (click)="showDialog()">Adicionar
-          Produtos</button>
+        <button class="waves-effect waves-light btn col l4 offset-l2 s5 offset-s1" id="abreForm"
+          (click)="desativaModoEditar()">Cancelar alterações</button>
       </div>
     </div>
   </div>
 </div>
 
 <div class="row">
-  <div class=" col s11 z-depth-3" style="border:solid 1px rgb(131, 131, 131);margin:4em 4em 4em 4em">
+  <div class=" col l11 z-depth-3 hide-on-med-and-down"
+    style="border:solid 1px rgb(131, 131, 131);margin:4em 4em 4em 4em">
     <h4 class="col s5" style="color: rgb(138, 138, 138);margin-left:2em">Meus produtos</h4>
     <div *ngIf="produtos.length == 0">
       <h1>Não há produtos</h1>
     </div>
-    <table *ngIf="produtos.length > 0" class="highlight centered col s12">
+    <table *ngIf="produtos.length > 0" class="highlight centered col s12 responsive-table">
       <thead>
         <tr>
           <th>Foto</th>
@@ -126,3 +128,48 @@
       </div>
     </div>
   </div>
+
+  <div class="col s12 z-depth-3 hide-on-large-only"
+  style="border:solid 1px rgb(131, 131, 131);">
+  <h4 class="col s12 center-align" style="color: rgb(138, 138, 138);">Meus produtos</h4>
+  <div *ngIf="produtos.length == 0">
+    <h1>Não há produtos</h1>
+  </div>
+  <table *ngIf="produtos.length > 0" class="highlight centered col s12 responsive-table">
+    <thead>
+      <tr>
+        <th>Foto</th>
+        <th>Nome</th>
+        <th>Descrição</th>
+        <th>Categoria</th>
+        <th>Preço</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let produto of produtos">
+        <td>
+          <div class="tooltiptextM">
+            <img [src]="produto.photoURL" width="190px" height="90px" style="object-fit: contain">
+          </div>
+          <i class="material-icons medium" style="color: #00afef">camera_alt</i>
+        </td>
+        <td>{{produto.nome}}</td>
+        <td>{{produto.descricao}}</td>
+        <td>{{produto.categoria}}</td>
+        <td>R${{produto.valor}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="produtos.length > 0 && false" style="margin-top: 3em">
+    <div *ngFor=" let produto of produtos">
+      <div class="col s3">
+        <h5>{{produto.nome}}</h5>
+        <img [src]="produto.photoURL" width="270px" height="270px">
+        <p>{{produto.descricao}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

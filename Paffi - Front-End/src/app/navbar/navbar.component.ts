@@ -10,12 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
+  public vendedor;
+  public sideNav;
+  public sideNavMobileVendedor;
+  public sideNavMobileNaoVendedor;
+  public categorias = ['Salgados', 'Pizzas', 'Brownies',
+    'Brigadeiros', 'Bolos', 'Empadão',
+    'Sanduíches', 'Palhas', 'Trufas'];
+
   constructor(
     private router: Router,
     private authS: AuthService,
     private confirmationService: ConfirmationService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.authS.vendedor.subscribe(dado => this.vendedor = dado);
+  }
+
+  sobePagina() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   goTo(url) {
     console.log(url);

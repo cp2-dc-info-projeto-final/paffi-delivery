@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -14,15 +15,27 @@ export class AuthService {
 
   constructor(
     private fire: AngularFireAuth,
-    private router: Router) {
+    private router: Router,
+    private http: HttpClient) {
   }
 
   pegaUsuarioAtual() {
     return new Promise((resolve) => {
       this.fire.auth.onAuthStateChanged(user => {
         if (user) {
-          this.showNav.next(true);
-          resolve(user);
+          this.http.post('http://localhost:3000/buscaMinhaLoja',
+            { uid: user.uid }).subscribe(dado => {
+              if (dado) {
+                this.vendedor.next(true);
+                this.showNav.next(true);
+                resolve(true);
+              } else {
+                this.vendedor.next(false);
+                this.showNav.next(true);
+                resolve(true);
+              }
+            });
+
         } else {
           this.showNav.next(false);
           resolve(false);

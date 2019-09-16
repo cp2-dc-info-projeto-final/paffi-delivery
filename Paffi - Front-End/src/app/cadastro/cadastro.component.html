@@ -3,29 +3,29 @@
 
 
   <div class="row">
-    <div class="col l8 s12 offset-l2 z-depth-2  hoverable" id="principal" style="margin-top:8%;
+    <div class="col l8 s12 offset-l2 z-depth-2 hoverable" id="principal" style="margin-top:8%;
   background-color: rgba(255, 255, 255, 0.801)">
       <h2 style="margin-left: 32%;">Paffi Delivery</h2>
       <form class="col s12" [formGroup]="formularioCadastro">
-        <div class="input-field col s4">
+        <div class="input-field col l4 s6">
           <input class="validate" id="nome" formControlName="nome" type="text">
           <label for="nome">Nome</label>
         </div>
-        <div class="input-field col s4">
+        <div class="input-field col l4 s6">
           <input class="validate" id="sobrenome" formControlName="sobrenome" type="text">
           <label for="sobrenome">Sobrenome</label>
         </div>
-        <div class="input-field col s4" style="margin-top: 1.7em">
+        <div class="input-field col l4 s12" style="margin-top: 1.7em">
           <p-dropdown [options]="opcoes" formControlName="vender" (onChange)="verificaVendedor()"></p-dropdown>
         </div>
         <div class="input-field col s12" *ngIf="venda">
           <input class="validate" id="nomeloja" formControlName="nomeLoja" type="text">
           <label for="nomeloja">Nome da loja</label></div>
-        <div class="input-field col s6">
+        <div class="input-field col l6 s12">
           <input class="validate" id="email" formControlName="email" type="email">
           <label for="email">E-mail</label>
         </div>
-        <div class="input-field col s6">
+        <div class="input-field col l6 s12">
           <input class="validate" id="confemail" formControlName="confEmail" type="email">
           <label for="confemail">Confirme seu E-mail:</label>
         </div>

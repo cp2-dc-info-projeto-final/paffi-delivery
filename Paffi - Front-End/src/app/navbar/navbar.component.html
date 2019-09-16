@@ -1,19 +1,102 @@
-<nav>
-    <div class="nav-wrapper blue darken-2">
-        <a class="brand-logo center" (click)="goTo('home')" onMouseOver="this.style.color='white'">
-      Paffi Delivery
-    </a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a (click)="goTo('home')" onMouseOver="this.style.color='white'" style="font-size: 18px">Restaurantes</a></li>
-            <li><a (click)="goTo('minhaloja')" onMouseOver="this.style.color='white'" style="font-size: 18px">Minha Loja</a></li>
-            <li><a (click)="sair()" onMouseOver="this.style.color='white'" style="font-size: 18px">Sair</a></li>
-        </ul>
+<p-sidebar [(visible)]="sideNav">
+  <h5 style="margin-top: 1em">Escolha uma Categoria:</h5>
+  <div class="row">
+    <div class="col s12" *ngFor="let categoria of categorias" style="margin-top: 1.2em">
+      <button type="button" class="col s12" pButton [label]="categoria"></button>
     </div>
-</nav>
+  </div>
+</p-sidebar>
+
+<p-sidebar [(visible)]="sideNavMobileVendedor">
+    <p-scrollPanel [style]="{width: '100%', height: '97%'}">
+        <h5>Links:</h5>
+        <li><a (click)="goTo('home')" style="font-size: 18px">Restaurantes</a></li>
+        <li><a (click)="goTo('minhaloja')" style="font-size: 18px">Minha Loja</a>
+        </li>
+        <li><a (click)="goTo('perfil')" style="font-size: 18px">Meu Perfil</a></li>
+        <li><a (click)="sair()" style="font-size: 18px">Sair</a></li>
+        <h5 style="margin-top: 1em">Escolha uma Categoria:</h5>
+        <div class="row">
+          <div class="col s12" *ngFor="let categoria of categorias" style="margin-top: 1.2em">
+            <button type="button" class="col s12" pButton [label]="categoria"></button>
+          </div>
+        </div>
+    </p-scrollPanel>
+</p-sidebar>
+
+<p-sidebar [(visible)]="sideNavMobileNaoVendedor">
+  <h5>Links:</h5>
+  <li><a (click)="goTo('home')" style="font-size: 18px">Restaurantes</a></li>
+  <li><a (click)="goTo('perfil')" style="font-size: 18px">Meu Perfil</a></li>
+  <li><a (click)="sair()" style="font-size: 18px">Sair</a></li>
+  <h5 style="margin-top: 1em">Escolha uma Categoria:</h5>
+  <div class="row">
+    <div class="col s12" *ngFor="let categoria of categorias" style="margin-top: 1.2em">
+      <button type="button" class="col s12" pButton [label]="categoria"></button>
+    </div>
+  </div>
+</p-sidebar>
+
+
 
 <p-confirmDialog #cd header="Confirmação" icon="pi pi-exclamation-triangle">
-    <p-footer>
-        <button type="button" pButton icon="pi pi-check" label="Sim" (click)="cd.accept()"></button>
-        <button type="button" pButton icon="pi pi-times" label="Não" (click)="cd.reject()"></button>
-    </p-footer>
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" label="Sim" (click)="cd.accept()"></button>
+    <button type="button" pButton icon="pi pi-times" label="Não" (click)="cd.reject()"></button>
+  </p-footer>
 </p-confirmDialog>
+
+<nav *ngIf="vendedor">
+  <div class="nav-wrapper blue darken-2">
+    <a (click)="sideNavMobileVendedor = true" class="sidenav-trigger" style="color: white; text-decoration: none">
+      <i class="material-icons">menu</i></a>
+    <a class="brand-logo center" (click)="goTo('home')" onMouseOver="this.style.color='white'">
+      Paffi Delivery
+    </a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a (click)="goTo('home')" onMouseOver="this.style.color='white'" style="font-size: 18px">Restaurantes</a></li>
+      <li><a (click)="goTo('minhaloja')" onMouseOver="this.style.color='white'" style="font-size: 18px">Minha Loja</a>
+      </li>
+      <li><a (click)="goTo('home')" onMouseOver="this.style.color='white'" style="font-size: 18px">Meu Perfil</a></li>
+      <li><a (click)="sair()" onMouseOver="this.style.color='white'" style="font-size: 18px">Sair</a></li>
+    </ul>
+    <ul id="nav-mobile" class="left hide-on-med-and-down">
+      <li>
+        <a (click)="sideNav = true">
+          <div class="row">
+            <i class="material-icons col s4" style="font-size: 32px">menu</i>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+
+<nav *ngIf="!vendedor">
+  <div class="nav-wrapper blue darken-2">
+    <a (click)="sideNavMobileNaoVendedor = true" class="sidenav-trigger" style="color: white; text-decoration: none">
+      <i class="material-icons">menu</i></a>
+    <a class="brand-logo center" (click)="goTo('home')" onMouseOver="this.style.color='white'">
+      Paffi Delivery
+    </a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a (click)="goTo('home')" onMouseOver="this.style.color='white'" style="font-size: 18px">Restaurantes</a></li>
+      <li><a (click)="goTo('home')" onMouseOver="this.style.color='white'" style="font-size: 18px">Meu Perfil</a></li>
+      <li><a (click)="sair()" onMouseOver="this.style.color='white'" style="font-size: 18px">Sair</a></li>
+    </ul>
+    <ul id="nav-mobile" class="left hide-on-med-and-down">
+      <li>
+        <a (click)="sideNav = true">
+          <div class="row">
+            <i class="material-icons col s4" style="font-size: 32px">menu</i>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<a class="btn-floating btn-large waves-effect waves-light blue darken-3" (click)="sobePagina()"
+  style="position: fixed; bottom: 7%; right: 5%;z-index: 2"><i class="material-icons">keyboard_arrow_up</i></a>

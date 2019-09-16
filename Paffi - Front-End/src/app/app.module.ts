@@ -23,7 +23,12 @@ import { MinhaLojaComponent } from './minha-loja/minha-loja.component';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import {ConfirmationService} from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
+import { SidebarModule } from 'primeng/sidebar';
+import { LojaComponent } from './loja/loja.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { ScrollPanelModule, ScrollPanel } from 'primeng/scrollpanel';
+
 
 
 
@@ -45,7 +50,9 @@ export const firebaseConfig = {
     MinhaLojaComponent,
     CadastroComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    LojaComponent,
+    PerfilComponent
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
@@ -64,7 +71,9 @@ export const firebaseConfig = {
     DialogModule,
     AngularFireStorageModule,
     InputTextareaModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    SidebarModule,
+    ScrollPanelModule
   ],
   providers: [
     MessageService,
