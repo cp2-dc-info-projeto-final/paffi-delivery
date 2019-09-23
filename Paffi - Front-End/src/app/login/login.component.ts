@@ -23,21 +23,24 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
 
+    // verifica se o usuário está logado
     this.AuthS.pegaUsuarioAtual().then((dado) => {
-      console.log('humm');
       if (dado) {
-        console.log('humm');
         this.router.navigate(['home']);
       }
     });
 
+    // Monta a estrutura do formulário de login
     this.formularioLogin = this.formBuilder.group({
       email: [null, [Validators.required, Validators.email]],
       senha: [null, Validators.required],
     });
   }
 
+  // Executa o login
   logar() {
+
+    // Verifica se o formulário está inválido
     if (!this.formularioLogin.valid) {
       this.messageService.add({
         severity: 'warn',
@@ -47,12 +50,10 @@ export class LoginComponent implements OnInit {
     } else {
       const email = this.formularioLogin.value.email;
       const senha = this.formularioLogin.value.senha;
-      console.log(senha, email);
       this.AuthS.fazLogin(email, senha).then(() => {
-        console.log('logado');
         this.router.navigate(['home']);
-      }).catch((err) => {
-        console.log(err);
+      }) // Trata erros do login(Senha Errada, Usuário não encontrado, Dados inválidos)
+      .catch((err) => {
         if (err.code === 'auth/wrong-password') {
           this.messageService.add({
             severity: 'warn',
@@ -74,13 +75,10 @@ export class LoginComponent implements OnInit {
 
         }
       });
-
-      // this.AuthS.fazLogin(email, senha).then(() => {
-      //   console.log(this.AuthS.pegaUsuarioAtual());
-      // });
     }
   }
 
+  // Redireciona para a página de cadastro
   redirecionaCadastro() {
     this.router.navigate(['cadastro']);
   }

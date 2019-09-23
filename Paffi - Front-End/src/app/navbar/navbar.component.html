@@ -8,20 +8,20 @@
 </p-sidebar>
 
 <p-sidebar [(visible)]="sideNavMobileVendedor">
-    <p-scrollPanel [style]="{width: '100%', height: '97%'}">
-        <h5>Links:</h5>
-        <li><a (click)="goTo('home')" style="font-size: 18px">Restaurantes</a></li>
-        <li><a (click)="goTo('minhaloja')" style="font-size: 18px">Minha Loja</a>
-        </li>
-        <li><a (click)="goTo('perfil')" style="font-size: 18px">Meu Perfil</a></li>
-        <li><a (click)="sair()" style="font-size: 18px">Sair</a></li>
-        <h5 style="margin-top: 1em">Escolha uma Categoria:</h5>
-        <div class="row">
-          <div class="col s12" *ngFor="let categoria of categorias" style="margin-top: 1.2em">
-            <button type="button" class="col s12" pButton [label]="categoria"></button>
-          </div>
-        </div>
-    </p-scrollPanel>
+  <p-scrollPanel [style]="{width: '100%', height: '97%'}">
+    <h5>Links:</h5>
+    <li><a (click)="goTo('home')" style="font-size: 18px">Restaurantes</a></li>
+    <li><a (click)="goTo('minhaloja')" style="font-size: 18px">Minha Loja</a>
+    </li>
+    <li><a (click)="goTo('perfil')" style="font-size: 18px">Meu Perfil</a></li>
+    <li><a (click)="sair()" style="font-size: 18px">Sair</a></li>
+    <h5 style="margin-top: 1em">Escolha uma Categoria:</h5>
+    <div class="row">
+      <div class="col s12" *ngFor="let categoria of categorias" style="margin-top: 1.2em">
+        <button type="button" class="col s12" pButton [label]="categoria"></button>
+      </div>
+    </div>
+  </p-scrollPanel>
 </p-sidebar>
 
 <p-sidebar [(visible)]="sideNavMobileNaoVendedor">
@@ -51,7 +51,7 @@
     <a (click)="sideNavMobileVendedor = true" class="sidenav-trigger" style="color: white; text-decoration: none">
       <i class="material-icons">menu</i></a>
     <a class="brand-logo center" (click)="goTo('home')" onMouseOver="this.style.color='white'">
-      Paffi Delivery
+      <img src="../../assets/paffi-logo.png" style="height: 60px">
     </a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a (click)="goTo('home')" onMouseOver="this.style.color='white'" style="font-size: 18px">Restaurantes</a></li>
@@ -79,7 +79,7 @@
     <a (click)="sideNavMobileNaoVendedor = true" class="sidenav-trigger" style="color: white; text-decoration: none">
       <i class="material-icons">menu</i></a>
     <a class="brand-logo center" (click)="goTo('home')" onMouseOver="this.style.color='white'">
-      Paffi Delivery
+      <img src="../../assets/paffi-logo.png" style="height: 60px">
     </a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a (click)="goTo('home')" onMouseOver="this.style.color='white'" style="font-size: 18px">Restaurantes</a></li>

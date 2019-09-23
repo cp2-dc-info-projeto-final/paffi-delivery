@@ -37,7 +37,6 @@ export class MinhaLojaComponent implements OnInit {
   constructor(
     private AuthS: AuthService,
     private router: Router,
-    private ngZone: NgZone,
     private http: HttpClient,
     private storage: AngularFireStorage,
     private formBuilder: FormBuilder,
@@ -101,7 +100,7 @@ export class MinhaLojaComponent implements OnInit {
     this.addProduto = true;
   }
 
-  // Faz o Upload da foto
+  // Faz o Upload da foto da loja
   uploadFile(event) {
 
     // Mensagem Personalizada
@@ -111,11 +110,12 @@ export class MinhaLojaComponent implements OnInit {
       detail: 'Espere até a foto salvar para salvar as mudanças no perfil'
     });
 
-    // Função do FireBase de armazenamento
+    // Foto Carregando => Desabilita a opção de salvar
     this.salvar = false;
     const user = this.AuthS.pegaIdUsuario();
     const file = event.target.files[0];
     if (file.size > 10000000) {
+      // Arquivo muito grande = Mensagem de erro
       this.messageService.add({
         severity: 'warn',
         summary: 'Arquivo inválido',
@@ -123,17 +123,19 @@ export class MinhaLojaComponent implements OnInit {
                 tente novamente com um arquivo menor`
       });
     } else {
+      // Função do FireBase de armazenamento
       const filePath = user + '/loja';
       const ref = this.storage.ref(filePath);
       const task = ref.put(file).then((dado) => {
         ref.getDownloadURL().subscribe(foto => {
-
+          this.loja.photoURL = foto;
           // Mensagem Personalizada
           this.messageService.add({
             severity: 'success',
             summary: 'Sucesso!',
             detail: 'A foto foi salva!'
           });
+          // Atualiza o formulário para depois salvar no banco de dados
           this.formularioLoja.patchValue({ photoURL: foto });
           this.salvar = true;
         });
@@ -142,11 +144,13 @@ export class MinhaLojaComponent implements OnInit {
 
   }
 
+  // Envia foto do produto
   uploadFileProduto(event) {
-
+    // Pega o id do usuário pra inserir produto em sua loja
     const user = this.AuthS.pegaIdUsuario();
     const file = event.target.files[0];
     if (file.size > 10000000) {
+      // Arquivo muito grande = Mensangem de erro
       this.messageService.add({
         severity: 'warn',
         summary: 'Arquivo inválido',
@@ -160,9 +164,10 @@ export class MinhaLojaComponent implements OnInit {
         summary: 'Salvando foto',
         detail: 'Espere até a foto salvar para adicionar o seu produto'
       });
+      // Desabilita a opção de salvar enquanto a foto carrega
+      this.salvarProduto = false;
 
       // Função do FireBase de armazenamento
-      this.salvarProduto = false;
       const filePath = user + '/file' + this.produtos.length + 1;
       const ref = this.storage.ref(filePath);
       const task = ref.put(file).then((dado) => {
@@ -174,6 +179,7 @@ export class MinhaLojaComponent implements OnInit {
             summary: 'Sucesso!',
             detail: 'A foto foi salva!'
           });
+          // Atualiza formulário pra depois salvar no banco de dados
           this.formularioProduto.patchValue({ url: foto });
           this.salvarProduto = true;
         });
@@ -186,7 +192,7 @@ export class MinhaLojaComponent implements OnInit {
     (this.modoEditar) ? this.modoEditar = false : this.modoEditar = true;
   }
 
-  // Cancela alterações do perfil
+  // Cancela alterações do perfil e reseta o formulário
   desativaModoEditar() {
     this.formularioLoja.patchValue({
       nome: this.loja.nome_loja,
@@ -198,10 +204,13 @@ export class MinhaLojaComponent implements OnInit {
 
   // Função para atualizar a loja
   atualizaLoja() {
+
+    // Requisição pro servidor NODE para atualizar a loja com os dados do formulário
     this.http.post('http://localhost:3000/atualizaLoja', {
       nome: this.formularioLoja.value.nome, url: this.formularioLoja.value.photoURL,
       descricao: this.formularioLoja.value.descricao, uid: this.AuthS.pegaIdUsuario()
     }).subscribe(dado => {
+      // Buscando a loja novamente para atualizar os dados do perfil em tempo real
       this.http.post('http://localhost:3000/buscaMinhaLoja',
         { uid: this.AuthS.pegaIdUsuario() })
         .subscribe((loja: any[]) => {
@@ -212,6 +221,7 @@ export class MinhaLojaComponent implements OnInit {
           });
           this.loja = loja;
           this.mostraConteudo = true;
+          // Resetando o formulário
           this.formularioLoja = this.formBuilder.group({
             nome: this.loja.nome_loja,
             photoURL: this.loja.photoURL,
@@ -223,7 +233,11 @@ export class MinhaLojaComponent implements OnInit {
 
   // Função que adiciona produtos
   addProdutos() {
+
+    // Verifica se o formulário está válido
     if (this.formularioProduto.valid) {
+
+      // Requisição para adicionar o produto no banco de dados
       this.http.post('http://localhost:3000/addProduto',
         {
           nome: this.formularioProduto.value.nome,
@@ -239,7 +253,11 @@ export class MinhaLojaComponent implements OnInit {
               summary: 'Produto adicionado',
               detail: 'O seu produto foi adicionado com sucesso!'
             });
+
+            // Reseta formulário
             this.formularioProduto.reset();
+
+            // Atualiza a lista de produtos para aparecer os recém adicionados
             this.http.post('http://localhost:3000/buscaLojaProduto',
               { id: this.loja.id_loja }).subscribe(prod => {
                 this.produtos = prod;
@@ -248,6 +266,7 @@ export class MinhaLojaComponent implements OnInit {
           }
         });
     } else {
+      // Erro no preenchimento dos dados
       this.messageService.add({
         severity: 'warn',
         summary: 'Erro no preenchimento',

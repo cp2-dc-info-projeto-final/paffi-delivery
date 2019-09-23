@@ -20,10 +20,10 @@ app.use(bodyParser.raw({
 
 //BANCO DE DADOS
 const connection = mysql.createConnection({
-    host: 'sql10.freemysqlhosting.net',
-    user: 'sql10305052',
-    database: 'sql10305052',
-    password: 'pNRnb7i1Xf',
+    host: 'remotemysql.com',
+    user: 'wcnbXQoWMJ',
+    database: 'wcnbXQoWMJ',
+    password: 'hnizA8XKtS',
     port: '3306'
 });
 

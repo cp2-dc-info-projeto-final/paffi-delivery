@@ -1,3 +1,4 @@
+import { LojaService } from './../loja.service';
 import { AuthService } from './../auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, NgZone } from '@angular/core';
@@ -10,38 +11,45 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
   public mostraConteudo = false;
   public Stores: any[] = [];
+  public id;
 
   constructor(
     private http: HttpClient,
     private AuthS: AuthService,
     private router: Router,
-    private ngZone: NgZone) { }
+    private lojaS: LojaService) { }
 
   ngOnInit() {
+
+    // Verifica se está logado
     this.AuthS.pegaUsuarioAtual().then((dado) => {
       if (dado) {
         this.mostraConteudo = true;
+        this.id = this.AuthS.pegaIdUsuario();
       } else {
         this.mostraConteudo = false;
         this.router.navigate(['']);
       }
     });
-
+    // Pega todas as lojas
     this.http.post('http://localhost:3000/pegaLojas', {})
       .subscribe((dado: any[]) => {
         this.Stores = dado;
       });
-    if (this.AuthS.pegaUsuarioAtual()) {
-      this.mostraConteudo = true;
-    } else {
-      this.mostraConteudo = false;
-      this.router.navigate(['']);
-    }
-
   }
-  go() {
-    this.router.navigate(['minhaloja']);
+
+  // Entra na loja
+  entraLoja(loja) {
+
+    // Se a loja for sua redireciona pro seu perfil de loja
+    if (loja.id_dono === this.id) {
+      this.router.navigate(['minhaloja']);
+    } else {
+      this.lojaS.dadosLoja.next(loja);
+      this.router.navigate(['loja']);
+    }
   }
 }

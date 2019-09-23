@@ -24,18 +24,21 @@ export class NavbarComponent implements OnInit {
     private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
+    // Verifica se o usuário é vendedor ou não
     this.authS.vendedor.subscribe(dado => this.vendedor = dado);
   }
 
+  // Botão para subir a página pro topo
   sobePagina() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-
+  // Navegação
   goTo(url) {
     console.log(url);
     this.router.navigate([url]);
   }
 
+  // LogOut
   sair() {
     this.confirmationService.confirm({
       message: 'Tem certeza que deseja sair?',

@@ -17,14 +17,14 @@
 
 ## RF 01
 
-  Sistema de login que identifique se o usuário é cliente ou vendedor e redirecione para a página correspondente.
+  Sistema de login que identifique se o usuário é cliente ou vendedor e mostre barras de navegações diferentes para cada tipo de conta
 
 ## RF 02
 
-  Vendedores dispostos em forma de lista para os clientes acessarem as "lojas".
+  Vendedores dispostos em cards(dispostos em formato de grade) para os clientes acessarem as "lojas".
 ## RF 03
 
-  Páginas diferentes para tipos de contas diferentes.
+  Rotas diferentes para tipos de contas diferentes.
 
 ## RF 04
 
@@ -68,7 +68,7 @@
 
 ## RNF 2
 
- Ser acessivel por pelo menos 2 navegadores.
+ Responsivo para dispositivos móveis e desktop.
 
 ## RNF 3
 
@@ -76,7 +76,7 @@
 
 ## RNF 4
 
-  Login será feito com o número da matricula.
+  Login será feito com E-mail e senha.
 
 ## RNF 5
 
@@ -84,4 +84,4 @@
 
 ## RNF 6
 
-  Desenvolvido em PHP.
+  Desenvolvido em Angular8+ e Node.JS

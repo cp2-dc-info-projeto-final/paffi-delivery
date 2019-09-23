@@ -25,18 +25,22 @@ export class CadastroComponent implements OnInit {
     private ngZone: NgZone) { }
 
   ngOnInit() {
+
+    // Verifica se o usuário está logado
     this.AuthS.pegaUsuarioAtual().then((dado) => {
       if (dado) {
         this.router.navigate(['home']);
       }
     });
 
+    // Opções da caixa de seleção
     this.opcoes = [
       { label: 'Deseja Vender?', value: null },
       { label: 'Sim', value: true },
       { label: 'Não', value: false },
     ];
 
+    // Construção do formulário de cadastro
     this.formularioCadastro = this.formBuilder.group({
       nome: [null, Validators.required],
       sobrenome: [null, Validators.required],
@@ -49,6 +53,7 @@ export class CadastroComponent implements OnInit {
     });
   }
 
+  // Verifica se o usuário marcou que deseja vender
   verificaVendedor() {
     if (this.formularioCadastro.value.vender === true) {
       this.venda = true;
@@ -57,6 +62,7 @@ export class CadastroComponent implements OnInit {
     }
   }
 
+  // Verifica se os dados estão corretos e efetua o cadastro
   cadastrar() {
     if (!this.formularioCadastro.valid) {
       this.messageService.add({
@@ -65,10 +71,14 @@ export class CadastroComponent implements OnInit {
         detail: 'Verifique os dados e tente novamente'
       });
     } else {
+
+      // Verifica se email e confirmar email  / Senha e confirmar senha estão corretos
       if ((this.formularioCadastro.value.email === this.formularioCadastro.value.confEmail)
         && (this.formularioCadastro.value.senha === this.formularioCadastro.value.confSenha)) {
+          // Chama a função de cadastrar usuário no banco de dados
         this.AuthS.cadastraUsuario(this.formularioCadastro.value.email, this.formularioCadastro.value.senha)
           .then(() => {
+            // Coloca um nome padrão pra loja se o usuário não informar
             if (this.formularioCadastro.value.nomeLoja == null) {
               this.formularioCadastro.patchValue({ nomeLoja: 'Minha Loja' });
               this.http.post('http://localhost:3000/cadastraUsuario',
@@ -94,9 +104,8 @@ export class CadastroComponent implements OnInit {
                 .subscribe(dado => console.log(dado));
             }
             this.router.navigate(['home']);
-          })
+          }) // Trata os Erros (Email em uso, Senha fraca, Confirmação de senha/email e dados inválidos)
           .catch((err) => {
-            console.log(err);
             if (err.code === 'auth/email-already-in-use') {
               this.messageService.add({
                 severity: 'warn',
@@ -112,7 +121,7 @@ export class CadastroComponent implements OnInit {
             } else {
               this.messageService.add({
                 severity: 'warn',
-                summary: 'Confirmação de Senha incorreta',
+                summary: 'Dados inválidos',
                 detail: 'Verifique os dados e tente novamente'
               });
             }
@@ -131,10 +140,6 @@ export class CadastroComponent implements OnInit {
         });
       }
     }
-  }
-  myUploader(e) {
-    console.log(e.files);
-    this.http.post('http://localhost:3000/teste', { foto: e.files }).subscribe((dado) => console.log(dado));
   }
 }
 
