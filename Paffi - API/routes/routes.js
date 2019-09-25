@@ -5,9 +5,11 @@ module.exports = (app) => {
     const loja = require('../controllers/storeCtrl')
     //Controllers
 
-
+    //Cadastro
     app.post('/cadastraUsuario', cadastro.cadastrar)
+    //Cadastro
 
+    //Loja
     app.post('/pegaLojas', loja.pegaLojas)
 
     app.post('/atualizaLoja', loja.attPerfil)
@@ -18,8 +20,7 @@ module.exports = (app) => {
 
     app.post('/addProduto', loja.addProduto)
 
-    app.post('/teste', (req, res) =>{
-        var image = req.body.foto;
-    })
+    app.post('/removeProduto', loja.removeProduto)
+    //Loja
 
 };

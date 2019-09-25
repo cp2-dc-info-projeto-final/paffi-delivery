@@ -60,4 +60,10 @@ export class AuthService {
     return this.fire.auth.createUserWithEmailAndPassword(email, senha);
   }
 
+  enviaRedefinicaoSenha(email) {
+    console.log('entrou aqui');
+    this.fire.auth.sendPasswordResetEmail(email)
+    .then((dado) => console.log(dado))
+    .catch((err) => console.log(err));
+  }
 }

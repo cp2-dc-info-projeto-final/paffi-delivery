@@ -23,7 +23,7 @@ const connection = mysql.createConnection({
     host: 'remotemysql.com',
     user: 'wcnbXQoWMJ',
     database: 'wcnbXQoWMJ',
-    password: 'hnizA8XKtS',
+    password: 'IP7OYDJSZK',
     port: '3306'
 });
 

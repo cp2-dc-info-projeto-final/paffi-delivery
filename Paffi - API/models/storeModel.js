@@ -110,3 +110,11 @@ exports.getProdutos = function(id) {
         })
     });
 }
+
+exports.removeProduto = function(id) {
+    app.connection.query('DELETE FROM `produto` WHERE id_produto = ?', 
+    [id], (err, resu) => {
+        if(resu) console.log('apagou')
+        if(err) console.log('erro')
+    })
+}

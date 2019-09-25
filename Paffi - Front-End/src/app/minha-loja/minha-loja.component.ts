@@ -16,7 +16,6 @@ export class MinhaLojaComponent implements OnInit {
   // Dados gerais da loja
   public produtos: any = [];
   public loja: any = {};
-
   // Fim dos dados gerais da loja
 
   // Controladores de conteúdo
@@ -26,6 +25,7 @@ export class MinhaLojaComponent implements OnInit {
   public modoEditar = false;
   public display = false;
   public addProduto = false;
+  public config = false;
   // Fim dos controladores de conteúdo
 
   // Formulários
@@ -88,6 +88,11 @@ export class MinhaLojaComponent implements OnInit {
         this.router.navigate(['']);
       }
     });
+  }
+
+  // Mostra janela de configurações de produto
+  showConfig() {
+    this.config = true;
   }
 
   // Mostra a janela de edição

@@ -1,3 +1,17 @@
+<p-dialog header="Redefinição de senha" [(visible)]="display" [draggable]="false" [resizable]="false" [modal]="true"
+  [dismissableMask]="true">
+  <h5>Insira seu e-mail:</h5>
+  <div class="row">
+      <form class="col s12" [formGroup]="formularioRSenha">
+          <div class="input-field">
+              <input formControlName="email" id="email" type="text" class="validate" />
+              <label for="email">E-Mail</label>
+          </div>
+          <button pButton type="button" class="col s12" label="Enviar redefinição de senha" (click)="RedefineSenha()"></button>
+      </form>
+  </div>
+</p-dialog>
+
 <div style="width: 100%;height: 100vh;background-image: url('../../../assets/bg.jpg')">
     <p-toast [style]="{marginTop: '80px'}"></p-toast>
 
@@ -17,11 +31,15 @@
                 <div class="col s12" style="margin-top:2em;">
                     <button pButton type="submit" class="col s12" label="Entrar" (click)="logar()"></button>
                 </div>
-                <div class="col s12" style="margin-top:15px;margin-bottom: 3em">
+                <div class="col s12" style="margin-top:15px;margin-bottom: 0.6em">
                     <button pButton type="button" class="col s12" label="Cadastrar" (click)="redirecionaCadastro()"></button>
+                </div>
+                <div class="col s12 center-align">
+                  <p style="color: rgb(112, 112, 112)"
+                  (click)="abreRedefineSenha()">Esqueceu sua senha?</p>
                 </div>
             </form>
         </div>
     </div>
-    <div class="col s8 offset-s2" id="poha"></div>
+    <div class="col s8 offset-s2"></div>
 </div>
