@@ -3,9 +3,9 @@
   <input pButton (change)="uploadFile($event)" type="file" style="width: 100%">
 </p-dialog>
 
-<p-dialog header="Atualizar Dados" [(visible)]="config" [draggable]="false" [resizable]="false" [modal]="true"
+<p-dialog header="Configurar produto" [(visible)]="config" [draggable]="false" [resizable]="false" [modal]="true"
 [dismissableMask]="true" [style]="{'width':'60vw'}">
-  <form [formGroup]="formularioProduto" class="row">
+  <form [formGroup]="formularioProduto" class="row" *ngIf="config">
 
     <div class="input-field col s6">
       <input class="validate" id="nome" formControlName="nome" type="text">
@@ -28,11 +28,11 @@
 
     <div class="input-field col s6">
       <input class="validate" id="val" formControlName="val" type="text">
-      <label for="val">Preço</label>
+      <label for="val">Preço em R$</label>
     </div>
-    <button class="waves-effect waves-light btn col s12">Salvar produtos</button>
+    <button class="waves-effect waves-light btn col s12" (click)="atualizaProduto()">Salvar produtos</button>
       <button class="waves-effect waves-light red darken-3 btn col s12"
-    style="margin-top: 1em">Excluir produto</button>
+    style="margin-top: 1em" (click)="excluiProduto()">Excluir produto</button>
   </form>
 </p-dialog>
 
@@ -61,7 +61,7 @@
 
     <div class="input-field col s6">
       <input class="validate" id="val" formControlName="val" type="text">
-      <label for="val">Preço</label>
+      <label for="val">Preço em R$</label>
     </div>
     <button class="waves-effect waves-light btn col s12" id="abreForm" (click)="addProdutos()"
       [disabled]="!salvarProduto">Salvar produtos</button>
@@ -148,7 +148,7 @@
           <td>{{produto.descricao}}</td>
           <td>{{produto.categoria}}</td>
           <td>R${{produto.valor}}</td>
-          <td style="cursor: pointer" (click)="showConfig()">
+          <td style="cursor: pointer" (click)="showConfig(produto)">
             <i class="material-icons medium" style="color: rgb(47, 46, 59)">settings</i>
           </td>
         </tr>
@@ -196,7 +196,7 @@
         <td>{{produto.descricao}}</td>
         <td>{{produto.categoria}}</td>
         <td>R${{produto.valor}}</td>
-        <td style="cursor: pointer" (click)="showConfig()">
+        <td style="cursor: pointer" (click)="showConfig(produto)">
           <i class="material-icons medium" style="color: rgb(47, 46, 59)">settings</i>
         </td>
       </tr>

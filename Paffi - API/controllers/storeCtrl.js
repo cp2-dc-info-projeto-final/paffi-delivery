@@ -39,5 +39,5 @@ exports.addProduto = (req, res) => {
 
 exports.removeProduto = (req, res) => {
     model.removeProduto(req.body.id)
-    res.send('sucess')
+    res.send({})
 }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-minha-loja',
@@ -16,6 +17,7 @@ export class MinhaLojaComponent implements OnInit {
   // Dados gerais da loja
   public produtos: any = [];
   public loja: any = {};
+  private prodSelecionado: any = [];
   // Fim dos dados gerais da loja
 
   // Controladores de conteúdo
@@ -41,6 +43,7 @@ export class MinhaLojaComponent implements OnInit {
     private storage: AngularFireStorage,
     private formBuilder: FormBuilder,
     private messageService: MessageService,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit() {
@@ -91,7 +94,8 @@ export class MinhaLojaComponent implements OnInit {
   }
 
   // Mostra janela de configurações de produto
-  showConfig() {
+  showConfig(produto) {
+    this.prodSelecionado = produto;
     this.config = true;
   }
 
@@ -278,5 +282,57 @@ export class MinhaLojaComponent implements OnInit {
         detail: 'Por favor preencha todos os dados para adicionar um produto.'
       });
     }
+  }
+
+  atualizaProduto() {
+    console.log(this.prodSelecionado)
+    if (!this.formularioProduto.value.nome) {
+      console.log('hi')
+      this.formularioProduto.patchValue({
+        nome: this.prodSelecionado.nome
+      })
+    }
+
+    if (!this.formularioProduto.value.desc) {
+      this.formularioProduto.patchValue({
+        desc: this.prodSelecionado.descricao
+      })
+    }
+
+    if (!this.formularioProduto.value.cat) {
+      this.formularioProduto.patchValue({
+        cat: this.prodSelecionado.categoria
+      })
+    }
+
+    if (!this.formularioProduto.value.val) {
+      this.formularioProduto.patchValue({
+        val: this.prodSelecionado.valor
+      })
+    }
+    console.log(this.formularioProduto.value)
+  }
+
+  excluiProduto() {
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir esse produto?',
+      accept: () => {
+        this.http.post('http://localhost:3000/removeProduto', {
+          id: this.prodSelecionado.id_produto
+        }).subscribe(dado => {
+          this.config = false;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso!',
+            detail: 'Seu produto foi apagado!'
+          });
+          this.http.post('http://localhost:3000/buscaLojaProduto',
+            { id: this.loja.id_loja }).subscribe(prod => {
+              this.produtos = prod;
+              console.log(this.produtos);
+            });
+        });
+      }
+    })
   }
 }
