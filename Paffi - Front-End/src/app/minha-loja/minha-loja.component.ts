@@ -21,6 +21,10 @@ export class MinhaLojaComponent implements OnInit {
   private prodSelecionado: any = [];
   // Fim dos dados gerais da loja
 
+  // Loading
+  public loading = false;
+  // Loading
+
   // Controladores de conteúdo
   public salvarProduto = true;
   public salvar = true;
@@ -261,7 +265,7 @@ export class MinhaLojaComponent implements OnInit {
 
   // Função para atualizar a loja
   atualizaLoja() {
-
+    this.loading = true;
     // Requisição pro servidor NODE para atualizar a loja com os dados do formulário
     this.http.post('http://localhost:3000/atualizaLoja', {
       nome: this.formularioLoja.value.nome, url: this.formularioLoja.value.photoURL,
@@ -271,6 +275,7 @@ export class MinhaLojaComponent implements OnInit {
       this.http.post('http://localhost:3000/buscaMinhaLoja',
         { uid: this.AuthS.pegaIdUsuario() })
         .subscribe((loja: any[]) => {
+          this.loading = false;
           this.messageService.add({
             severity: 'success',
             summary: 'Dados Alterados',
@@ -333,6 +338,7 @@ export class MinhaLojaComponent implements OnInit {
   }
 
   atualizaProduto() {
+    this.loading = true;
     if (!this.formularioProduto.value.nome) {
       this.formularioProduto.patchValue({
         nome: this.prodSelecionado.nome
@@ -373,6 +379,7 @@ export class MinhaLojaComponent implements OnInit {
               this.formularioProduto.reset();
               this.http.post('http://localhost:3000/buscaLojaProduto',
               { id: this.loja.id_loja }).subscribe(prod => {
+                this.loading = false;
                 this.produtos = prod;
                 console.log(this.produtos);
               });
@@ -383,7 +390,7 @@ export class MinhaLojaComponent implements OnInit {
         {
           id: this.prodSelecionado.id_produto,
           nome: this.formularioProduto.value.nome,
-          desc: this.prodSelecionado.descricao,
+          desc: this.formularioProduto.value.desc,
           val: this.formularioProduto.value.val,
           cat: this.formularioProduto.value.cat,
           photoURL: this.prodSelecionado.photoURL
@@ -392,6 +399,7 @@ export class MinhaLojaComponent implements OnInit {
           this.formularioProduto.reset();
           this.http.post('http://localhost:3000/buscaLojaProduto',
             { id: this.loja.id_loja }).subscribe(prod => {
+              this.loading = false;
               this.produtos = prod;
               console.log(this.produtos);
             });
