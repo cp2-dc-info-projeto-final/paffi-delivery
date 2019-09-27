@@ -1,5 +1,7 @@
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { AuthService } from './../auth.service';
+// tslint:disable-next-line: quotemark
+import { FormBuilder, Validators, FormGroup } from "@angular/forms";
+// tslint:disable-next-line: quotemark
+import { AuthService } from "./../auth.service";
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -14,7 +16,6 @@ import { reject } from 'q';
   styleUrls: ['./minha-loja.component.css']
 })
 export class MinhaLojaComponent implements OnInit {
-
   // Dados gerais da loja
   public produtos: any = [];
   public loja: any = {};
@@ -49,19 +50,20 @@ export class MinhaLojaComponent implements OnInit {
     private formBuilder: FormBuilder,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) { }
+  ) {}
 
   ngOnInit() {
     // Modo editar inicia desligado
     this.modoEditar = false;
 
     // Verifico se tem algum usuário logado
-    this.AuthS.pegaUsuarioAtual().then((dado) => {
+    this.AuthS.pegaUsuarioAtual().then(dado => {
       if (dado) {
-
         // Se tiver - Busca os dados da loja e os produtos e inicializa os formulários/funcionalidades
-        this.http.post('http://localhost:3000/buscaMinhaLoja',
-          { uid: this.AuthS.pegaIdUsuario() })
+        this.http
+          .post('http://localhost:3000/buscaMinhaLoja', {
+            uid: this.AuthS.pegaIdUsuario()
+          })
           .subscribe((loja: any[]) => {
             this.loja = loja;
             this.mostraConteudo = true;
@@ -79,18 +81,20 @@ export class MinhaLojaComponent implements OnInit {
             this.formularioLoja = this.formBuilder.group({
               nome: this.loja.nome_loja,
               photoURL: this.loja.photoURL,
-              descricao: this.loja.descricao,
+              descricao: this.loja.descricao
             });
 
             // Busca produtos da loja
-            this.http.post('http://localhost:3000/buscaLojaProduto',
-              { id: this.loja.id_loja }).subscribe(prod => {
+            this.http
+              .post('http://localhost:3000/buscaLojaProduto', {
+                id: this.loja.id_loja
+              })
+              .subscribe(prod => {
                 this.produtos = prod;
                 console.log(this.produtos);
               });
           });
       } else {
-
         // Se não tiver, esconde o conteúdo da página e manda pra tela de login
         this.mostraConteudo = false;
         this.router.navigate(['']);
@@ -116,7 +120,6 @@ export class MinhaLojaComponent implements OnInit {
 
   // Faz o Upload da foto da loja
   uploadFile(event) {
-
     // Mensagem Personalizada
     this.messageService.add({
       severity: 'info',
@@ -140,22 +143,24 @@ export class MinhaLojaComponent implements OnInit {
       // Função do FireBase de armazenamento
       const filePath = user + '/loja';
       const ref = this.storage.ref(filePath);
-      const task = ref.put(file).then((dado) => {
-        ref.getDownloadURL().subscribe(foto => {
-          this.loja.photoURL = foto;
-          // Mensagem Personalizada
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Sucesso!',
-            detail: 'A foto foi salva!'
+      const task = ref
+        .put(file)
+        .then(dado => {
+          ref.getDownloadURL().subscribe(foto => {
+            this.loja.photoURL = foto;
+            // Mensagem Personalizada
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso!',
+              detail: 'A foto foi salva!'
+            });
+            // Atualiza o formulário para depois salvar no banco de dados
+            this.formularioLoja.patchValue({ photoURL: foto });
+            this.salvar = true;
           });
-          // Atualiza o formulário para depois salvar no banco de dados
-          this.formularioLoja.patchValue({ photoURL: foto });
-          this.salvar = true;
-        });
-      }).catch((err) => console.log(err));
+        })
+        .catch(err => console.log(err));
     }
-
   }
 
   // Envia foto do produto
@@ -182,22 +187,28 @@ export class MinhaLojaComponent implements OnInit {
       this.salvarProduto = false;
 
       // Função do FireBase de armazenamento
-      const filePath = user + '/file' + this.produtos.length + Math.floor((Math.random() * 100) + 1);
+      const filePath =
+        user +
+        '/file' +
+        this.produtos.length +
+        Math.floor(Math.random() * 100 + 1);
       const ref = this.storage.ref(filePath);
-      const task = ref.put(file).then((dado) => {
-        ref.getDownloadURL().subscribe(foto => {
-
-          // Mensagem Personalizada
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Sucesso!',
-            detail: 'A foto foi salva!'
+      const task = ref
+        .put(file)
+        .then(dado => {
+          ref.getDownloadURL().subscribe(foto => {
+            // Mensagem Personalizada
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso!',
+              detail: 'A foto foi salva!'
+            });
+            // Atualiza formulário pra depois salvar no banco de dados
+            this.formularioProduto.patchValue({ url: foto });
+            this.salvarProduto = true;
           });
-          // Atualiza formulário pra depois salvar no banco de dados
-          this.formularioProduto.patchValue({ url: foto });
-          this.salvarProduto = true;
-        });
-      }).catch((err) => console.log(err));
+        })
+        .catch(err => console.log(err));
     }
   }
 
@@ -230,27 +241,29 @@ export class MinhaLojaComponent implements OnInit {
       const user = this.AuthS.pegaIdUsuario();
 
       // Função do FireBase de armazenamento
-      const filePath = user + '/file' + Math.floor((Math.random() * 100) + 1);
+      const filePath = user + '/file' + Math.floor(Math.random() * 100 + 1);
       const ref = this.storage.ref(filePath);
-      const task = ref.put(file).then((dado) => {
-        ref.getDownloadURL().subscribe(foto => {
-          // Mensagem Personalizada
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Sucesso!',
-            detail: 'A foto foi salva!'
+      const task = ref
+        .put(file)
+        .then(dado => {
+          ref.getDownloadURL().subscribe(foto => {
+            // Mensagem Personalizada
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso!',
+              detail: 'A foto foi salva!'
+            });
+            // Atualiza formulário pra depois salvar no banco de dados
+            resolve(foto);
           });
-          // Atualiza formulário pra depois salvar no banco de dados
-          resolve(foto);
-        });
-      }).catch((err) => reject(err));
+        })
+        .catch(err => reject(err));
     });
   }
 
-
   // Ativa o modo de edição do perfil
   ativaModoEditar() {
-    (this.modoEditar) ? this.modoEditar = false : this.modoEditar = true;
+    this.modoEditar ? (this.modoEditar = false) : (this.modoEditar = true);
   }
 
   // Cancela alterações do perfil e reseta o formulário
@@ -267,48 +280,53 @@ export class MinhaLojaComponent implements OnInit {
   atualizaLoja() {
     this.loading = true;
     // Requisição pro servidor NODE para atualizar a loja com os dados do formulário
-    this.http.post('http://localhost:3000/atualizaLoja', {
-      nome: this.formularioLoja.value.nome, url: this.formularioLoja.value.photoURL,
-      descricao: this.formularioLoja.value.descricao, uid: this.AuthS.pegaIdUsuario()
-    }).subscribe(dado => {
-      // Buscando a loja novamente para atualizar os dados do perfil em tempo real
-      this.http.post('http://localhost:3000/buscaMinhaLoja',
-        { uid: this.AuthS.pegaIdUsuario() })
-        .subscribe((loja: any[]) => {
-          this.loading = false;
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Dados Alterados',
-            detail: 'Perfil alterado com sucesso!'
+    this.http
+      .post('http://localhost:3000/atualizaLoja', {
+        nome: this.formularioLoja.value.nome,
+        url: this.formularioLoja.value.photoURL,
+        descricao: this.formularioLoja.value.descricao,
+        uid: this.AuthS.pegaIdUsuario()
+      })
+      .subscribe(dado => {
+        // Buscando a loja novamente para atualizar os dados do perfil em tempo real
+        this.http
+          .post('http://localhost:3000/buscaMinhaLoja', {
+            uid: this.AuthS.pegaIdUsuario()
+          })
+          .subscribe((loja: any[]) => {
+            this.loading = false;
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Dados Alterados',
+              detail: 'Perfil alterado com sucesso!'
+            });
+            this.loja = loja;
+            this.mostraConteudo = true;
+            // Resetando o formulário
+            this.formularioLoja = this.formBuilder.group({
+              nome: this.loja.nome_loja,
+              photoURL: this.loja.photoURL,
+              descricao: this.loja.descricao
+            });
           });
-          this.loja = loja;
-          this.mostraConteudo = true;
-          // Resetando o formulário
-          this.formularioLoja = this.formBuilder.group({
-            nome: this.loja.nome_loja,
-            photoURL: this.loja.photoURL,
-            descricao: this.loja.descricao,
-          });
-        });
-    });
+      });
   }
 
   // Função que adiciona produtos
   addProdutos() {
-
     // Verifica se o formulário está válido
     if (this.formularioProduto.valid) {
-
       // Requisição para adicionar o produto no banco de dados
-      this.http.post('http://localhost:3000/addProduto',
-        {
+      this.http
+        .post('http://localhost:3000/addProduto', {
           nome: this.formularioProduto.value.nome,
           url: this.formularioProduto.value.url,
           desc: this.formularioProduto.value.desc,
           cat: this.formularioProduto.value.cat,
           val: this.formularioProduto.value.val,
           id_loja: this.loja.id_loja
-        }).subscribe(dado => {
+        })
+        .subscribe(dado => {
           if (dado) {
             this.messageService.add({
               severity: 'success',
@@ -320,8 +338,11 @@ export class MinhaLojaComponent implements OnInit {
             this.formularioProduto.reset();
 
             // Atualiza a lista de produtos para aparecer os recém adicionados
-            this.http.post('http://localhost:3000/buscaLojaProduto',
-              { id: this.loja.id_loja }).subscribe(prod => {
+            this.http
+              .post('http://localhost:3000/buscaLojaProduto', {
+                id: this.loja.id_loja
+              })
+              .subscribe(prod => {
                 this.produtos = prod;
                 console.log(this.produtos);
               });
@@ -364,69 +385,80 @@ export class MinhaLojaComponent implements OnInit {
     }
     this.config = false;
     if (this.prodSelecionado.foto) {
-      this.uploadUpdate(this.prodSelecionado.foto)
-        .then((dado) => {
-          this.http.post('http://localhost:3000/updateProduto',
-            {
-              id: this.prodSelecionado.id_produto,
-              nome: this.formularioProduto.value.nome,
-              desc: this.formularioProduto.value.desc,
-              val: this.formularioProduto.value.val,
-              cat: this.formularioProduto.value.cat,
-              photoURL: dado
-            }).subscribe(x => {
-              console.log(x);
-              this.formularioProduto.reset();
-              this.http.post('http://localhost:3000/buscaLojaProduto',
-              { id: this.loja.id_loja }).subscribe(prod => {
+      this.uploadUpdate(this.prodSelecionado.foto).then(dado => {
+        this.http
+          .post('http://localhost:3000/updateProduto', {
+            id: this.prodSelecionado.id_produto,
+            nome: this.formularioProduto.value.nome,
+            desc: this.formularioProduto.value.desc,
+            val: this.formularioProduto.value.val,
+            cat: this.formularioProduto.value.cat,
+            photoURL: dado
+          })
+          .subscribe(x => {
+            console.log(x);
+            this.formularioProduto.reset();
+            this.http
+              .post('http://localhost:3000/buscaLojaProduto', {
+                id: this.loja.id_loja
+              })
+              .subscribe(prod => {
                 this.loading = false;
                 this.produtos = prod;
                 console.log(this.produtos);
               });
-            });
-        });
+          });
+      });
     } else {
-      this.http.post('http://localhost:3000/updateProduto',
-        {
+      this.http
+        .post('http://localhost:3000/updateProduto', {
           id: this.prodSelecionado.id_produto,
           nome: this.formularioProduto.value.nome,
           desc: this.formularioProduto.value.desc,
           val: this.formularioProduto.value.val,
           cat: this.formularioProduto.value.cat,
           photoURL: this.prodSelecionado.photoURL
-        }).subscribe(x => {
+        })
+        .subscribe(x => {
           console.log(x);
           this.formularioProduto.reset();
-          this.http.post('http://localhost:3000/buscaLojaProduto',
-            { id: this.loja.id_loja }).subscribe(prod => {
+          this.http
+            .post('http://localhost:3000/buscaLojaProduto', {
+              id: this.loja.id_loja
+            })
+            .subscribe(prod => {
               this.loading = false;
               this.produtos = prod;
               console.log(this.produtos);
             });
         });
     }
-
   }
 
   excluiProduto() {
     this.confirmationService.confirm({
       message: 'Tem certeza que deseja excluir esse produto?',
       accept: () => {
-        this.http.post('http://localhost:3000/removeProduto', {
-          id: this.prodSelecionado.id_produto
-        }).subscribe(dado => {
-          this.config = false;
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Sucesso!',
-            detail: 'Seu produto foi apagado!'
-          });
-          this.http.post('http://localhost:3000/buscaLojaProduto',
-            { id: this.loja.id_loja }).subscribe(prod => {
-              this.produtos = prod;
-              console.log(this.produtos);
+        this.http
+          .post('http://localhost:3000/removeProduto', {
+            id: this.prodSelecionado.id_produto
+          })
+          .subscribe(dado => {
+            this.config = false;
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso!',
+              detail: 'Seu produto foi apagado!'
             });
-        });
+            this.http
+              .post('http://localhost:3000/buscaLojaProduto', {
+                id: this.loja.id_loja
+              })
+              .subscribe(prod => {
+                this.produtos = prod;
+                console.log(this.produtos);
+              });
+          });
       }
     });
   }
