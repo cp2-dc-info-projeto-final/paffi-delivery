@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { ConfirmationService } from 'primeng/api';
+import { reject } from 'q';
 
 @Component({
   selector: 'app-minha-loja',
@@ -177,7 +178,7 @@ export class MinhaLojaComponent implements OnInit {
       this.salvarProduto = false;
 
       // Função do FireBase de armazenamento
-      const filePath = user + '/file' + this.produtos.length + 1;
+      const filePath = user + '/file' + this.produtos.length + Math.floor((Math.random() * 100) + 1);
       const ref = this.storage.ref(filePath);
       const task = ref.put(file).then((dado) => {
         ref.getDownloadURL().subscribe(foto => {
@@ -195,6 +196,53 @@ export class MinhaLojaComponent implements OnInit {
       }).catch((err) => console.log(err));
     }
   }
+
+  updateFotoProduto(event) {
+    console.log('kkkk entrou');
+    const file = event.target.files[0];
+    if (file.size > 10000000) {
+      // Arquivo muito grande = Mensangem de erro
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Arquivo inválido',
+        detail: `O arquivo enviado é muito grande,
+                tente novamente com um arquivo menor`
+      });
+    } else {
+      this.prodSelecionado.foto = file;
+      console.log(this.prodSelecionado.foto);
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Salvando foto',
+        detail: 'Espere até a foto salvar para adicionar o seu produto'
+      });
+    }
+  }
+
+  uploadUpdate(file) {
+    // tslint:disable-next-line: no-shadowed-variable
+    return new Promise((resolve, reject) => {
+      // Pega o id do usuário pra inserir produto em sua loja
+      const user = this.AuthS.pegaIdUsuario();
+
+      // Função do FireBase de armazenamento
+      const filePath = user + '/file' + Math.floor((Math.random() * 100) + 1);
+      const ref = this.storage.ref(filePath);
+      const task = ref.put(file).then((dado) => {
+        ref.getDownloadURL().subscribe(foto => {
+          // Mensagem Personalizada
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso!',
+            detail: 'A foto foi salva!'
+          });
+          // Atualiza formulário pra depois salvar no banco de dados
+          resolve(foto);
+        });
+      }).catch((err) => reject(err));
+    });
+  }
+
 
   // Ativa o modo de edição do perfil
   ativaModoEditar() {
@@ -285,32 +333,71 @@ export class MinhaLojaComponent implements OnInit {
   }
 
   atualizaProduto() {
-    console.log(this.prodSelecionado)
     if (!this.formularioProduto.value.nome) {
-      console.log('hi')
       this.formularioProduto.patchValue({
         nome: this.prodSelecionado.nome
-      })
+      });
     }
 
     if (!this.formularioProduto.value.desc) {
       this.formularioProduto.patchValue({
         desc: this.prodSelecionado.descricao
-      })
+      });
     }
 
     if (!this.formularioProduto.value.cat) {
       this.formularioProduto.patchValue({
         cat: this.prodSelecionado.categoria
-      })
+      });
     }
 
     if (!this.formularioProduto.value.val) {
       this.formularioProduto.patchValue({
         val: this.prodSelecionado.valor
-      })
+      });
     }
-    console.log(this.formularioProduto.value)
+    this.config = false;
+    if (this.prodSelecionado.foto) {
+      this.uploadUpdate(this.prodSelecionado.foto)
+        .then((dado) => {
+          this.http.post('http://localhost:3000/updateProduto',
+            {
+              id: this.prodSelecionado.id_produto,
+              nome: this.formularioProduto.value.nome,
+              desc: this.formularioProduto.value.desc,
+              val: this.formularioProduto.value.val,
+              cat: this.formularioProduto.value.cat,
+              photoURL: dado
+            }).subscribe(x => {
+              console.log(x);
+              this.formularioProduto.reset();
+              this.http.post('http://localhost:3000/buscaLojaProduto',
+              { id: this.loja.id_loja }).subscribe(prod => {
+                this.produtos = prod;
+                console.log(this.produtos);
+              });
+            });
+        });
+    } else {
+      this.http.post('http://localhost:3000/updateProduto',
+        {
+          id: this.prodSelecionado.id_produto,
+          nome: this.formularioProduto.value.nome,
+          desc: this.prodSelecionado.descricao,
+          val: this.formularioProduto.value.val,
+          cat: this.formularioProduto.value.cat,
+          photoURL: this.prodSelecionado.photoURL
+        }).subscribe(x => {
+          console.log(x);
+          this.formularioProduto.reset();
+          this.http.post('http://localhost:3000/buscaLojaProduto',
+            { id: this.loja.id_loja }).subscribe(prod => {
+              this.produtos = prod;
+              console.log(this.produtos);
+            });
+        });
+    }
+
   }
 
   excluiProduto() {
@@ -333,6 +420,6 @@ export class MinhaLojaComponent implements OnInit {
             });
         });
       }
-    })
+    });
   }
 }

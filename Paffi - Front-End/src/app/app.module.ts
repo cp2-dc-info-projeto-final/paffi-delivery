@@ -28,6 +28,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { LojaComponent } from './loja/loja.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ScrollPanelModule, ScrollPanel } from 'primeng/scrollpanel';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 
 
@@ -73,7 +74,8 @@ export const firebaseConfig = {
     InputTextareaModule,
     ConfirmDialogModule,
     SidebarModule,
-    ScrollPanelModule
+    ScrollPanelModule,
+    AngularFirestoreModule
   ],
   providers: [
     MessageService,

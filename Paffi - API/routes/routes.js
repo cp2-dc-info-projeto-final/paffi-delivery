@@ -20,6 +20,8 @@ module.exports = (app) => {
 
     app.post('/addProduto', loja.addProduto)
 
+    app.post('/updateProduto', loja.updateProduto)
+
     app.post('/removeProduto', loja.removeProduto)
     //Loja
 

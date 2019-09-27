@@ -37,6 +37,13 @@ exports.addProduto = (req, res) => {
     })
 }
 
+exports.updateProduto = (req, res) => {
+    model.updateProduto(req.body.id ,req.body.nome, req.body.desc, req.body.val, req.body.cat, req.body.photoURL)
+    .then((dado) => {
+        res.send(dado)
+    })
+}
+
 exports.removeProduto = (req, res) => {
     model.removeProduto(req.body.id)
     res.send({})

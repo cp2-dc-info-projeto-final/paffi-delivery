@@ -3,6 +3,7 @@ import { AuthService } from './../auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 
 @Component({
@@ -20,10 +21,10 @@ export class HomeComponent implements OnInit {
     private http: HttpClient,
     private AuthS: AuthService,
     private router: Router,
-    private lojaS: LojaService) { }
+    private lojaS: LojaService,
+    private fire: AngularFirestore) { }
 
   ngOnInit() {
-
     // Verifica se está logado
     this.AuthS.pegaUsuarioAtual().then((dado) => {
       if (dado) {
