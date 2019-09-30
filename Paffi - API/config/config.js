@@ -20,9 +20,11 @@ app.use(bodyParser.raw({
 
 //BANCO DE DADOS
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    database: 'paffi'
+    host: 'remotemysql.com',
+    user: 'wcnbXQoWMJ',
+    database: 'wcnbXQoWMJ',
+    password: 'sKjByy703M',
+    port: 3306
 });
 
 function sendit() {
