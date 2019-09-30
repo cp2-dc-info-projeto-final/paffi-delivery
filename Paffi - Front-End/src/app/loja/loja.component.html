@@ -32,7 +32,7 @@
           <div class="card-content">
             <span class="card-title activator grey-text text-darken-4">{{produto.nome}}<i
                 class="material-icons right"></i></span>
-            <p><a>Adicionar ao Carrinho</a></p>
+            <p><a (click)="addCarrinho(produto)">Adicionar ao Carrinho</a></p>
           </div>
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">{{produto.nome}}<i
@@ -40,7 +40,7 @@
             <p>{{produto.descricao}}</p>
             <p>Somente por:</p>
             <p>R$ {{produto.valor}}</p>
-            <p><a>Adicionar ao Carrinho</a></p>
+            <p><a (click)="addCarrinho(produto)">Adicionar ao Carrinho</a></p>
 
           </div>
         </div>
@@ -62,7 +62,7 @@
           <div class="card-content">
             <span class="card-title activator grey-text text-darken-4">{{produto.nome}}<i
                 class="material-icons right"></i></span>
-            <p><a>Adicionar ao Carrinho</a></p>
+            <p><a (click)="addCarrinho(produto)">Adicionar ao Carrinho</a></p>
           </div>
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">{{produto.nome}}<i
@@ -70,7 +70,7 @@
             <p>{{produto.descricao}}</p>
             <p>Somente por:</p>
             <p>R$ {{produto.valor}}</p>
-            <p><a>Adicionar ao Carrinho</a></p>
+            <p><a (click)="addCarrinho(produto)">Adicionar ao Carrinho</a></p>
 
           </div>
         </div>

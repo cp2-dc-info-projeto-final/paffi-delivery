@@ -29,6 +29,7 @@ import { LojaComponent } from './loja/loja.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ScrollPanelModule, ScrollPanel } from 'primeng/scrollpanel';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { CarrinhoComponent } from './carrinho/carrinho.component';
 
 
 
@@ -53,7 +54,8 @@ export const firebaseConfig = {
     LoginComponent,
     HomeComponent,
     LojaComponent,
-    PerfilComponent
+    PerfilComponent,
+    CarrinhoComponent
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
