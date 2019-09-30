@@ -1,3 +1,4 @@
+import { CarrinhoService } from './../carrinho/carrinho.service';
 import { LojaService } from './../loja.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -20,6 +21,7 @@ export class LojaComponent implements OnInit {
     private lojaSer: LojaService,
     private router: Router,
     private http: HttpClient,
+    private CarrinhoService: CarrinhoService
   ) { }
 
   ngOnInit() {
@@ -41,6 +43,10 @@ export class LojaComponent implements OnInit {
         this.router.navigate(['']);
       }
     });
+  }
+
+  addCarrinho(produto) {
+    this.CarrinhoService.addProduto(produto);
   }
 
 }

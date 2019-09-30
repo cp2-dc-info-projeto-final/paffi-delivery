@@ -1,4 +1,4 @@
-// REQUIRES
+﻿// REQUIRES
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -23,7 +23,7 @@ const connection = mysql.createConnection({
     host: 'remotemysql.com',
     user: 'wcnbXQoWMJ',
     database: 'wcnbXQoWMJ',
-    password: 'sKjByy703M',
+    password: 'wElFlOEvvn',
     port: 3306
 });
 
