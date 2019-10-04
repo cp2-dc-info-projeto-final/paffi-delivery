@@ -1,2 +1,21 @@
-<a class="btn-floating btn-large waves-effect waves-light green darken-3" *ngIf="produtos.length > 0"
-  style="position: fixed; bottom: 18%; right: 5%;z-index: 2"><i class="material-icons">add_shopping_cart</i></a>
+<a class="btn-floating btn-large waves-effect waves-light green darken-1" *ngIf="produtos.length > 0"
+  (click)="showCarrinho()" style="position: fixed; bottom: 17%; right: 5%;z-index: 2"><i
+    class="material-icons">add_shopping_cart</i></a>
+
+<p-dialog header="Meu Carrinho" [(visible)]="display" class="row">
+  <div *ngFor="let produto of produtos" style="width: 40vw">
+    <div class="col s12" style="border: 0.7px solid lightgray;border-top:0px;border-left:0px;border-right: 0px">
+      <div class="col s4 offset-s1">
+        <h5>
+          1x {{produto.nome}}
+        </h5>
+      </div>
+      <div class="col s2 offset-s2">
+          <h5>R${{produto.valor}}</h5>
+      </div>
+      <div class="col s1 offset-s1">
+        <i class="material-icons" style="margin-top:0.7em">close</i>
+      </div>
+    </div>
+  </div>
+</p-dialog>

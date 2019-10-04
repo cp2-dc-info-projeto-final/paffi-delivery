@@ -8,33 +8,36 @@ import { ConfirmationService } from 'primeng/api';
 export class CarrinhoService {
   private listaProdutos: any[] = [];
   public produtos = new BehaviorSubject([]);
-
+  public lojaProduto = new BehaviorSubject('');
   constructor(
     private confirmationService: ConfirmationService
   ) { }
 
   addProduto(produto) {
-    console.log(produto, '<=== produto')
+    console.log(produto, '<=== produto');
+    // tslint:disable-next-line: triple-equals
     if (this.listaProdutos.length == 0) {
       this.listaProdutos.push(produto);
-      console.log('listasProdutos IF1 ==> ', this.listaProdutos)
+      console.log('listasProdutos IF1 ==> ', this.listaProdutos);
       this.produtos.next(this.listaProdutos);
     } else {
+      // tslint:disable-next-line: triple-equals
       if (this.listaProdutos[this.listaProdutos.length - 1].id_loja == produto.id_loja) {
         this.listaProdutos.push(produto);
-        console.log('listasProdutos IF2 ==> ', this.listaProdutos)
+        console.log('listasProdutos IF2 ==> ', this.listaProdutos);
         this.produtos.next(this.listaProdutos);
       } else {
         this.confirmationService.confirm({
           message: 'Você já tem itens de outra loja adicionados no seu carrinho, deseja limpar o seu carrinho?',
           accept: () => {
-            this.listaProdutos = []
+            this.listaProdutos = [];
             this.listaProdutos.push(produto);
-            console.log('Accept ==> ', this.listaProdutos)
+            console.log('Accept ==> ', this.listaProdutos);
             this.produtos.next(this.listaProdutos);
           }
       });
       }
     }
   }
+
 }

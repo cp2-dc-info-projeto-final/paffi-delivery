@@ -9,13 +9,19 @@ import { Component, OnInit } from '@angular/core';
 export class CarrinhoComponent implements OnInit {
 
   public produtos: any[] = [];
+  public display = false;
+
   constructor(
     private carrinhoS: CarrinhoService) { }
 
   ngOnInit() {
     this.carrinhoS.produtos.subscribe(produtos => {
-      this.produtos = produtos
-    })
+      this.produtos = produtos;
+    });
+  }
+
+  showCarrinho() {
+    this.display = true;
   }
 
 }

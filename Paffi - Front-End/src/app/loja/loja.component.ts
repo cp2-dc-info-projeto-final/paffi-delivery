@@ -21,6 +21,7 @@ export class LojaComponent implements OnInit {
     private lojaSer: LojaService,
     private router: Router,
     private http: HttpClient,
+    // tslint:disable-next-line: no-shadowed-variable
     private CarrinhoService: CarrinhoService
   ) { }
 
@@ -32,6 +33,10 @@ export class LojaComponent implements OnInit {
 
         // Pega os dados da loja
         this.lojaSer.dadosLoja.subscribe(loja => {
+          // tslint:disable-next-line: triple-equals
+          if (loja.length == 0) {
+            this.router.navigate(['home']);
+          }
           this.loja = loja;
           this.http.post('http://localhost:3000/buscaLojaProduto',
             { id: this.loja.id_loja })
