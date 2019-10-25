@@ -9,6 +9,9 @@ export class CarrinhoService {
   private listaProdutos: any[] = [];
   public produtos = new BehaviorSubject([]);
   public lojaProduto = new BehaviorSubject('');
+  public nomeLoja = '';
+  public photoURL = '';
+  public descricao = '';
   constructor(
     private confirmationService: ConfirmationService
   ) { }

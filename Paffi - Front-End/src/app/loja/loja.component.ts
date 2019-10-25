@@ -51,6 +51,9 @@ export class LojaComponent implements OnInit {
   }
 
   addCarrinho(produto) {
+    this.CarrinhoService.nomeLoja = this.loja.nome_loja;
+    this.CarrinhoService.photoURL = this.loja.photoURL;
+    this.CarrinhoService.descricao = this.loja.descricao;
     this.CarrinhoService.addProduto(produto);
   }
 

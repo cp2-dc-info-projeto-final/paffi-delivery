@@ -12,7 +12,7 @@ export class CarrinhoComponent implements OnInit {
   public display = false;
 
   constructor(
-    private carrinhoS: CarrinhoService) { }
+    public carrinhoS: CarrinhoService) { }
 
   ngOnInit() {
     this.carrinhoS.produtos.subscribe(produtos => {
