@@ -1,37 +1,66 @@
-<a class="btn-floating btn-large waves-effect waves-light green darken-1" *ngIf="produtos.length > 0" (click)="showCarrinho()" style="position: fixed; bottom: 17%; right: 5%;z-index: 2"><i
+<a class="btn-floating btn-large waves-effect waves-light green darken-1" *ngIf="produtos.length > 0"
+  (click)="showCarrinho()" style="position: fixed; bottom: 17%; right: 5%;z-index: 2"><i
     class="material-icons">add_shopping_cart</i></a>
 
-<p-dialog header="Meu Carrinho" [(visible)]="display" class="row" [draggable]="false" [modal]="true" [dismissableMask]="true">
-    <div class="col s12" style="width: 40vw;margin-bottom: 3em">
-        <div class="col l3 s12">
-            <img [src]="carrinhoS.photoURL" style="border: 0.5px solid white;border-radius: 50%;margin-top: 1.5em;object-fit:cover" width="150px" height="150px">
-        </div>
-        <div class="col l9 s12">
-            <h4>{{carrinhoS.nomeLoja}}</h4>
-            <hr>
-            <h6>{{carrinhoS.descricao}}</h6>
-            <hr>
-            <br>
-            <div class="col s12">
-            </div>
-        </div>
+<p-dialog header="Meu Carrinho" [(visible)]="display" class="row" [draggable]="false" [modal]="true"
+  [dismissableMask]="true">
+  <div class="col s12 hide-on-med-and-down" style="width: 45vw;margin-bottom: 3em">
+    <div class="col l4 s12">
+      <img [src]="carrinhoS.photoURL" class="hide-on-med-and-down"
+        style="border: 0.5px solid white;border-radius: 50%;margin-top: 1.5em;object-fit:cover" width="150px"
+        height="150px">
+        <img [src]="carrinhoS.photoURL" class="hide-on-large-only col s12"
+        style="border: 0.5px solid red;border-radius: 50%;margin-top: 1.5em;object-fit:cover">
     </div>
-    <div *ngFor="let produto of produtos" style="width: 40vw">
-        <div class="col s12" style="border: 0.7px solid lightgray;border-top:0px;border-left:0px;border-right: 0px; margin-bottom: 1em">
-            <div class="col s2">
-              <img [src]="produto.photoURL" width="75px" height="75px" style="border: 0.5px solid white;border-radius: 50%;object-fit:cover">
-            </div>
-            <div class="col s4">
-                <h5>
-                    1x {{produto.nome}}
-                </h5>
-            </div>
-            <div class="col s2 offset-s2">
-                <h5>R${{produto.valor}}</h5>
-            </div>
-            <div class="col s1 offset-s1">
-                <i class="material-icons" style="margin-top:0.7em">close</i>
-            </div>
-        </div>
+    <div class="col l8 s12">
+      <h4>{{carrinhoS.nomeLoja}}</h4>
+      <hr>
+      <h6>{{carrinhoS.descricao}}</h6>
+      <hr>
+      <br>
+      <div class="col s12">
+      </div>
     </div>
+  </div>
+  <div class="col s12 hide-on-large-only" style="margin-bottom: 3em">
+    <div class="col l4 s12">
+        <img [src]="carrinhoS.photoURL" class="col s12"
+        style="border: 0.5px solid;border-radius: 50%;margin-top: 1.5em;object-fit:cover">
+    </div>
+    <div class="col l8 s12">
+      <h4>{{carrinhoS.nomeLoja}}</h4>
+      <hr>
+      <h6>{{carrinhoS.descricao}}</h6>
+      <hr>
+      <br>
+      <div class="col s12">
+      </div>
+    </div>
+  </div>
+  <div *ngFor="let produto of produtos;let i = index">
+    <div class="col s12"
+      style="border: 0.7px solid lightgray;border-top:0px;border-left:0px;border-right: 0px; margin-bottom: 1em">
+      <div class="col s12 center-align">
+        <img [src]="produto.photoURL" width="75px" height="75px"
+          style="border: 0.5px solid white;border-radius: 50%;object-fit:cover">
+      </div>
+      <div class="col s6">
+        <h5>
+          {{produto.nome}}
+        </h5>
+      </div>
+      <div class="col s4">
+        <h5>R${{produto.valor}}</h5>
+      </div>
+      <div class="col s2">
+        <i class="material-icons" style="margin-top:0.7em" (click)="excluiProduto(i)">close</i>
+      </div>
+    </div>
+  </div>
+
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Comprar"></button>
+    <button type="button" pButton icon="pi pi-close" (click)="display=false" label="Fechar"
+      class="ui-button-secondary"></button>
+  </p-footer>
 </p-dialog>

@@ -1,3 +1,4 @@
+import { ConfirmationService } from 'primeng/api';
 import { CarrinhoService } from './carrinho.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -12,12 +13,27 @@ export class CarrinhoComponent implements OnInit {
   public display = false;
 
   constructor(
-    public carrinhoS: CarrinhoService) { }
+    public carrinhoS: CarrinhoService,
+    private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.carrinhoS.produtos.subscribe(produtos => {
       this.produtos = produtos;
     });
+  }
+
+  excluiProduto(index) {
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir esse produto do carrinho?',
+      accept: () => {
+        this.produtos.splice(index, 1);
+        if (this.produtos.length === 0) {
+          this.display = false;
+        }
+        this.carrinhoS.produtos.next(this.produtos);
+      }
+    });
+
   }
 
   showCarrinho() {

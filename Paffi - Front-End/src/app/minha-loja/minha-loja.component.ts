@@ -53,6 +53,7 @@ export class MinhaLojaComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loading = true;
     // Modo editar inicia desligado
     this.modoEditar = false;
 
@@ -71,10 +72,9 @@ export class MinhaLojaComponent implements OnInit {
             // Formulário para adicionar
             this.formularioProduto = this.formBuilder.group({
               nome: [null, Validators.required],
-              url: [null, Validators.required],
-              desc: [null, Validators.required],
-              cat: [null, Validators.required],
-              val: [null, Validators.required]
+              photoURL: [null, Validators.required],
+              senha: [null, Validators.required],
+              turma: [null, Validators.required]
             });
 
             // Formulário de edição da loja
@@ -91,6 +91,7 @@ export class MinhaLojaComponent implements OnInit {
               })
               .subscribe(prod => {
                 this.produtos = prod;
+                this.loading = false;
                 console.log(this.produtos);
               });
           });

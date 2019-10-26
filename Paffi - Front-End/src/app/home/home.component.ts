@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   public mostraConteudo = false;
   public Stores: any[] = [];
   public id;
+  public loading = false;
 
   constructor(
     private http: HttpClient,
@@ -25,6 +26,7 @@ export class HomeComponent implements OnInit {
     private fire: AngularFirestore) { }
 
   ngOnInit() {
+    this.loading = true;
     // Verifica se está logado
     this.AuthS.pegaUsuarioAtual().then((dado) => {
       if (dado) {
@@ -39,6 +41,7 @@ export class HomeComponent implements OnInit {
     this.http.post('http://localhost:3000/pegaLojas', {})
       .subscribe((dado: any[]) => {
         this.Stores = dado;
+        this.loading = false;
       });
   }
 

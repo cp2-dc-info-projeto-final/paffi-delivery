@@ -1,6 +1,7 @@
 module.exports = (app) => {
 
     //Controllers
+    const usuario = require('../controllers/usuarioCtrl')
     const cadastro = require('../controllers/cadastroCtrl')
     const loja = require('../controllers/storeCtrl')
     //Controllers
@@ -8,6 +9,10 @@ module.exports = (app) => {
     //Cadastro
     app.post('/cadastraUsuario', cadastro.cadastrar)
     //Cadastro
+
+    //Usuario
+    app.post('/pegaUsuario', usuario.getUser)
+    //Usuario
 
     //Loja
     app.post('/pegaLojas', loja.pegaLojas)
