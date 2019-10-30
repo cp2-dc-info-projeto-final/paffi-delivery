@@ -22,6 +22,11 @@ export class CarrinhoComponent implements OnInit {
     });
   }
 
+  realizaCompra() {
+    this.display = false;
+    console.log(this.produtos);
+  }
+
   excluiProduto(index) {
     this.confirmationService.confirm({
       message: 'Tem certeza que deseja excluir esse produto do carrinho?',
