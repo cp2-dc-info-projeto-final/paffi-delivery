@@ -37,6 +37,12 @@
       </div>
     </div>
   </div>
+  <div class="center-align" style="margin-bottom: 2em;">
+    <h6>
+      Escolha o local que deseja receber os produtos.
+    </h6>
+    <p-dropdown [options]="locais" [(ngModel)]="selectedLocal"></p-dropdown>
+  </div>
   <div *ngFor="let produto of produtos;let i = index">
     <div class="col s12"
       style="border: 0.7px solid lightgray;border-top:0px;border-left:0px;border-right: 0px; margin-bottom: 1em">
@@ -57,7 +63,6 @@
       </div>
     </div>
   </div>
-
   <p-footer>
     <button type="button" pButton icon="pi pi-check" (click)="realizaCompra()" label="Comprar"></button>
     <button type="button" pButton icon="pi pi-close" (click)="display=false" label="Fechar"

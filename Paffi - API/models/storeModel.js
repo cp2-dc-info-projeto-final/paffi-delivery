@@ -127,5 +127,15 @@ exports.removeProduto = function (id) {
         [id], (err, resu) => {
             if (resu) console.log('apagou')
             if (err) console.log('erro')
-        })
+        });
+}
+
+exports.realizaCompra = function (usuario, produtos, loja, local) {
+    return new Promise((resolve, reject) => {
+        app.connection.query('', 
+            [], (err,resu) =>{
+
+        });
+        resolve('')
+    });
 }

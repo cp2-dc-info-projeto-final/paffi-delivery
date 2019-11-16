@@ -48,3 +48,9 @@ exports.removeProduto = (req, res) => {
     model.removeProduto(req.body.id)
     res.send({})
 }
+
+exports.realizaCompra = (req, res) => {
+    console.log(req.body)
+    model.realizaCompra(req.body.usuario, req.body.produtos, req.body.loja, req.body.local)
+    res.status(200).send(req.body)
+}

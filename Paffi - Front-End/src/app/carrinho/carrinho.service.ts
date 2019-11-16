@@ -12,6 +12,7 @@ export class CarrinhoService {
   public nomeLoja = '';
   public photoURL = '';
   public descricao = '';
+
   constructor(
     private confirmationService: ConfirmationService
   ) { }
@@ -38,7 +39,7 @@ export class CarrinhoService {
             console.log('Accept ==> ', this.listaProdutos);
             this.produtos.next(this.listaProdutos);
           }
-      });
+        });
       }
     }
   }

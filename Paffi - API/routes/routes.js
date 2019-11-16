@@ -1,33 +1,35 @@
 module.exports = (app) => {
 
     //Controllers
-    const usuario = require('../controllers/usuarioCtrl')
-    const cadastro = require('../controllers/cadastroCtrl')
-    const loja = require('../controllers/storeCtrl')
+    const usuario = require('../controllers/usuarioCtrl');
+    const cadastro = require('../controllers/cadastroCtrl');
+    const loja = require('../controllers/storeCtrl');
     //Controllers
 
     //Cadastro
-    app.post('/cadastraUsuario', cadastro.cadastrar)
+    app.post('/cadastraUsuario', cadastro.cadastrar);
     //Cadastro
 
     //Usuario
-    app.post('/pegaUsuario', usuario.getUser)
+    app.post('/pegaUsuario', usuario.getUser);
     //Usuario
 
     //Loja
-    app.post('/pegaLojas', loja.pegaLojas)
+    app.post('/pegaLojas', loja.pegaLojas);
 
-    app.post('/atualizaLoja', loja.attPerfil)
+    app.post('/atualizaLoja', loja.attPerfil);
 
-    app.post('/buscaMinhaLoja', loja.pegaLojaPorId)
+    app.post('/buscaMinhaLoja', loja.pegaLojaPorId);
 
-    app.post('/buscaLojaProduto', loja.getProdutos)
+    app.post('/buscaLojaProduto', loja.getProdutos);
 
-    app.post('/addProduto', loja.addProduto)
+    app.post('/addProduto', loja.addProduto);
 
-    app.post('/updateProduto', loja.updateProduto)
+    app.post('/updateProduto', loja.updateProduto);
 
-    app.post('/removeProduto', loja.removeProduto)
+    app.post('/removeProduto', loja.removeProduto);
+    
+    app.post('/realizaCompra', loja.realizaCompra);
     //Loja
 
 };
