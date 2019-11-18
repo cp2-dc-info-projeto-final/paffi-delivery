@@ -50,7 +50,8 @@ exports.removeProduto = (req, res) => {
 }
 
 exports.realizaCompra = (req, res) => {
-    console.log(req.body)
-    model.realizaCompra(req.body.usuario, req.body.produtos, req.body.loja, req.body.local)
-    res.status(200).send(req.body)
+    model.realizaCompra(req.body.usuario, req.body.produtos, req.body.loja, req.body.local, req.body.datahora)
+        .then(dado => {
+            res.status(200).send(dado)
+        })
 }

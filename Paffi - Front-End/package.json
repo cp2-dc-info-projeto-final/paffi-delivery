@@ -23,6 +23,7 @@
     "@angular/router": "~8.0.0",
     "@types/jquery": "^3.3.31",
     "firebase": "^6.5.0",
+    "moment": "^2.24.0",
     "primeicons": "^2.0.0",
     "primeng": "^8.0.2",
     "rxjs": "~6.4.0",

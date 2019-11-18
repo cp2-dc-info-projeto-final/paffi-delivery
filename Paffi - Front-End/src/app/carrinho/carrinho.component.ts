@@ -3,6 +3,7 @@ import { ConfirmationService } from 'primeng/api';
 import { CarrinhoService } from './carrinho.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-carrinho',
@@ -39,9 +40,18 @@ export class CarrinhoComponent implements OnInit {
             local: this.selectedLocal,
             produtos: this.produtos,
             loja: this.carrinhoS.nomeLoja,
-            usuario: this.authS.pegaIdUsuario()
-          }).subscribe(dado => {
-            console.log(dado);
+            usuario: this.authS.pegaIdUsuario(),
+            datahora: {
+              data: moment().format('DD/MM/YYYY'),
+              hora: moment().unix()
+            }
+          }).subscribe((dado: any) => {
+            if (dado.success == true) {
+              this.produtos = [];
+              this.display = false;
+              this.selectedLocal = '';
+              this.carrinhoS.limpaCarrinho();
+            }
           });
         }
       });

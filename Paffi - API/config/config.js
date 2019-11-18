@@ -20,11 +20,9 @@ app.use(bodyParser.raw({
 
 //BANCO DE DADOS
 const connection = mysql.createConnection({
-    host: 'remotemysql.com',
-    user: 'wcnbXQoWMJ',
-    database: 'wcnbXQoWMJ',
-    password: 'wElFlOEvvn',
-    port: 3306
+    host: 'localhost',
+    user: 'root',
+    database: 'paffi'
 });
 
 function sendit() {
@@ -41,9 +39,9 @@ setTimeout(sendit, 210000);
 // ABRINDO O SERVIDOR
 app.listen(port, () => console.log('Servidor Aberto'))
 routes(app)
-    // ABRINDO O SERVIDOR
+// ABRINDO O SERVIDOR
 
 // EXPORTAÇÕES
 module.exports.app = app
 module.exports.connection = connection
-    // EXPORTAÇÕES
+// EXPORTAÇÕES

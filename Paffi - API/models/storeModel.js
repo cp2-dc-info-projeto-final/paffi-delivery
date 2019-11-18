@@ -130,12 +130,21 @@ exports.removeProduto = function (id) {
         });
 }
 
-exports.realizaCompra = function (usuario, produtos, loja, local) {
+exports.realizaCompra = function (usuario, produtos, loja, local, datahora) {
     return new Promise((resolve, reject) => {
-        app.connection.query('', 
-            [], (err,resu) =>{
-
+        let preco = 0;
+        produtos.forEach(produto => {
+            preco += produto.valor
+        })
+        app.connection.query('INSERT INTO `compra`(valor_compra, data_compra, hora_compra, usuario) values (?,?,?,?)',
+            [preco, datahora.data, datahora.hora, usuario], (err,resu) =>{
+                let idCompra = resu.insertId
+                produtos.forEach(produto => {
+                    app.connection.query('INSERT INTO `compra_produto`(id_produto, id_compra) values (?,?)',
+                    [produto.id_produto, idCompra], (err2, resu2) => {
+                        (resu2) ? resolve({success: true}) : resolve(err2);
+                    })
+                })
         });
-        resolve('')
     });
 }

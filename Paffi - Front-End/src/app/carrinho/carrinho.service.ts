@@ -17,6 +17,15 @@ export class CarrinhoService {
     private confirmationService: ConfirmationService
   ) { }
 
+  limpaCarrinho() {
+    this.listaProdutos = [];
+    this.produtos.next([]);
+    this.lojaProduto.next('');
+    this.nomeLoja = '';
+    this.photoURL = '';
+    this.descricao = '';
+  }
+
   addProduto(produto) {
     console.log(produto, '<=== produto');
     // tslint:disable-next-line: triple-equals
