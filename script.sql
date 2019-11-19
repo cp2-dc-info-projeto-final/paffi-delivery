@@ -27,7 +27,7 @@ CREATE TABLE produto (
 id_produto INT AUTO_INCREMENT,
 nome VARCHAR(40),
 photoURL VARCHAR(255),
-descricao VARCHAR(40),
+descricao VARCHAR(255),
 categoria VARCHAR(40),
 valor FLOAT,
 id_loja INT,
