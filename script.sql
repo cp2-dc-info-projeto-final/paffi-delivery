@@ -41,6 +41,7 @@ valor_compra DECIMAL (5,2),
 data_compra varchar(10),
 hora_compra varchar(10),
 id_usuario varchar(30),
+finalizada boolean,
 PRIMARY KEY (id_compra),
 FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario)
 );
