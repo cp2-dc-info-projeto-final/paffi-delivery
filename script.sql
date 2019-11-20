@@ -19,6 +19,7 @@ photoURL VARCHAR(255),
 descricao TEXT,
 id_loja INT AUTO_INCREMENT,
 id_dono VARCHAR(30),
+online boolean,
 PRIMARY KEY (id_loja),
 FOREIGN KEY (id_dono) REFERENCES usuario(id_usuario)
 );
