@@ -136,8 +136,9 @@ exports.realizaCompra = function (usuario, produtos, loja, local, datahora) {
         produtos.forEach(produto => {
             preco += produto.valor
         })
-        app.connection.query('INSERT INTO `compra`(valor_compra, data_compra, hora_compra, usuario) values (?,?,?,?)',
-            [preco, datahora.data, datahora.hora, usuario], (err,resu) =>{
+        app.connection.query('INSERT INTO `compra`(valor_compra, data_compra, hora_compra, id_usuario, local) values (?,?,?,?,?)',
+            [preco, datahora.data, datahora.hora, usuario, local], (err,resu) =>{
+                console.log(err)
                 let idCompra = resu.insertId
                 produtos.forEach(produto => {
                     app.connection.query('INSERT INTO `compra_produto`(id_produto, id_compra) values (?,?)',

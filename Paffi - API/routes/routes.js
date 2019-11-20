@@ -12,6 +12,10 @@ module.exports = (app) => {
 
     //Usuario
     app.post('/pegaUsuario', usuario.getUser);
+
+    app.post('/atualizaUsuario', usuario.attUsuario);
+
+    app.post('/pegaHistorico', usuario.getHistorico);
     //Usuario
 
     //Loja

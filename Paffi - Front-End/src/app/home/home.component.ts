@@ -1,3 +1,4 @@
+import { RealtimeService } from './../minha-loja/realtime.service';
 import { LojaService } from './../loja.service';
 import { AuthService } from './../auth.service';
 import { HttpClient } from '@angular/common/http';
@@ -23,7 +24,8 @@ export class HomeComponent implements OnInit {
     private AuthS: AuthService,
     private router: Router,
     private lojaS: LojaService,
-    private fire: AngularFirestore) { }
+    private fire: AngularFirestore,
+    private realTime: RealtimeService) { }
 
   ngOnInit() {
     this.loading = true;
@@ -32,6 +34,14 @@ export class HomeComponent implements OnInit {
       if (dado) {
         this.mostraConteudo = true;
         this.id = this.AuthS.pegaIdUsuario();
+        this.http
+          .post('http://localhost:3000/buscaMinhaLoja', {
+            uid: this.AuthS.pegaIdUsuario()
+          }).subscribe((loja: any) => {
+            if (loja) {
+              this.realTime.iniciaRealTime(loja.id_loja);
+            }
+          });
       } else {
         this.mostraConteudo = false;
         this.router.navigate(['']);
@@ -43,6 +53,12 @@ export class HomeComponent implements OnInit {
         this.Stores = dado;
         this.loading = false;
       });
+  }
+
+  testeBD() {
+    this.fire.collection('Lojas').add({ timestamp: 0 })
+      .then(dado => console.log(dado))
+      .catch(err => console.log(err));
   }
 
   // Entra na loja

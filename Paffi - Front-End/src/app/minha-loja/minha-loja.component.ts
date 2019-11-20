@@ -1,3 +1,4 @@
+import { RealtimeService } from './realtime.service';
 // tslint:disable-next-line: quotemark
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 // tslint:disable-next-line: quotemark
@@ -8,7 +9,6 @@ import { HttpClient } from '@angular/common/http';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { ConfirmationService } from 'primeng/api';
-import { reject } from 'q';
 
 @Component({
   selector: 'app-minha-loja',
@@ -49,7 +49,7 @@ export class MinhaLojaComponent implements OnInit {
     private storage: AngularFireStorage,
     private formBuilder: FormBuilder,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
   ) {}
 
   ngOnInit() {
@@ -68,13 +68,13 @@ export class MinhaLojaComponent implements OnInit {
           .subscribe((loja: any[]) => {
             this.loja = loja;
             this.mostraConteudo = true;
-
             // Formulário para adicionar
             this.formularioProduto = this.formBuilder.group({
               nome: [null, Validators.required],
-              photoURL: [null, Validators.required],
-              senha: [null, Validators.required],
-              turma: [null, Validators.required]
+              url: [null, Validators.required],
+              desc: [null, Validators.required],
+              cat: [null, Validators.required],
+              val: [null, Validators.required]
             });
 
             // Formulário de edição da loja

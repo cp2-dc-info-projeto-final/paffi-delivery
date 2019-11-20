@@ -1,3 +1,4 @@
+import { RealtimeService } from './../minha-loja/realtime.service';
 import { ConfirmationService } from 'primeng/api';
 import { AuthService } from './../auth.service';
 import { Router } from '@angular/router';
@@ -21,7 +22,8 @@ export class NavbarComponent implements OnInit {
   constructor(
     private router: Router,
     private authS: AuthService,
-    private confirmationService: ConfirmationService) { }
+    private confirmationService: ConfirmationService,
+    private realtime: RealtimeService) { }
 
   ngOnInit() {
     // Verifica se o usuário é vendedor ou não
@@ -43,6 +45,8 @@ export class NavbarComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Tem certeza que deseja sair?',
       accept: () => {
+        // tslint:disable-next-line: no-unused-expression
+        (this.realtime.subscription) ? this.realtime.subscription.unsubscribe() : null;
         this.authS.fazLogOut();
         this.router.navigate(['']);
       }

@@ -4,6 +4,7 @@ import { CarrinhoService } from './carrinho.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import * as moment from 'moment';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-carrinho',
@@ -23,7 +24,8 @@ export class CarrinhoComponent implements OnInit {
     public carrinhoS: CarrinhoService,
     private confirmationService: ConfirmationService,
     private http: HttpClient,
-    private authS: AuthService) { }
+    private authS: AuthService,
+    private fire: AngularFirestore) { }
 
   ngOnInit() {
     this.carrinhoS.produtos.subscribe(produtos => {
@@ -46,11 +48,17 @@ export class CarrinhoComponent implements OnInit {
               hora: moment().unix()
             }
           }).subscribe((dado: any) => {
+            // tslint:disable-next-line: triple-equals
             if (dado.success == true) {
+              this.fire.collection('Lojas').doc(this.produtos[0].id_loja.toString()).update({timestamp: moment().unix()});
               this.produtos = [];
               this.display = false;
               this.selectedLocal = '';
               this.carrinhoS.limpaCarrinho();
+            } else {
+              this.confirmationService.confirm({
+                message: 'Ocorreu um Erro na sua compra, por favor, tente novamente.',
+              });
             }
           });
         }

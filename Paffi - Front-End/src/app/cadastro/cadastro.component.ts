@@ -5,6 +5,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { FirebaseApp } from '@angular/fire';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-cadastro',
@@ -22,7 +24,7 @@ export class CadastroComponent implements OnInit {
     private http: HttpClient,
     private messageService: MessageService,
     private router: Router,
-    private ngZone: NgZone) { }
+    private firebase: AngularFirestore) { }
 
   ngOnInit() {
 
@@ -75,7 +77,7 @@ export class CadastroComponent implements OnInit {
       // Verifica se email e confirmar email  / Senha e confirmar senha estão corretos
       if ((this.formularioCadastro.value.email === this.formularioCadastro.value.confEmail)
         && (this.formularioCadastro.value.senha === this.formularioCadastro.value.confSenha)) {
-          // Chama a função de cadastrar usuário no banco de dados
+        // Chama a função de cadastrar usuário no banco de dados
         this.AuthS.cadastraUsuario(this.formularioCadastro.value.email, this.formularioCadastro.value.senha)
           .then(() => {
             // Coloca um nome padrão pra loja se o usuário não informar
@@ -86,11 +88,18 @@ export class CadastroComponent implements OnInit {
                   email: this.formularioCadastro.value.email, senha: this.formularioCadastro.value.senha,
                   uid: this.AuthS.pegaIdUsuario(), loja: this.formularioCadastro.value.vender,
                   nomeloja: this.formularioCadastro.value.nomeLoja, descricao: 'Essa é a minha Loja! Aproveite!',
-                  url:  'https://firebasestorage.googleapis.com/v0/b/' +
-                  'paffi-tcc.appspot.com/o/bg.jpg?alt=media&token=d79c25fe-35ca-4df2-9986-f2f8696809b0',
+                  url: 'https://firebasestorage.googleapis.com/v0/b/' +
+                    'paffi-tcc.appspot.com/o/bg.jpg?alt=media&token=d79c25fe-35ca-4df2-9986-f2f8696809b0',
                   nome: (this.formularioCadastro.value.nome + ' ' + this.formularioCadastro.value.sobrenome)
                 })
-                .subscribe(dado => console.log(dado));
+                .subscribe((dado: any) => {
+                  if (this.formularioCadastro.value.vender) {
+                    this.firebase.collection('Lojas').doc(dado.rs.toString()).set({
+                      timestamp: 0
+                    });
+                  }
+                  this.router.navigate(['home']);
+                });
             } else {
               this.http.post('http://localhost:3000/cadastraUsuario',
                 {
@@ -98,12 +107,18 @@ export class CadastroComponent implements OnInit {
                   uid: this.AuthS.pegaIdUsuario(), loja: this.formularioCadastro.value.vender,
                   nomeloja: this.formularioCadastro.value.nomeLoja, descricao: 'Essa é a minha Loja! Aproveite!',
                   url: 'https://firebasestorage.googleapis.com/v0/b/' +
-                  'paffi-tcc.appspot.com/o/bg.jpg?alt=media&token=d79c25fe-35ca-4df2-9986-f2f8696809b0',
+                    'paffi-tcc.appspot.com/o/bg.jpg?alt=media&token=d79c25fe-35ca-4df2-9986-f2f8696809b0',
                   nome: (this.formularioCadastro.value.nome + ' ' + this.formularioCadastro.value.sobrenome)
                 })
-                .subscribe(dado => console.log(dado));
+                .subscribe((dado: any) => {
+                  if (this.formularioCadastro.value.vender) {
+                    this.firebase.collection('Lojas').doc(dado.rs.toString()).set({
+                      timestamp: 0
+                    });
+                  }
+                  this.router.navigate(['home']);
+                });
             }
-            this.router.navigate(['home']);
           }) // Trata os Erros (Email em uso, Senha fraca, Confirmação de senha/email e dados inválidos)
           .catch((err) => {
             if (err.code === 'auth/email-already-in-use') {
