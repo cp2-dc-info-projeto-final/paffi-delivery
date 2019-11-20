@@ -38,7 +38,7 @@ FOREIGN KEY (id_loja) REFERENCES loja (id_loja)
 
 CREATE TABLE compra (
 id_compra INT AUTO_INCREMENT,
-valor_compra DECIMAL (5,2),
+valor_compra INT,
 data_compra varchar(10),
 hora_compra varchar(10),
 id_usuario varchar(30),
