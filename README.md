@@ -31,7 +31,7 @@
 + Perfil do vendedor com gráficos de Vendas
 
 ## Stakeholder:
-+ Nome:Emanuelle de Araújo Siqueira
++ Nome: Emanuelle de Araújo Siqueira
 + Profissão: Autônoma 
 + Cargo/Empresa: Dona de Palhas Italianas da Manu
 + Data da entrevista: 25/04/2019
