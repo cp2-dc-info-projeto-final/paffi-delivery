@@ -42,10 +42,12 @@ valor_compra INT,
 data_compra varchar(10),
 hora_compra varchar(10),
 id_usuario varchar(30),
+id_loja int,
 finalizada boolean,
 local varchar(55),
 PRIMARY KEY (id_compra),
-FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario)
+FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
+FOREIGN KEY(id_loja) REFERENCES loja(id_loja)
 );
 
 CREATE TABLE compra_produto(
