@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../auth.service';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +17,12 @@ export class RealtimeService {
     private fire: AngularFirestore,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private authS: AuthService) { }
 
   public nPedidos = 0;
   public realtime: any;
+  public realtimeUser: any;
   public subscription: Subscription;
   public iniciado = false;
   public display = false;
@@ -54,6 +58,27 @@ export class RealtimeService {
 
       });
     }
+  }
+
+  public iniciaRealtimeUser() {
+    console.log('inicia user');
+    this.realtimeUser = this.fire.collection('Users').doc(this.authS.pegaIdUsuario()).snapshotChanges();
+    let count = 0;
+    this.realtimeUser.subscribe((dado) => {
+      console.log('inicia user 2');
+      if (count > 0) {
+        this.confirmationService.confirm({
+          acceptLabel: 'Ok.',
+          header: 'Compra cancelada.',
+          message: 'Sua compra foi cancelada.',
+          icon: 'pi pi-shopping-cart',
+          accept: () => {
+
+          }
+        });
+      }
+      count++;
+    });
   }
 
   public visualizaProduto(id) {
@@ -104,6 +129,7 @@ export class RealtimeService {
         this.http.post('http://localhost:3000/cancelaPedido', {
           id_compra: pedidoc.id_compra
         }).subscribe(dado => {
+          this.fire.collection('Users').doc(pedidoc.id_usuario).update({ timestamp: moment().unix() });
           this.http.post('http://localhost:3000/getPedidos', {
             id_loja: this.idLoja
           }).subscribe((pedido: any) => {

@@ -72,10 +72,10 @@
 </div>
 
 <div class="row">
-  <div class=" col l11 z-depth-3 hide-on-med-and-down"
+  <div class=" col l11 z-depth-3"
     style="border:solid 1px rgb(131, 131, 131);margin:4em 4em 4em 4em">
     <h4 class="col s5" style="color: rgb(138, 138, 138);margin-left:2em">Meu Histórico</h4>
-    <div *ngIf="historico.length == 0">
+    <div *ngIf="historico.length == 0" class="col s12">
       <h1>Não há compras no seu histórico.</h1>
     </div>
     <table *ngIf="historico.length > 0" class="highlight centered col s12 responsive-table">

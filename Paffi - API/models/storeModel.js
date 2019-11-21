@@ -52,7 +52,7 @@ exports.getMyStore = () => {
 
 exports.getStores = function () {
     return new Promise((resolve, reject) => {
-        app.connection.query('SELECT * FROM `loja`', (err, resu) => {
+        app.connection.query('SELECT * FROM `loja` order by online desc', (err, resu) => {
             resolve(resu)
         })
     })
@@ -153,7 +153,7 @@ exports.realizaCompra = function (usuario, produtos, loja, local, datahora) {
 exports.getPedidos = function (id) {
     return new Promise((resolve, reject) => {
         console.log(id);
-        app.connection.query('SELECT c.*, u.nome, u.photoURL FROM compra as c join usuario as u ON u.id_usuario = c.id_usuario WHERE c.id_loja = ? AND c.finalizada IS NULL ORDER BY c.hora_compra DESC',
+        app.connection.query('SELECT c.*, u.nome, u.photoURL, u.id_usuario FROM compra as c join usuario as u ON u.id_usuario = c.id_usuario WHERE c.id_loja = ? AND c.finalizada IS NULL ORDER BY c.hora_compra DESC',
             [id], (err, resu) => {
                 console.log(resu);
                 (resu) ? resolve(resu) : resolve(err);
@@ -204,6 +204,15 @@ exports.countPedidos = function (id) {
                                 resolve(result)
                             })
                     })
+            })
+    })
+}
+
+exports.mudaStatus = function (id, status) {
+    return new Promise((resolve, reject) => {
+        app.connection.query('update loja set online = ? where id_loja = ?',
+            [status, id], (err, resu) => {
+                (resu) ? resolve(resu) : resolve(err);
             })
     })
 }

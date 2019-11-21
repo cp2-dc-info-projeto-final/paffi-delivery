@@ -25,6 +25,7 @@ export class AppComponent {
             if (loja) {
               this.realtime.iniciaRealTime(loja.id_loja);
             }
+            this.realtime.iniciaRealtimeUser();
           });
       } else {
         this.showNav = false;

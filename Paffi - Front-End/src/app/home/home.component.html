@@ -16,12 +16,14 @@
         <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">{{loja.nome_loja}}<i
               class="material-icons right"></i></span>
-          <p (click)="entraLoja(loja)"><a>Comprar</a></p>
+          <p (click)="entraLoja(loja)" *ngIf="loja.online"><a>Comprar</a></p>
+          <p *ngIf="!loja.online"><a>Loja Fechada</a></p>
         </div>
         <div class="card-reveal">
           <span class="card-title grey-text text-darken-4">{{loja.nome_loja}}<i class="material-icons right">close</i></span>
           <p>{{loja.descricao}}</p>
-          <p (click)="entraLoja(loja)"><a>Comprar</a></p>
+          <p (click)="entraLoja(loja)" *ngIf="loja.online"><a>Comprar</a></p>
+          <p *ngIf="!loja.online"><a>Loja Fechada</a></p>
 
         </div>
       </div>

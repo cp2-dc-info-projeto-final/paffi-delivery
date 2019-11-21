@@ -98,6 +98,9 @@ export class CadastroComponent implements OnInit {
                       timestamp: 0
                     });
                   }
+                  this.firebase.collection('Users').doc(this.AuthS.pegaIdUsuario()).set({
+                    timestamp: 0
+                  }).catch(err => console.log(err));
                   this.router.navigate(['home']);
                 });
             } else {
@@ -116,6 +119,10 @@ export class CadastroComponent implements OnInit {
                       timestamp: 0
                     });
                   }
+
+                  this.firebase.collection('Users').doc(this.AuthS.pegaIdUsuario()).set({
+                    timestamp: 0
+                  }).catch(err => console.log(err));
                   this.router.navigate(['home']);
                 });
             }

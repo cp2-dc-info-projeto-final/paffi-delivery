@@ -88,3 +88,10 @@ exports.countPedidos = (req, res) => {
         res.status(200).send(data)
     })
 }
+
+exports.mudaStatus = (req, res) => {
+    model.mudaStatus(req.body.id, req.body.stat)
+    .then((data) => {
+        res.status(200).send(data)
+    })
+}

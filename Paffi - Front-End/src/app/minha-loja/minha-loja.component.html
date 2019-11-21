@@ -94,6 +94,13 @@
 <p-toast [style]="{marginTop: '80px'}"></p-toast>
 
 <div class="row" *ngIf="!modoEditar">
+  <div style="float:right">
+    <div class="col s6"><h5>Abrir a Loja</h5></div>
+    <div class="col s6" style="margin-top:2em"><p-inputSwitch [(ngModel)]="checked" (onChange)="mudaStatus()"></p-inputSwitch></div>
+
+
+
+  </div>
   <div class="col s12">
     <div class="col l3 s12">
       <img [src]="loja.photoURL" style="border: 0.5px solid white;border-radius: 50%;margin-top: 3em;object-fit:cover"
@@ -149,8 +156,7 @@
       </div>
     </div>
     <div class="row">
-      <div class=" col l11 z-depth-3 hide-on-med-and-down"
-        style="border:solid 1px rgb(131, 131, 131);margin:4em 4em 4em 4em">
+      <div class=" col l11 z-depth-3" style="border:solid 1px rgb(131, 131, 131);margin:4em 4em 4em 4em">
         <h4 class="col s5" style="color: rgb(138, 138, 138);margin-left:2em">Minhas Vendas</h4>
         <div *ngIf="historico.length == 0" class="col s12">
           <h1>AInda não há vendas realizadas.</h1>

@@ -21,6 +21,7 @@ export class MinhaLojaComponent implements OnInit {
   public loja: any = {};
   private prodSelecionado: any = [];
   public categoriaSelect = '';
+  public checked = false;
   public categorias = [
     { label: 'Selecione uma Categoria', value: null },
     { label: 'Salgados', value: 'Salgados' },
@@ -105,6 +106,7 @@ export class MinhaLojaComponent implements OnInit {
           .subscribe((loja: any[]) => {
             this.loja = loja;
             this.mostraConteudo = true;
+            this.loja.online ? this.checked = true : this.checked = false;
             // Formulário para adicionar
             this.formularioProduto = this.formBuilder.group({
               nome: [null, Validators.required],
@@ -200,6 +202,15 @@ export class MinhaLojaComponent implements OnInit {
         })
         .catch(err => console.log(err));
     }
+  }
+
+  mudaStatus() {
+    let status;
+    (this.checked ? status = 1 : status = 0);
+    this.http.post('http://localhost:3000/mudaStatus', {
+      id: this.loja.id_loja,
+      stat: status
+    }).subscribe(dado => console.log(dado));
   }
 
   // Envia foto do produto

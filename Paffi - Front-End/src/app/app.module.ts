@@ -34,10 +34,7 @@ import { VendasComponent } from './vendas/vendas.component';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {TabViewModule} from 'primeng/tabview';
 import {ChartModule} from 'primeng/chart';
-
-
-
-
+import {InputSwitchModule} from 'primeng/inputswitch';
 
 
 export const firebaseConfig = {
@@ -86,7 +83,8 @@ export const firebaseConfig = {
     AngularFirestoreModule,
     OverlayPanelModule,
     TabViewModule,
-    ChartModule
+    ChartModule,
+    InputSwitchModule
   ],
   providers: [
     MessageService,

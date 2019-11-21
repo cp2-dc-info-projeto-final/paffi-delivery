@@ -3,34 +3,34 @@
   [dismissableMask]="true" [style]="{'width':'60vw'}">
   <div class="ui-g-12">
     <div *ngIf="realtime.pedidos.length > 0">
-        <div *ngFor="let pedido of realtime.pedidos;let i = index">
-            <div class="col s12">
-              <h5>Pedido N° {{i + 1}}:</h5>
-              <div class="col s12">
-                <div class="col s5">
-                  <h5>Cliente: {{pedido.nome}}</h5>
-                </div>
-                <div class="col s4">
-                  <h5>Local: {{pedido.local}}</h5>
-                </div>
-                <div class="col s3">
-                  <h5>Valor: {{pedido.valor_compra}}</h5>
-                </div>
-              </div>
-
-              <div class="col s12" style="margin-top:1.5em;margin-bottom: 1em;">
-                <button class="waves-effect waves-light btn col l3 s5" id="abreForm"
-                (click)="realtime.visualizaProduto(pedido.id_compra)">Ver Produtos</button>
-
-                <button class="waves-effect waves-light btn col l3 offset-l1 s5 offset-s1" id="abreForm"
-                 (click)="realtime.finalizarPedido(pedido)">Finalizar Pedido</button>
-
-                 <button class="waves-effect waves-light btn col l3 offset-l1 s5 offset-s1" id="abreForm"
-                 (click)="realtime.cancelarPedido(pedido)">Cancela Pedido</button>
-              </div>
-              <hr>
+      <div *ngFor="let pedido of realtime.pedidos;let i = index">
+        <div class="col s12">
+          <h5>Pedido N° {{i + 1}}:</h5>
+          <div class="col s12">
+            <div class="col s5">
+              <h5>Cliente: {{pedido.nome}}</h5>
+            </div>
+            <div class="col s4">
+              <h5>Local: {{pedido.local}}</h5>
+            </div>
+            <div class="col s3">
+              <h5>Valor: {{pedido.valor_compra}}</h5>
             </div>
           </div>
+
+          <div class="col s12" style="margin-top:1.5em;margin-bottom: 1em;">
+            <button class="waves-effect waves-light btn col l3 s3" id="abreForm"
+              (click)="realtime.visualizaProduto(pedido.id_compra)">Ver Produtos</button>
+
+            <button class="waves-effect waves-light btn col l3 offset-l1 s3 offset-s1" id="abreForm"
+              (click)="realtime.finalizarPedido(pedido)">Finalizar Pedido</button>
+
+            <button class="waves-effect waves-light btn col l3 offset-l1 s3 offset-s1" id="abreForm"
+              (click)="realtime.cancelarPedido(pedido)">Cancela Pedido</button>
+          </div>
+          <hr>
+        </div>
+      </div>
     </div>
     <div *ngIf="realtime.pedidos.length == 0">
       <h4>Não há pedidos em andamento</h4>
