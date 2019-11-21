@@ -23,7 +23,16 @@ exports.attUser = function (id, nome, foto) {
 
 exports.getHistorico = function (id) {
     return new Promise((resolve, reject) => {
-        app.connection.query('SELECT c.valor_compra, c.data_compra, c.hora_compra, c.id_compra, p.id_loja, l.nome_loja FROM `compra` AS `c` JOIN compra_produto as cp on cp.id_compra = c.id_compra JOIN produto as p on cp.id_produto = p.id_produto JOIN loja as l on p.id_loja = l.id_loja WHERE id_usuario = ? ORDER BY c.hora_compra DESC',
+        app.connection.query('SELECT DISTINCT c.valor_compra, c.data_compra, c.hora_compra, c.id_compra, p.id_loja, l.nome_loja FROM `compra` AS `c` JOIN compra_produto as cp on cp.id_compra = c.id_compra JOIN produto as p on cp.id_produto = p.id_produto JOIN loja as l on p.id_loja = l.id_loja WHERE id_usuario = ? ORDER BY c.hora_compra DESC',
+        [id], (err, resu) => {
+            (resu) ? resolve(resu) : reject(err)
+        })
+    })
+}
+
+exports.getProdutosHistorico = function (id) {
+    return new Promise((resolve, reject) => {
+        app.connection.query('SELECT p.nome, p.valor, p.photoURL FROM produto as p JOIN compra_produto as cp on cp.id_produto = p.id_produto JOIN compra as c on c.id_compra = cp.id_compra WHERE cp.id_compra =  ?',
         [id], (err, resu) => {
             (resu) ? resolve(resu) : reject(err)
         })

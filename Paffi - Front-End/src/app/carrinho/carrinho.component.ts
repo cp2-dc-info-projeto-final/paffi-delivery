@@ -34,6 +34,7 @@ export class CarrinhoComponent implements OnInit {
   }
 
   realizaCompra() {
+    console.log(this.produtos[0].id_loja);
     if (this.selectedLocal) {
       this.confirmationService.confirm({
         message: 'A compra será entregue em: ' + this.selectedLocal + '. Deseja confirmar a compra?',
@@ -41,7 +42,7 @@ export class CarrinhoComponent implements OnInit {
           this.http.post('http://localhost:3000/realizaCompra', {
             local: this.selectedLocal,
             produtos: this.produtos,
-            loja: this.carrinhoS.nomeLoja,
+            loja: this.produtos[0].id_loja,
             usuario: this.authS.pegaIdUsuario(),
             datahora: {
               data: moment().format('DD/MM/YYYY'),

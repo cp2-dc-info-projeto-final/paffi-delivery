@@ -10,11 +10,25 @@
 <p-sidebar [(visible)]="sideNavMobileVendedor">
   <p-scrollPanel [style]="{width: '100%', height: '97%'}">
     <h5>Links:</h5>
-    <li><a (click)="goTo('home')" style="font-size: 18px">Restaurantes</a></li>
-    <li><a (click)="goTo('minhaloja')" style="font-size: 18px">Minha Loja</a>
-    </li>
-    <li><a (click)="goTo('perfil')" style="font-size: 18px">Meu Perfil</a></li>
-    <li><a (click)="sair()" style="font-size: 18px">Sair</a></li>
+    <div class="row">
+      <div class="col s12" style="margin-top: 1.2em">
+        <button type="button" (click)="goTo('home')" class="col s12" pButton label="Restaurantes"></button>
+      </div>
+      <div class="col s12" style="margin-top: 1.2em">
+        <button type="button" (click)="goTo('minhaloja')" class="col s12" pButton label="Minha Loja"></button>
+      </div>
+      <div class="col s12" style="margin-top: 1.2em">
+        <button type="button" (click)="mostraPedidos()" class="col s12" pButton label="Pedidos">
+            <a><span class="new badge" data-badge-caption="novos pedidos">{{realtime.nPedidos}}</span></a>
+        </button>
+      </div>
+      <div class="col s12" style="margin-top: 1.2em">
+        <button type="button" (click)="goTo('perfil')" class="col s12" pButton label="Perfil"></button>
+      </div>
+      <div class="col s12" style="margin-top: 1.2em">
+        <button type="button" (click)="sair()" class="col s12" pButton label="Sair"></button>
+      </div>
+    </div>
     <h5 style="margin-top: 1em">Escolha uma Categoria:</h5>
     <div class="row">
       <div class="col s12" *ngFor="let categoria of categorias" style="margin-top: 1.2em">
@@ -26,13 +40,23 @@
 
 <p-sidebar [(visible)]="sideNavMobileNaoVendedor">
   <h5>Links:</h5>
-  <li><a (click)="goTo('home')" style="font-size: 18px">Restaurantes</a></li>
-  <li><a (click)="goTo('perfil')" style="font-size: 18px">Meu Perfil</a></li>
-  <li><a (click)="sair()" style="font-size: 18px">Sair</a></li>
+  <div class="row">
+    <div class="col s12" style="margin-top: 1.2em">
+      <button type="button" (click)="goTo('home')" class="col s12" pButton label="Restaurantes"></button>
+    </div>
+    <div class="col s12" style="margin-top: 1.2em">
+      <button type="button" (click)="goTo('perfil')" class="col s12" pButton label="Perfil"></button>
+    </div>
+    <div class="col s12" style="margin-top: 1.2em">
+      <button type="button" (click)="sair()" class="col s12" pButton label="Sair"></button>
+    </div>
+  </div>
   <h5 style="margin-top: 1em">Escolha uma Categoria:</h5>
   <div class="row">
     <div class="col s12" *ngFor="let categoria of categorias" style="margin-top: 1.2em">
-      <button type="button" class="col s12" pButton [label]="categoria"></button>
+      <button type="button" class="col s12" pButton [label]="categoria">
+
+      </button>
     </div>
   </div>
 </p-sidebar>
@@ -56,6 +80,9 @@
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a (click)="goTo('home')" onMouseOver="this.style.color='white'" style="font-size: 18px">Restaurantes</a></li>
       <li><a (click)="goTo('minhaloja')" onMouseOver="this.style.color='white'" style="font-size: 18px">Minha Loja</a>
+      </li>
+      <li><a (click)="mostraPedidos()" onMouseOver="this.style.color='white'" style="font-size: 18px">Pedidos
+          <span class="new badge" data-badge-caption="novos pedidos">{{realtime.nPedidos}}</span></a>
       </li>
       <li><a (click)="goTo('perfil')" onMouseOver="this.style.color='white'" style="font-size: 18px">Meu Perfil</a></li>
       <li><a (click)="sair()" onMouseOver="this.style.color='white'" style="font-size: 18px">Sair</a></li>

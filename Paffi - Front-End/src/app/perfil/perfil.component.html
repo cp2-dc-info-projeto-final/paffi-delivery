@@ -7,6 +7,27 @@
   <input pButton (change)="uploadFile($event)" type="file" style="width: 100%">
 </p-dialog>
 
+<p-dialog header="Produtos comprados" [(visible)]="displayProdutos" class="row" [draggable]="false" [modal]="true"
+  [dismissableMask]="true" [style]="{'width':'60vw'}">
+  <div *ngFor="let produto of produtos;let i = index">
+    <div class="col s12"
+      style="border: 0.7px solid lightgray;border-top:0px;border-left:0px;border-right: 0px; margin-bottom: 1em">
+      <div class="col s2 center-align">
+        <img [src]="produto.photoURL" width="75px" height="75px"
+          style="border: 0.5px solid white;border-radius: 50%;object-fit:cover">
+      </div>
+      <div class="col s6">
+        <h5>
+          {{produto.nome}}
+        </h5>
+      </div>
+      <div class="col s4">
+        <h5>R${{produto.valor}}</h5>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
 <p-toast [style]="{marginTop: '80px'}"></p-toast>
 
 <div class="row" *ngIf="!config">
@@ -74,9 +95,11 @@
           <td>{{compra.data_compra}}</td>
           <td>{{compra.hora_compra}}</td>
           <td>R${{compra.valor_compra}}</td>
-          <td style="cursor: pointer">
+          <td style="cursor: pointer" (click)="getProdutos(compra.id_compra)">
             <i class="material-icons medium" style="color: rgb(47, 46, 59)">fastfood</i>
           </td>
         </tr>
       </tbody>
     </table>
+  </div>
+</div>

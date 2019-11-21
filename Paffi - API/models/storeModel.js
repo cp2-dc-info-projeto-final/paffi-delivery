@@ -136,16 +136,74 @@ exports.realizaCompra = function (usuario, produtos, loja, local, datahora) {
         produtos.forEach(produto => {
             preco += produto.valor
         })
-        app.connection.query('INSERT INTO `compra`(valor_compra, data_compra, hora_compra, id_usuario, local) values (?,?,?,?,?)',
-            [preco, datahora.data, datahora.hora, usuario, local], (err,resu) =>{
+        app.connection.query('INSERT INTO `compra`(valor_compra, data_compra, hora_compra, id_usuario, local, id_loja) values (?,?,?,?,?,?)',
+            [preco, datahora.data, datahora.hora, usuario, local, loja], (err, resu) => {
                 console.log(err)
                 let idCompra = resu.insertId
                 produtos.forEach(produto => {
                     app.connection.query('INSERT INTO `compra_produto`(id_produto, id_compra) values (?,?)',
-                    [produto.id_produto, idCompra], (err2, resu2) => {
-                        (resu2) ? resolve({success: true}) : resolve(err2);
-                    })
+                        [produto.id_produto, idCompra], (err2, resu2) => {
+                            (resu2) ? resolve({ success: true }) : resolve(err2);
+                        })
                 })
-        });
+            });
     });
+}
+
+exports.getPedidos = function (id) {
+    return new Promise((resolve, reject) => {
+        console.log(id);
+        app.connection.query('SELECT c.*, u.nome, u.photoURL FROM compra as c join usuario as u ON u.id_usuario = c.id_usuario WHERE c.id_loja = ? AND c.finalizada IS NULL ORDER BY c.hora_compra DESC',
+            [id], (err, resu) => {
+                console.log(resu);
+                (resu) ? resolve(resu) : resolve(err);
+            })
+    })
+}
+
+exports.finalizaPedido = function (id) {
+    return new Promise((resolve, reject) => {
+        app.connection.query('UPDATE `compra` set `finalizada` = 1 WHERE `id_compra` = ?',
+            [id], (err, resu) => {
+                (resu) ? resolve(resu) : resolve(err);
+            })
+    })
+}
+
+exports.cancelaPedido = function (id) {
+    return new Promise((resolve, reject) => {
+        app.connection.query('UPDATE `compra` set `finalizada` = 0 WHERE `id_compra` = ?',
+            [id], (err, resu) => {
+                (resu) ? resolve(resu) : resolve(err);
+            })
+    })
+}
+
+exports.pegaHistorico = function (id) {
+    return new Promise((resolve, reject) => {
+        app.connection.query('SELECT DISTINCT c.valor_compra, c.data_compra, c.hora_compra, c.id_compra, u.nome FROM compra AS c JOIN compra_produto as cp on cp.id_compra = c.id_compra JOIN usuario as u on c.id_usuario = u.id_usuario WHERE c.id_loja = ? AND c.finalizada = 1 ORDER BY c.hora_compra DESC',
+            [id], (err, resu) => {
+                (resu) ? resolve(resu) : resolve(err);
+            })
+    })
+}
+
+exports.countPedidos = function (id) {
+    console.log(id, '<==== ID')
+    return new Promise((resolve, reject) => {
+        let result = {};
+        app.connection.query('select count(*) as dado from compra WHERE finalizada = 1 and id_loja = ?',
+            [id], (err, resu) => {
+                result.finalizada = resu[0].dado
+                app.connection.query('select count(*) as dado from compra WHERE finalizada = 0 and id_loja = ?',
+                    [id], (err, resu1) => {
+                        result.cancelada = resu1[0].dado
+                        app.connection.query('select count(*) as dado from compra WHERE finalizada is null and id_loja = ?',
+                            [id], (err, resu2) => {
+                                result.andamento = resu2[0].dado
+                                resolve(result)
+                            })
+                    })
+            })
+    })
 }

@@ -2,13 +2,34 @@
   <img src="../../assets/tumblr_mnf6veWVOo1qgcra2o1_400.gif" style="position: fixed;top: 40%;left: 40%">
 </div>
 
+<p-dialog header="Produtos comprados" [(visible)]="displayProdutos" class="row" [draggable]="false" [modal]="true"
+  [dismissableMask]="true" [style]="{'width':'60vw'}">
+  <div *ngFor="let produto of produtos;let i = index">
+    <div class="col s12"
+      style="border: 0.7px solid lightgray;border-top:0px;border-left:0px;border-right: 0px; margin-bottom: 1em">
+      <div class="col s2 center-align">
+        <img [src]="produto.photoURL" width="75px" height="75px"
+          style="border: 0.5px solid white;border-radius: 50%;object-fit:cover">
+      </div>
+      <div class="col s6">
+        <h5>
+          {{produto.nome}}
+        </h5>
+      </div>
+      <div class="col s4">
+        <h5>R${{produto.valor}}</h5>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
 <p-dialog header="Atualizar Dados" [(visible)]="display" [draggable]="false" [resizable]="false" [modal]="true"
   [dismissableMask]="true">
   <input pButton (change)="uploadFile($event)" type="file" style="width: 100%">
 </p-dialog>
 
 <p-dialog header="Configurar produto" [(visible)]="config" [draggable]="false" [resizable]="false" [modal]="true"
-[dismissableMask]="true" [style]="{'width':'60vw'}">
+  [dismissableMask]="true" [style]="{'width':'60vw'}">
   <form [formGroup]="formularioProduto" class="row" *ngIf="config">
 
     <div class="input-field col s6">
@@ -25,18 +46,17 @@
       <label for="desc">Descrição do produto</label>
     </div>
 
-    <div class="input-field col s6">
-      <input class="validate" id="cat" formControlName="cat" type="text">
-      <label for="cat">Categoria</label>
+    <div class="input-field col s4">
+      <p-dropdown [options]="categorias" formControlName="cat" [style]="{'width':'100%'}"></p-dropdown>
     </div>
 
-    <div class="input-field col s6">
+    <div class="input-field col s7">
       <input class="validate" id="val" formControlName="val" type="number" step="0.05">
       <label for="val">Preço em R$</label>
     </div>
     <button class="waves-effect waves-light btn col s12" (click)="atualizaProduto()">Salvar produtos</button>
-      <button class="waves-effect waves-light red darken-3 btn col s12"
-    style="margin-top: 1em" (click)="excluiProduto()">Excluir produto</button>
+    <button class="waves-effect waves-light red darken-3 btn col s12" style="margin-top: 1em"
+      (click)="excluiProduto()">Excluir produto</button>
   </form>
 </p-dialog>
 
@@ -58,12 +78,11 @@
       <label for="desc">Descrição do produto</label>
     </div>
 
-    <div class="input-field col s6">
-      <input class="validate" id="cat" formControlName="cat" type="text">
-      <label for="cat">Categoria</label>
+    <div class="input-field col s4">
+      <p-dropdown [options]="categorias" formControlName="cat" [style]="{'width':'100%'}"></p-dropdown>
     </div>
 
-    <div class="input-field col s6">
+    <div class="input-field col s7">
       <input class="validate" id="val" formControlName="val" type="text">
       <label for="val">Preço em R$</label>
     </div>
@@ -121,100 +140,145 @@
   </div>
 </div>
 
-<div class="row">
-  <div class=" col l11 z-depth-3 hide-on-med-and-down"
-    style="border:solid 1px rgb(131, 131, 131);margin:4em 4em 4em 4em">
-    <h4 class="col s5" style="color: rgb(138, 138, 138);margin-left:2em">Meus produtos</h4>
-    <div *ngIf="produtos.length == 0">
-      <h1>Não há produtos</h1>
-    </div>
-    <table *ngIf="produtos.length > 0" class="highlight centered col s12 responsive-table">
-      <thead>
-        <tr>
-          <th>Foto</th>
-          <th>Nome</th>
-          <th>Descrição</th>
-          <th>Categoria</th>
-          <th>Preço</th>
-          <th>Opções</th>
-        </tr>
-      </thead>
 
-      <tbody>
-        <tr *ngFor="let produto of produtos">
-          <td>
-            <div class="tooltiptext">
-              <img [src]="produto.photoURL" width="250px" height="150px" style="object-fit: contain">
+<p-tabView [style]="{'padding':'3em'}">
+  <p-tabPanel header="Dashboard">
+    <div class="ui-g">
+      <div class="ui-g-6 ui-md-offset-3">
+        <p-chart type="doughnut" [data]="data"></p-chart>
+      </div>
+    </div>
+    <div class="row">
+      <div class=" col l11 z-depth-3 hide-on-med-and-down"
+        style="border:solid 1px rgb(131, 131, 131);margin:4em 4em 4em 4em">
+        <h4 class="col s5" style="color: rgb(138, 138, 138);margin-left:2em">Minhas Vendas</h4>
+        <div *ngIf="historico.length == 0" class="col s12">
+          <h1>AInda não há vendas realizadas.</h1>
+        </div>
+        <table *ngIf="historico.length > 0" class="highlight centered col s12 responsive-table">
+          <thead>
+            <tr>
+              <th>Comprador</th>
+              <th>Data da compra</th>
+              <th>Hora da compra</th>
+              <th>Valor da compra</th>
+              <th>Ver Produtos</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let compra of historico">
+              <td>{{compra.nome}}</td>
+              <td>{{compra.data_compra}}</td>
+              <td>{{compra.hora_compra}}</td>
+              <td>R${{compra.valor_compra}}</td>
+              <td style="cursor: pointer" (click)="getProdutos(compra.id_compra)">
+                <i class="material-icons medium" style="color: rgb(47, 46, 59)">fastfood</i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </p-tabPanel>
+
+
+  <p-tabPanel header="Produtos">
+    <div class="row">
+      <div class=" col l11 z-depth-3 hide-on-med-and-down"
+        style="border:solid 1px rgb(131, 131, 131);margin:4em 4em 4em 4em">
+        <h4 class="col s5" style="color: rgb(138, 138, 138);margin-left:2em">Meus produtos</h4>
+        <div *ngIf="produtos.length == 0">
+          <h1>Não há produtos</h1>
+        </div>
+        <table *ngIf="produtos.length > 0" class="highlight centered col s12 responsive-table">
+          <thead>
+            <tr>
+              <th>Foto</th>
+              <th>Nome</th>
+              <th>Descrição</th>
+              <th>Categoria</th>
+              <th>Preço</th>
+              <th>Opções</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let produto of produtos">
+              <td>
+                <div class="tooltiptext">
+                  <img [src]="produto.photoURL" width="250px" height="150px" style="object-fit: contain">
+                </div>
+                <i class="material-icons medium" style="color: #00afef">camera_alt</i>
+              </td>
+              <td>{{produto.nome}}</td>
+              <td>{{produto.descricao}}</td>
+              <td>{{produto.categoria}}</td>
+              <td>R${{produto.valor}}</td>
+              <td style="cursor: pointer" (click)="showConfig(produto)">
+                <i class="material-icons medium" style="color: rgb(47, 46, 59)">settings</i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="produtos.length > 0 && false" style="margin-top: 3em">
+          <div *ngFor=" let produto of produtos">
+            <div class="col s3">
+              <h5>{{produto.nome}}</h5>
+              <img [src]="produto.photoURL" width="270px" height="270px">
+              <p>{{produto.descricao}}
+              </p>
             </div>
-            <i class="material-icons medium" style="color: #00afef">camera_alt</i>
-          </td>
-          <td>{{produto.nome}}</td>
-          <td>{{produto.descricao}}</td>
-          <td>{{produto.categoria}}</td>
-          <td>R${{produto.valor}}</td>
-          <td style="cursor: pointer" (click)="showConfig(produto)">
-            <i class="material-icons medium" style="color: rgb(47, 46, 59)">settings</i>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div *ngIf="produtos.length > 0 && false" style="margin-top: 3em">
-      <div *ngFor=" let produto of produtos">
-        <div class="col s3">
-          <h5>{{produto.nome}}</h5>
-          <img [src]="produto.photoURL" width="270px" height="270px">
-          <p>{{produto.descricao}}
-          </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s12 z-depth-3 hide-on-large-only" style="border:solid 1px rgb(131, 131, 131);">
+        <h4 class="col s12 center-align" style="color: rgb(138, 138, 138);">Meus produtos</h4>
+        <div *ngIf="produtos.length == 0">
+          <h1>Não há produtos</h1>
+        </div>
+        <table *ngIf="produtos.length > 0" class="highlight centered col s12 responsive-table">
+          <thead>
+            <tr>
+              <th>Foto</th>
+              <th>Nome</th>
+              <th>Descrição</th>
+              <th>Categoria</th>
+              <th>Preço</th>
+              <th>Opções</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let produto of produtos">
+              <td>
+                <div class="tooltiptextM">
+                  <img [src]="produto.photoURL" width="190px" height="90px" style="object-fit: contain">
+                </div>
+                <i class="material-icons medium" style="color: #00afef">camera_alt</i>
+              </td>
+              <td>{{produto.nome}}</td>
+              <td>{{produto.descricao}}</td>
+              <td>{{produto.categoria}}</td>
+              <td>R${{produto.valor}}</td>
+              <td style="cursor: pointer" (click)="showConfig(produto)">
+                <i class="material-icons medium" style="color: rgb(47, 46, 59)">settings</i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="produtos.length > 0 && false" style="margin-top: 3em">
+          <div *ngFor=" let produto of produtos">
+            <div class="col s3">
+              <h5>{{produto.nome}}</h5>
+              <img [src]="produto.photoURL" width="270px" height="270px">
+              <p>{{produto.descricao}}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="col s12 z-depth-3 hide-on-large-only"
-  style="border:solid 1px rgb(131, 131, 131);">
-  <h4 class="col s12 center-align" style="color: rgb(138, 138, 138);">Meus produtos</h4>
-  <div *ngIf="produtos.length == 0">
-    <h1>Não há produtos</h1>
-  </div>
-  <table *ngIf="produtos.length > 0" class="highlight centered col s12 responsive-table">
-    <thead>
-      <tr>
-        <th>Foto</th>
-        <th>Nome</th>
-        <th>Descrição</th>
-        <th>Categoria</th>
-        <th>Preço</th>
-        <th>Opções</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let produto of produtos">
-        <td>
-          <div class="tooltiptextM">
-            <img [src]="produto.photoURL" width="190px" height="90px" style="object-fit: contain">
-          </div>
-          <i class="material-icons medium" style="color: #00afef">camera_alt</i>
-        </td>
-        <td>{{produto.nome}}</td>
-        <td>{{produto.descricao}}</td>
-        <td>{{produto.categoria}}</td>
-        <td>R${{produto.valor}}</td>
-        <td style="cursor: pointer" (click)="showConfig(produto)">
-          <i class="material-icons medium" style="color: rgb(47, 46, 59)">settings</i>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div *ngIf="produtos.length > 0 && false" style="margin-top: 3em">
-    <div *ngFor=" let produto of produtos">
-      <div class="col s3">
-        <h5>{{produto.nome}}</h5>
-        <img [src]="produto.photoURL" width="270px" height="270px">
-        <p>{{produto.descricao}}
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+  </p-tabPanel>
+</p-tabView>

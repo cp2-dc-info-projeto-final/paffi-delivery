@@ -15,15 +15,15 @@ export class NavbarComponent implements OnInit {
   public sideNav;
   public sideNavMobileVendedor;
   public sideNavMobileNaoVendedor;
-  public categorias = ['Salgados', 'Pizzas', 'Brownies',
-    'Brigadeiros', 'Bolos', 'Empadão',
-    'Sanduíches', 'Palhas', 'Trufas'];
+  public categorias = ['Salgados', 'Doces', 'Bebidas',
+    'Pizzas', 'Bolos', 'Empadões',
+    'Sanduíches'];
 
   constructor(
     private router: Router,
     private authS: AuthService,
     private confirmationService: ConfirmationService,
-    private realtime: RealtimeService) { }
+    public realtime: RealtimeService) { }
 
   ngOnInit() {
     // Verifica se o usuário é vendedor ou não
@@ -38,6 +38,10 @@ export class NavbarComponent implements OnInit {
   goTo(url) {
     console.log(url);
     this.router.navigate([url]);
+  }
+
+  mostraPedidos() {
+    this.realtime.mostraPedidos();
   }
 
   // LogOut

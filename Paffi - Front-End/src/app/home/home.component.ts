@@ -34,14 +34,6 @@ export class HomeComponent implements OnInit {
       if (dado) {
         this.mostraConteudo = true;
         this.id = this.AuthS.pegaIdUsuario();
-        this.http
-          .post('http://localhost:3000/buscaMinhaLoja', {
-            uid: this.AuthS.pegaIdUsuario()
-          }).subscribe((loja: any) => {
-            if (loja) {
-              this.realTime.iniciaRealTime(loja.id_loja);
-            }
-          });
       } else {
         this.mostraConteudo = false;
         this.router.navigate(['']);

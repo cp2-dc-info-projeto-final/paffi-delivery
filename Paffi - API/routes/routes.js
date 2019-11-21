@@ -16,6 +16,8 @@ module.exports = (app) => {
     app.post('/atualizaUsuario', usuario.attUsuario);
 
     app.post('/pegaHistorico', usuario.getHistorico);
+
+    app.post('/pegaProdutoHistorico', usuario.getProdutosHistorico);
     //Usuario
 
     //Loja
@@ -34,6 +36,16 @@ module.exports = (app) => {
     app.post('/removeProduto', loja.removeProduto);
     
     app.post('/realizaCompra', loja.realizaCompra);
+    
+    app.post('/getPedidos', loja.getPedidos);
+
+    app.post('/pegaHistoricoLoja', loja.pegaHistorico)
+
+    app.post('/finalizaPedido', loja.finalizaPedido);
+
+    app.post('/cancelaPedido', loja.cancelaPedido);
+
+    app.post('/countPedidos', loja.countPedidos)
     //Loja
 
 };

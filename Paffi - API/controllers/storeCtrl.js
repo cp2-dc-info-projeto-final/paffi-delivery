@@ -48,8 +48,43 @@ exports.removeProduto = (req, res) => {
 }
 
 exports.realizaCompra = (req, res) => {
-    model.realizaCompra(req.body.usuario, req.body.produtos, req.body.loja, req.body.local, req.body.datahora, req.body.local)
+    model.realizaCompra(req.body.usuario, req.body.produtos, req.body.loja, req.body.local, req.body.datahora)
         .then(dado => {
             res.status(200).send(dado)
         })
+}
+
+exports.getPedidos = (req, res) => {
+    model.getPedidos(req.body.id_loja)
+    .then((pedidos) => {
+        res.status(200).send(pedidos)
+    })
+}
+
+exports.finalizaPedido = (req, res) => {
+    model.finalizaPedido(req.body.id_compra)
+    .then((result) => {
+        res.status(200).send(result)
+    })
+}
+
+exports.cancelaPedido = (req, res) => {
+    model.cancelaPedido(req.body.id_compra)
+    .then((result) => {
+        res.status(200).send(result)
+    })
+}
+
+exports.pegaHistorico = (req, res) => {
+    model.pegaHistorico(req.body.id)
+    .then((result) => {
+        res.status(200).send(result)
+    })
+}
+
+exports.countPedidos = (req, res) => {
+    model.countPedidos(req.body.id)
+    .then((data) => {
+        res.status(200).send(data)
+    })
 }

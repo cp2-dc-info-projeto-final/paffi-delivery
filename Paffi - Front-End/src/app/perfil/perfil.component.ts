@@ -26,6 +26,8 @@ export class PerfilComponent implements OnInit {
   public config = false;
   public salvar = true;
   public historico: any[] = [];
+  public displayProdutos = false;
+  public produtos: any[]  = [];
   // Variaveis
 
   constructor(
@@ -80,6 +82,18 @@ export class PerfilComponent implements OnInit {
         compra.hora_compra =  hora + ':' + minuto;
         this.historico.push(compra);
       });
+    });
+  }
+
+  public getProdutos(id) {
+    this.loading = true;
+    this.http.post('http://localhost:3000/pegaProdutoHistorico', {
+      id_compra: id
+    }).subscribe((dado: any) => {
+      console.log(dado);
+      this.loading = false;
+      this.produtos = dado;
+      this.displayProdutos = true;
     });
   }
 

@@ -20,6 +20,17 @@ export class MinhaLojaComponent implements OnInit {
   public produtos: any = [];
   public loja: any = {};
   private prodSelecionado: any = [];
+  public categoriaSelect = '';
+  public categorias = [
+    { label: 'Selecione uma Categoria', value: null },
+    { label: 'Salgados', value: 'Salgados' },
+    { label: 'Doces', value: 'Doces' },
+    { label: 'Bebidas', value: 'Bebidas' },
+    { label: 'Pizzas', value: 'Pizzas' },
+    { label: 'Bolos', value: 'Bolos' },
+    { label: 'Empadões', value: 'Empadões' },
+    { label: 'Sanduíches', value: 'Sanduíches' }
+  ];
   // Fim dos dados gerais da loja
 
   // Loading
@@ -41,6 +52,12 @@ export class MinhaLojaComponent implements OnInit {
   public formularioProduto: FormGroup;
   // FIm dos Formulários
 
+  // Graficos
+  data: any;
+  historico: any[] = [];
+  displayProdutos = false;
+  // Fim dos Gráficos
+
   // Injetar na classe dependencias que serão utilizadas
   constructor(
     private AuthS: AuthService,
@@ -50,7 +67,27 @@ export class MinhaLojaComponent implements OnInit {
     private formBuilder: FormBuilder,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-  ) {}
+  ) {
+    this.data = {
+      labels: ['Compras Finalizadas', 'Compras canceladas', 'Compras em andamento'],
+      datasets: [
+        {
+          label: 'First Dataset',
+          data: [1, 1, 1],
+          backgroundColor: [
+            '#65ed53',
+            '#c20404',
+            '#a2a8a1'
+          ],
+          hoverBackgroundColor: [
+            '#65ed53',
+            '#c20404',
+            '#a2a8a1'
+          ]
+        },
+      ]
+    };
+  }
 
   ngOnInit() {
     this.loading = true;
@@ -83,7 +120,8 @@ export class MinhaLojaComponent implements OnInit {
               photoURL: this.loja.photoURL,
               descricao: this.loja.descricao
             });
-
+            this.getHistorico();
+            this.countPedidos();
             // Busca produtos da loja
             this.http
               .post('http://localhost:3000/buscaLojaProduto', {
@@ -277,6 +315,32 @@ export class MinhaLojaComponent implements OnInit {
     this.modoEditar = false;
   }
 
+  countPedidos() {
+    this.http.post('http://localhost:3000/countPedidos', {
+      id: this.loja.id_loja
+    }).subscribe((dado: any) => {
+      this.data = {
+        labels: ['Compras Finalizadas', 'Compras canceladas', 'Compras em andamento'],
+        datasets: [
+          {
+            label: 'First Dataset',
+            data: [dado.finalizada, dado.cancelada, dado.andamento],
+            backgroundColor: [
+              '#65ed53',
+              '#c20404',
+              '#a2a8a1'
+            ],
+            hoverBackgroundColor: [
+              '#65ed53',
+              '#c20404',
+              '#a2a8a1'
+            ]
+          },
+        ]
+      };
+    });
+  }
+
   // Função para atualizar a loja
   atualizaLoja() {
     this.loading = true;
@@ -463,4 +527,37 @@ export class MinhaLojaComponent implements OnInit {
       }
     });
   }
+
+  private getHistorico() {
+    this.http.post('http://localhost:3000/pegaHistoricoLoja', {
+      id: this.loja.id_loja
+    }).subscribe((compras: any[]) => {
+      compras.forEach(compra => {
+        // tslint:disable-next-line: max-line-length
+        let hora = (new Date(compra.hora_compra * 1000).getHours()).toString();
+        if (hora.length === 1) {
+          hora = '0' + (new Date(compra.hora_compra * 1000).getHours()).toString();
+        }
+        let minuto = (new Date(compra.hora_compra * 1000).getMinutes()).toString();
+        if (minuto.length === 1) {
+          minuto = '0' + (new Date(compra.hora_compra * 1000).getMinutes()).toString();
+        }
+        compra.hora_compra = hora + ':' + minuto;
+        this.historico.push(compra);
+      });
+    });
+  }
+
+  public getProdutos(id) {
+    this.loading = true;
+    this.http.post('http://localhost:3000/pegaProdutoHistorico', {
+      id_compra: id
+    }).subscribe((dado: any) => {
+      console.log(dado);
+      this.loading = false;
+      this.produtos = dado;
+      this.displayProdutos = true;
+    });
+  }
+
 }

@@ -23,3 +23,11 @@ exports.getHistorico = (req, res) => {
         res.status(200).send(historico)
     })
 }
+
+exports.getProdutosHistorico = (req, res) => {
+    model.getProdutosHistorico(req.body.id_compra)
+    .then((produtos) => {
+        res.status(200).send(produtos)
+    })
+}
+

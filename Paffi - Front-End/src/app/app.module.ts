@@ -31,6 +31,10 @@ import { ScrollPanelModule, ScrollPanel } from 'primeng/scrollpanel';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { CarrinhoComponent } from './carrinho/carrinho.component';
 import { VendasComponent } from './vendas/vendas.component';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {TabViewModule} from 'primeng/tabview';
+import {ChartModule} from 'primeng/chart';
+
 
 
 
@@ -79,7 +83,10 @@ export const firebaseConfig = {
     ConfirmDialogModule,
     SidebarModule,
     ScrollPanelModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    OverlayPanelModule,
+    TabViewModule,
+    ChartModule
   ],
   providers: [
     MessageService,
