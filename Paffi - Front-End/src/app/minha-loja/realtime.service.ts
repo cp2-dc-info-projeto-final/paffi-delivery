@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MessageService, ConfirmationService } from 'primeng/api';
-import { Subscription } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
 import { AuthService } from '../auth.service';
 import * as moment from 'moment';
 
@@ -29,6 +29,8 @@ export class RealtimeService {
   private idLoja: any;
   public pedidos: any[] = [];
   public produtos: any[] = [];
+  public lojasFiltradas = new BehaviorSubject([]);
+  public filtro = new BehaviorSubject('Todas as Lojas');
 
   public iniciaRealTime(idloja) {
     console.log('iniciando real-time');

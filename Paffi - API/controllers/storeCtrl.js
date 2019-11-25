@@ -95,3 +95,10 @@ exports.mudaStatus = (req, res) => {
         res.status(200).send(data)
     })
 }
+
+exports.filtraCategoria = (req, res) => {
+    model.filtraCategoria(req.body.categoria)
+    .then((lojas) => {
+        res.status(200).send(lojas)
+    })
+}

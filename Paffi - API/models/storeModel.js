@@ -216,3 +216,12 @@ exports.mudaStatus = function (id, status) {
             })
     })
 }
+
+exports.filtraCategoria = function (categoria) {
+    return new Promise((resolve, reject) => {
+        app.connection.query('SELECT DISTINCT l.* FROM loja as l JOIN produto as p on p.id_loja = l.id_loja WHERE p.categoria = ?',
+            [categoria], (err, resu) => {
+                (resu) ? resolve(resu) : resolve(err);
+            })
+    })
+}

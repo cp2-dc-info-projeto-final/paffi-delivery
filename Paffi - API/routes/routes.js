@@ -45,9 +45,11 @@ module.exports = (app) => {
 
     app.post('/cancelaPedido', loja.cancelaPedido);
 
-    app.post('/countPedidos', loja.countPedidos)
+    app.post('/countPedidos', loja.countPedidos);
 
-    app.post('/mudaStatus', loja.mudaStatus)
+    app.post('/mudaStatus', loja.mudaStatus);
+
+    app.post('/filtraCategoria', loja.filtraCategoria);
     //Loja
 
 };

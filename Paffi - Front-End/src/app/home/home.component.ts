@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   public Stores: any[] = [];
   public id;
   public loading = false;
+  public filtro = '';
 
   constructor(
     private http: HttpClient,
@@ -33,6 +34,7 @@ export class HomeComponent implements OnInit {
     this.AuthS.pegaUsuarioAtual().then((dado) => {
       if (dado) {
         this.mostraConteudo = true;
+        this.realTime.filtro.subscribe(dadoFiltro => this.filtro = dadoFiltro);
         this.id = this.AuthS.pegaIdUsuario();
       } else {
         this.mostraConteudo = false;
@@ -44,6 +46,12 @@ export class HomeComponent implements OnInit {
       .subscribe((dado: any[]) => {
         this.Stores = dado;
         this.loading = false;
+        this.realTime.lojasFiltradas.subscribe((dados: any) => {
+          if (dados.length !== 0) {
+            console.log(dados);
+            this.Stores = dados;
+          }
+        });
       });
   }
 

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { RealtimeService } from './../minha-loja/realtime.service';
 import { ConfirmationService } from 'primeng/api';
 import { AuthService } from './../auth.service';
@@ -15,7 +16,7 @@ export class NavbarComponent implements OnInit {
   public sideNav;
   public sideNavMobileVendedor;
   public sideNavMobileNaoVendedor;
-  public categorias = ['Salgados', 'Doces', 'Bebidas',
+  public categorias = ['Todas as Lojas', 'Salgados', 'Doces', 'Bebidas',
     'Pizzas', 'Bolos', 'Empadões',
     'Sanduíches'];
 
@@ -23,7 +24,8 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private authS: AuthService,
     private confirmationService: ConfirmationService,
-    public realtime: RealtimeService) { }
+    public realtime: RealtimeService,
+    private http: HttpClient) { }
 
   ngOnInit() {
     // Verifica se o usuário é vendedor ou não
@@ -38,6 +40,25 @@ export class NavbarComponent implements OnInit {
   goTo(url) {
     console.log(url);
     this.router.navigate([url]);
+  }
+
+  public filtraCategoria(categoriaSelect) {
+    console.log(categoriaSelect);
+    if (categoriaSelect !== 'Todas as Lojas') {
+      this.http.post('http://localhost:3000/filtraCategoria', {
+        categoria: categoriaSelect
+      }).subscribe((dado: any) => {
+        this.realtime.lojasFiltradas.next(dado);
+        this.realtime.filtro.next('Todas as lojas da categoria ' + categoriaSelect);
+      });
+    } else {
+      this.http.post('http://localhost:3000/pegaLojas', {})
+        .subscribe((dado: any[]) => {
+          this.realtime.filtro.next('Todas as lojas');
+          this.realtime.lojasFiltradas.next(dado);
+        });
+    }
+
   }
 
   mostraPedidos() {
