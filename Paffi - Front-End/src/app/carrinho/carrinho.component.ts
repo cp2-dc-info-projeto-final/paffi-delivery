@@ -16,8 +16,27 @@ export class CarrinhoComponent implements OnInit {
   public produtos: any[] = [];
   public display = false;
   public locais = [{ label: 'Selecione o local', value: null },
-  { label: 'Sala x', value: 'Sala x' },
-  { label: 'Auditório', value: 'Auditório' }];
+  { label: 'Auditório', value: 'Auditório' },
+  { label: 'Quadra', value: 'Quadra' },
+  { label: 'Sala de P.A', value: 'Sala de P.A' },
+  { label: 'Bebedouro', value: 'Bebedouro' },
+  { label: 'Quadradão', value: 'Quadradão' },
+  { label: 'Sala de Línguas', value: 'Sala de Línguas' },
+  { label: 'Aquário', value: 'Aquário' },
+  { label: 'Sala do Grêmio', value: 'Sala do Grêmio' },
+  { label: 'Laboratório de Informática', value: 'Laboratório de Informática' },
+  { label: 'Laboratório de Química', value: 'Laboratório de Química' },
+  { label: 'Laboratório de Física', value: 'Laboratório de Física' },
+  { label: 'Laboratório de Biologia', value: 'Laboratório de Biologia' },
+  { label: 'Sala de Humanidades/Bebedouro', value: 'Sala de Humanidades/Bebedouro' },
+  { label: 'Pátio', value: 'Pátio' },
+  { label: 'Refeitório', value: 'Refeitório' },
+  { label: 'Hall Central', value: 'Hall Central' },
+  { label: 'Sala dos Professores', value: 'Sala dos Professores' },
+  { label: 'Sala da Direção', value: 'Sala da Direção' },
+  { label: 'Prefeitura', value: 'Prefeitura' },
+  { label: 'Portaria', value: 'Portaria' },
+];
   public selectedLocal = '';
 
   constructor(
