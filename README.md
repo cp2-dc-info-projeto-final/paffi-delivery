@@ -20,12 +20,12 @@
 
 + Facilitar a busca pelos seus pratos favoritos, sem precisar andar pelo Campus até encontrá-los.
 + Otimizar as vendas dos alunos. que muitas vezes necessitam dessa renda para ajudar suas famílias.
-+ Mostrar aos alunos e funcinoários toda a variedade de opções alimentícias e preços dentro do Campus.
++ Mostrar aos alunos e funcionários toda a variedade de opções alimentícias e preços dentro do Campus.
 
 ## Principais Funcionalidades:
 
 + Sistema de login por e-mail/senha.
-+ Cards em grade com o nome e dados gerais da Loja(tipo de produtos oferecidos). 
++ Cards em grade com o nome e dados gerais da Loja (tipo de produtos oferecidos). 
 + Cardápio eletrônico com produtos e preços.
 + Barra lateral para filtrar as categorias de alimentos.
 + Perfil do vendedor com gráficos de Vendas
