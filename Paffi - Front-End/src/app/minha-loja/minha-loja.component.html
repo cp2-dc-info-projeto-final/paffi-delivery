@@ -104,7 +104,7 @@
   <div class="col s12">
     <div class="col l3 s12">
       <img [src]="loja.photoURL" style="border: 0.5px solid white;border-radius: 50%;margin-top: 3em;object-fit:cover"
-        width="240px" height="240px">
+        width="220px" height="220px">
     </div>
     <div class="col l9 s12">
       <h2>{{loja.nome_loja}}</h2>
@@ -126,8 +126,8 @@
 <div class="row" *ngIf="modoEditar" [formGroup]="formularioLoja">
   <div class="col s12">
     <div class="col l3 s12">
-      <img [src]="loja.photoURL" style="border: 0.5px solid white;border-radius: 50%;margin-top: 3em;
-      object-fit:cover" width="300px" height="300px" (click)="showDialog()">
+      <img [src]="loja.photoURL" style="border: 0.5px solid white;border-radius: 50%;margin-top: 3em;object-fit:cover"
+        width="220px" height="220px" (click)="showDialog()">
     </div>
     <div class="col l9 s12">
       <input id="input" type="text" size="30" style="font-size: 42px;margin-top: 1em" pInputText formControlName="nome">
@@ -159,7 +159,7 @@
       <div class=" col l11 z-depth-3" style="border:solid 1px rgb(131, 131, 131);margin:4em 4em 4em 4em">
         <h4 class="col s5" style="color: rgb(138, 138, 138);margin-left:2em">Minhas Vendas</h4>
         <div *ngIf="historico.length == 0" class="col s12">
-          <h1>AInda não há vendas realizadas.</h1>
+          <h1>Ainda não há vendas realizadas.</h1>
         </div>
         <table *ngIf="historico.length > 0" class="highlight centered col s12 responsive-table">
           <thead>

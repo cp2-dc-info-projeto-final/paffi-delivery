@@ -77,9 +77,7 @@
       <img src="../../assets/paffi-logo.png" style="height: 60px">
     </a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a (click)="goTo('home')" onMouseOver="this.style.color='white'" style="font-size: 18px">Restaurantes</a></li>
-      <li><a (click)="goTo('minhaloja')" onMouseOver="this.style.color='white'" style="font-size: 18px">Minha Loja</a>
-      </li>
+
       <li><a (click)="mostraPedidos()" onMouseOver="this.style.color='white'" style="font-size: 18px">Pedidos
           <span class="new badge" data-badge-caption="novos pedidos">{{realtime.nPedidos}}</span></a>
       </li>
@@ -93,6 +91,9 @@
             <i class="material-icons col s4" style="font-size: 32px">menu</i>
           </div>
         </a>
+      </li>
+      <li><a (click)="goTo('home')" onMouseOver="this.style.color='white'" style="font-size: 18px">Restaurantes</a></li>
+      <li><a (click)="goTo('minhaloja')" onMouseOver="this.style.color='white'" style="font-size: 18px">Minha Loja</a>
       </li>
     </ul>
   </div>
