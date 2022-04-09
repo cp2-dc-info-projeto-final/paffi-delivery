@@ -24,7 +24,7 @@
     "@types/jquery": "^3.3.31",
     "chart.js": "^2.9.3",
     "firebase": "^6.5.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "primeicons": "^2.0.0",
     "primeng": "^8.0.2",
     "rxjs": "~6.4.0",
